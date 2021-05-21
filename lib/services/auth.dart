@@ -1,19 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:orbital_app/models/individual.dart';
 
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  //create local user object
+  Individual _userFromFirebase(User user) {
+    return user != null ? Individual(uid: user.uid) : null;
+  }
 
   //Sign in anon
   Future signTester() async {
     try {
       UserCredential res =  await _auth.signInAnonymously();
       User user = res.user;
-      return user;
+      return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
       return null;
     }
+  }
+
+  Stream<Individual> get user {
+    return _auth.authStateChanges()
+      .map(_userFromFirebase);
   }
 
   //Sign in with email and pw
@@ -21,7 +32,7 @@ class AuthService {
     try {
       UserCredential res = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User user = res.user;
-      return user;
+      return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -29,7 +40,7 @@ class AuthService {
   }
   //Register with email and pw
 
-  //Sign out
+  
 
   //Sign in with Google
       /*
@@ -44,4 +55,12 @@ class AuthService {
       return null;
     }
   }*/
+  //Sign out
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
