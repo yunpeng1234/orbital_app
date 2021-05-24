@@ -30,7 +30,7 @@ class AuthService {
   //Sign in with email and pw
   Future signInNative(String email, String password) async {
     try {
-      UserCredential res = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential res = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
       return _userFromFirebase(user);
     } catch (e) {
@@ -39,9 +39,20 @@ class AuthService {
     }
   }
   //Register with email and pw
+  Future registerNative(String email, String password) async {
+    try {
+      UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
+      User user = res.user;
+      return _userFromFirebase(user);
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }  
 
-  
-
+  Future sendPasswordReset(String email) {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
   //Sign in with Google
       /*
   Future signInGoogle(String email, String password) async {

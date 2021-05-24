@@ -1,47 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:orbital_app/services/auth.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/shared/loading.dart';
 
-class SignIn extends StatefulWidget {
+
+class RegisterForm extends StatefulWidget {
 
   final Function toggler;
 
-  SignIn({this.toggler});
+  RegisterForm({this.toggler});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterFormState extends State<RegisterForm> {
 
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
-
-  bool loading = false;
+   bool loading = false;
 
   //text field state
-  String  email =  '';
+  String  email = '';
   String password = '';
+
   String error = '';
 
   @override
   Widget build(BuildContext context) {
-    return loading? Loading() : Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Color.fromRGBO(249, 203, 156, 1.0),
       appBar: AppBar(
         backgroundColor: Colors.brown[200],
-        title: Text('Sign In'),
+        elevation: 0.0,
+        title: Text('Sign Up'),
         actions: <Widget>[
           TextButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Register'),
+            label: Text('Sign In'),
             onPressed: () {
               widget.toggler();
             },
-          )
-        ],
+            )
+          ],
         ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -54,14 +55,14 @@ class _SignInState extends State<SignIn> {
                 decoration: textBoxDeco.copyWith(hintText: "Email"),
                 validator: (val) => val.isEmpty ? "Enter an email" : null,
                 onChanged: (val) {
-                  setState(() => email = val);
+                  setState(() => email = val.trim());
                 }
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 20.0),
               TextFormField(
                 decoration: textBoxDeco.copyWith(hintText: "Password"),
+                validator: (val) => val.length < 6 ? "Please enter a password of at least 6 characters" : null,
                 obscureText: true,
-                validator: (val) => val.isEmpty ? "Enter an email" : null,
                 onChanged: (val) {
                   setState(() => password = val);
                 }
@@ -69,18 +70,18 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20.0),
               ElevatedButton(
                 child: Text(
-                  'Sign In',
+                  'Register',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
                   if (_formkey.currentState.validate()) {
                     setState(() => loading = true);
-                    dynamic result = await _auth.signInNative(email.trim(), password);
+                    dynamic result = await _auth.registerNative(email.trim(), password);
                     if (result == null) {
                       setState(() {
-                      error = "Invalid email/password";
-                      loading = false;
-                      });
+                        error = "Please provide a valid email address";
+                        loading = false;
+                        });
                     }
                   }
                 }
@@ -90,9 +91,10 @@ class _SignInState extends State<SignIn> {
                 error,
                 style: TextStyle(color: Colors.red, fontSize: 14.0)
               ),
-            ],)
+            ],
+            )
         )
       ),
-    );
+    ); 
   }
 }
