@@ -71,8 +71,8 @@ class _RegisterFormState extends State<RegisterForm> {
             }
           }
         },
-        // onSignInTapped: () => widget.toggler(),
-        onBackPressed: () => widget.toggler(),
+        onSignInTapped: () => widget.toggler(),
+        // onBackPressed: () => widget.toggler(),
       ),
     );
   }

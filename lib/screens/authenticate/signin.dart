@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
 import 'package:orbital_app/screens/authenticate/authentication_screen.dart';
 import 'package:orbital_app/services/auth.dart';
 import 'package:orbital_app/shared/constants.dart';

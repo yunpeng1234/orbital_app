@@ -65,7 +65,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
         ),
         onMainButtonTapped: () => _passwordReset(context),
-        onBackPressed: () => Navigator.pop(context),
+        // onBackPressed: () => Navigator.pop(context),
+        onSignInTapped: () => Navigator.pop(context),
       ),
     );
   }

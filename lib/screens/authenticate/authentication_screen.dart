@@ -10,7 +10,7 @@ class AuthenticationScreen extends StatelessWidget {
   final Function onMainButtonTapped;
   final Function onCreateAccountTapped;
   final Function onForgotPasswordTapped;
-  final Function onBackPressed;
+  // final Function onBackPressed;
   final Function onSignInTapped;
   final String errorMessage;
 
@@ -21,7 +21,7 @@ class AuthenticationScreen extends StatelessWidget {
     @required this.onMainButtonTapped,
     this.onCreateAccountTapped,
     this.onForgotPasswordTapped,
-    this.onBackPressed,
+    // this.onBackPressed,
     this.onSignInTapped,
     this.errorMessage,
     this.mainButtonTitle,
@@ -32,21 +32,26 @@ class AuthenticationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: ListView(
+      child: Column(
         children: <Widget>[
-          // verticalSpaceLarge,
-          if (onBackPressed == null) verticalSpaceLarge,
-          if (onBackPressed != null) verticalSpaceRegular,
-          if (onBackPressed != null)
-            IconButton(
-              padding: EdgeInsets.zero,
-              alignment: Alignment.centerLeft,
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: onBackPressed,
-            ),
+          verticalSpaceMassive,
+          // if (onBackPressed == null) verticalSpaceMassive,
+          // if (onBackPressed != null) verticalSpaceLarge,
+          // if (onBackPressed != null)
+          //   Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       IconButton(
+          //         padding: EdgeInsets.zero,
+          //         alignment: Alignment.centerLeft,
+          //         icon: Icon(
+          //           Icons.arrow_back_ios,
+          //           color: Colors.black,
+          //         ),
+          //         onPressed: onBackPressed,
+          //       ),
+          //     ],
+          //   ),
           Center(
             child: Text(
             title,
@@ -77,6 +82,7 @@ class AuthenticationScreen extends StatelessWidget {
                 ),
               ),
             ),
+          if (onForgotPasswordTapped == null) verticalSpaceRegular,
           verticalSpaceRegular,
           if (errorMessage != null)
             Text(
