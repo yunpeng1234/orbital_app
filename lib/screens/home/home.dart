@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/services/auth.dart';
+import 'package:orbital_app/shared/drawer.dart';
 
 class Home extends StatelessWidget {
-  final AuthService _auth = AuthService();
+  
+  static const String routeName = "/home";
+
+  final AuthService _auth = AuthService(); 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       backgroundColor: Colors.red[400],
       appBar: AppBar(
         title: Text("Home Screen"),
