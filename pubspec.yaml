@@ -72,9 +72,6 @@ flutter:
    - family: Raleway
      fonts:
        - asset: fonts/Raleway-Regular.ttf
-   - family: M PLUS Rounded 1c
-     fonts:
-      - asset: fonts/MPLUSRounded1c-Regular.ttf
 #     - family: Schyler
 #       fonts:
 #         - asset: fonts/Schyler-Regular.ttf
