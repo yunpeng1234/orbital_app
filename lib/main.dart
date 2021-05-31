@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/models/individual.dart';
 import 'package:orbital_app/routes/drawerRoute.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
-import 'package:orbital_app/screens/home/home.dart';
+// import 'package:orbital_app/screens/home/home.dart';
 import 'package:orbital_app/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:orbital_app/services/auth.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
         home: Wrapper(), 
         routes: {
-          drawerRoutes.home: (context) => Home(),
+          drawerRoutes.wrapper: (context) => Wrapper(),
           drawerRoutes.profilePage: (context) => ProfilePage(),
         },
       ),
