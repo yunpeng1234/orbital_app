@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/models/individual.dart';
+import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/routes/drawerRoute.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
 // import 'package:orbital_app/screens/home/home.dart';
