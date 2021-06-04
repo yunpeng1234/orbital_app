@@ -6,11 +6,15 @@ import 'package:orbital_app/screens/drawer/profilepage.dart';
 import 'package:orbital_app/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:orbital_app/services/auth.dart';
+import 'package:orbital_app/services/locator.dart';
 import 'package:provider/provider.dart';
+import 'routes/route_generator.dart';
+import 'package:orbital_app/services/locator.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  setupServiceLocator();
   runApp(MyApp());
 }
 
@@ -22,11 +26,9 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().user,
         child: MaterialApp(
-        home: Wrapper(), 
-        routes: {
-          drawerRoutes.wrapper: (context) => Wrapper(),
-          drawerRoutes.profilePage: (context) => ProfilePage(),
-        },
+          home: Wrapper(),
+          initialRoute: 'login',
+          onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
   }

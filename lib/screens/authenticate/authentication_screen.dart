@@ -13,6 +13,7 @@ class AuthenticationScreen extends StatelessWidget {
   // final Function onBackPressed;
   final Function onSignInTapped;
   final String errorMessage;
+  final bool busy;
 
   const AuthenticationScreen({
     @required this.title,
@@ -25,6 +26,7 @@ class AuthenticationScreen extends StatelessWidget {
     this.onSignInTapped,
     this.errorMessage,
     this.mainButtonTitle,
+    this.busy = false,
     Key key
   }) : super(key: key);
 
@@ -35,23 +37,6 @@ class AuthenticationScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           verticalSpaceMassive,
-          // if (onBackPressed == null) verticalSpaceMassive,
-          // if (onBackPressed != null) verticalSpaceLarge,
-          // if (onBackPressed != null)
-          //   Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       IconButton(
-          //         padding: EdgeInsets.zero,
-          //         alignment: Alignment.centerLeft,
-          //         icon: Icon(
-          //           Icons.arrow_back_ios,
-          //           color: Colors.black,
-          //         ),
-          //         onPressed: onBackPressed,
-          //       ),
-          //     ],
-          //   ),
           Center(
             child: Text(
             title,
@@ -100,14 +85,18 @@ class AuthenticationScreen extends StatelessWidget {
                 color: greyButtonColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
-                mainButtonTitle,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
+              child: busy
+                  ? CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    )
+                  : Text(
+                      mainButtonTitle,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
             ),
           ),
           verticalSpaceRegular,
