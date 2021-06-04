@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/routes/drawerRoute.dart';
+import 'package:orbital_app/routes/DrawerRoute.dart';
 import 'package:orbital_app/services/auth.dart';
 
 
@@ -26,17 +26,17 @@ class AppDrawer extends StatelessWidget {
       return DrawerHeader(
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image:  AssetImage('path/to/header_background.png'))),
+          // decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //         fit: BoxFit.fill,
+          //         image:  AssetImage('path/to/header_background.png'))),
           child: Stack(children: <Widget>[
             Positioned(
                 bottom: 12.0,
                 left: 16.0,
-                child: Text("Flutter Step-by-Step",
+                child: Text("DaPal!",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 20.0,
                         fontWeight: FontWeight.w500))),
           ]));
@@ -52,7 +52,7 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
             icon: Icons.person,
             text: 'Home',
-            onTap: () => Navigator.pushReplacementNamed(context, drawerRoutes.home)),
+            onTap: () => Navigator.pushReplacementNamed(context, drawerRoutes.wrapper)),
           _createDrawerItem(
             icon: Icons.home,
             text: 'Profile Page',
@@ -61,7 +61,8 @@ class AppDrawer extends StatelessWidget {
           icon: Icons.logout,
           text: 'Logout',
           onTap: () async{
-              await _auth.signOut();
+            await _auth.signOut();
+            Navigator.pushReplacementNamed(context, drawerRoutes.wrapper);
             }),
           ]
       ),
