@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 
-class AuthenticationScreen extends StatelessWidget {
+class AuthenticationLayout extends StatelessWidget {
 
   final String title; // Text to show at the top
   final String subtitle; // Text to show below title
@@ -15,7 +15,7 @@ class AuthenticationScreen extends StatelessWidget {
   final String errorMessage;
   final bool busy;
 
-  const AuthenticationScreen({
+  const AuthenticationLayout({
     @required this.title,
     @required this.subtitle,
     @required this.form,

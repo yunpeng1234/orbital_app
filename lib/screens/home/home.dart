@@ -4,6 +4,7 @@ import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/drawer.dart';
 import "package:provider/provider.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orbital_app/models/user.dart';
 
 class Home extends StatelessWidget {
   

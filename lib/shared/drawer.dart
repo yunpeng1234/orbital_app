@@ -52,17 +52,17 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
             icon: Icons.person,
             text: 'Home',
-            onTap: () => Navigator.pushReplacementNamed(context, drawerRoutes.wrapper)),
+            onTap: () => Navigator.pushReplacementNamed(context, '/')),
           _createDrawerItem(
             icon: Icons.home,
             text: 'Profile Page',
-            onTap: () => Navigator.pushReplacementNamed(context, drawerRoutes.profilePage)),
+            onTap: () => Navigator.pushReplacementNamed(context, 'profilePage')),
           _createDrawerItem(
           icon: Icons.logout,
           text: 'Logout',
           onTap: () async{
             await _auth.signOut();
-            Navigator.pushReplacementNamed(context, drawerRoutes.wrapper);
+            Navigator.pushReplacementNamed(context, 'signIn');
             }),
           ]
       ),

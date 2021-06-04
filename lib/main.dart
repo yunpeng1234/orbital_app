@@ -10,6 +10,8 @@ import 'package:orbital_app/services/locator.dart';
 import 'package:provider/provider.dart';
 import 'routes/route_generator.dart';
 import 'package:orbital_app/services/locator.dart';
+import 'package:orbital_app/models/user.dart';
+import 'routes/nav_key.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +28,8 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().user,
         child: MaterialApp(
-          home: Wrapper(),
-          initialRoute: 'login',
+          navigatorKey: NavKey.navKey,
+          initialRoute: 'signIn',
           onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
