@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/password_reset_view_model.dart';
 import 'authentication_layout.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/shared/loading.dart';
 
 class PasswordResetView extends StatefulWidget {
   const PasswordResetView({Key key}) : super(key: key);
@@ -18,23 +15,6 @@ class _PasswordResetViewState extends State<PasswordResetView> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   bool loading = false;
-
-  // Future<void> _passwordReset(BuildContext context) async {
-  //
-  //   _formKey.currentState.save();
-  //   if (_formKey.currentState.validate()) {
-  //     setState(() => loading = true);
-  //     try {
-  //       await _auth.sendPasswordResetEmail(email: email);
-  //       Navigator.pop(context);
-  //     } catch (e) {
-  //       setState(() {
-  //         error = 'Please provide a valid email address';
-  //         loading = false;
-  //       });
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +45,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
           ),
           onMainButtonTapped: () => model.passwordReset(email),
           // onBackPressed: () => Navigator.pop(context),
-          onSignInTapped: () => Navigator.pop(context),
+          onSignInTapped: () => model.navigateToSignIn(),
         ),
       ),
     );

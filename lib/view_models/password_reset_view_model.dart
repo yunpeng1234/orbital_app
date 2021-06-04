@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:orbital_app/services/auth.dart';
-import 'package:orbital_app/services/locator.dart';
+import 'package:orbital_app/services/auth_service.dart';
+import 'package:orbital_app/services/service_locator.dart';
 import 'base_view_model.dart';
-import 'package:orbital_app/routes/nav_key.dart';
 import 'package:orbital_app/routes/nav_key.dart';
 
 class PasswordResetViewModel extends BaseViewModel {
@@ -12,6 +10,11 @@ class PasswordResetViewModel extends BaseViewModel {
 
   String get errorMessage => _errorMessage;
   bool get error => _error;
+
+  void navigateToSignIn() {
+    _error = false;
+    NavKey.navKey.currentState.pop();
+  }
 
   Future passwordReset(email) async {
     setState(ViewState.busy);

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/user.dart';
-import 'package:orbital_app/routes/drawerRoute.dart';
-import 'package:orbital_app/screens/drawer/profilepage.dart';
-// import 'package:orbital_app/screens/home/home.dart';
-import 'package:orbital_app/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:orbital_app/services/auth.dart';
-import 'package:orbital_app/services/locator.dart';
+import 'package:orbital_app/services/auth_service.dart';
+import 'package:orbital_app/services/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'routes/route_generator.dart';
-import 'package:orbital_app/services/locator.dart';
-import 'package:orbital_app/models/user.dart';
 import 'routes/nav_key.dart';
 
 void main() async{

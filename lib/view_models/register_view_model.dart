@@ -1,5 +1,5 @@
-import 'package:orbital_app/services/auth.dart';
-import 'package:orbital_app/services/locator.dart';
+import 'package:orbital_app/services/auth_service.dart';
+import 'package:orbital_app/services/service_locator.dart';
 import 'base_view_model.dart';
 import 'package:orbital_app/routes/nav_key.dart';
 
@@ -11,8 +11,9 @@ class RegisterViewModel extends BaseViewModel {
   bool get error => _error;
   String get errorMessage => _errorMessage;
 
-  Future navigateToCreateAccount() async {
-    await NavKey.navKey.currentState.pushNamed('createAccount');
+  void navigateToSignIn() {
+    _error = false;
+    NavKey.navKey.currentState.pop();
   }
 
   Future register(String email, String password) async {

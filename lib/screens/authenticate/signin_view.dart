@@ -3,11 +3,7 @@ import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/signin_view_model.dart';
 import 'package:provider/provider.dart';
 import 'authentication_layout.dart';
-import 'package:orbital_app/view_models/signin_view_model.dart';
-import 'package:orbital_app/services/locator.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/view_models/signin_view_model.dart';
-import 'package:orbital_app/routes/route_generator.dart';
 import 'package:orbital_app/screens/home/home.dart';
 import 'package:orbital_app/models/user.dart';
 
@@ -70,7 +66,7 @@ class _SignInViewState extends State<SignInView> {
           onMainButtonTapped: () async {
             if (_formKey.currentState.validate()) {
               model.signIn(email, password);
-            };
+            }
           },
           onForgotPasswordTapped: () async {
             model.navigateToForgotPassword();

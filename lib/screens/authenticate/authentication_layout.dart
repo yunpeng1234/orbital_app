@@ -67,7 +67,7 @@ class AuthenticationLayout extends StatelessWidget {
                 ),
               ),
             ),
-          if (onForgotPasswordTapped == null) verticalSpaceRegular,
+          // if (onForgotPasswordTapped == null) verticalSpaceRegular,
           verticalSpaceRegular,
           if (errorMessage != null)
             Text(

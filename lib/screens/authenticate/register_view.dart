@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/services/auth.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/register_view_model.dart';
-import 'package:orbital_app/shared/loading.dart';
 import 'authentication_layout.dart';
 
 
@@ -18,8 +16,6 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-
-  final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
 
@@ -68,7 +64,7 @@ class _RegisterViewState extends State<RegisterView> {
               model.register(email, password);
             }
           },
-          onSignInTapped: () => Navigator.pop(context),
+          onSignInTapped: () => model.navigateToSignIn(),
         ),
       ),
     );

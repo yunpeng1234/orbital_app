@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/services/auth.dart';
+import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/drawer.dart';
 import "package:provider/provider.dart";
