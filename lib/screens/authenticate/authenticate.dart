@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/screens/authenticate/registerform.dart';
-import 'package:orbital_app/screens/authenticate/signin.dart';
+import 'package:orbital_app/screens/authenticate/register_view.dart';
+import 'package:orbital_app/screens/authenticate/signin_view.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -19,9 +19,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return SignIn(toggler: toggle);
+      return SignInView();
     } else {
-      return RegisterForm(toggler: toggle);
+      return RegisterView();
     }
 
   }

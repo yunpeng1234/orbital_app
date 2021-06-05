@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 
-class AuthenticationScreen extends StatelessWidget {
+class AuthenticationLayout extends StatelessWidget {
 
   final String title; // Text to show at the top
   final String subtitle; // Text to show below title
@@ -13,8 +13,9 @@ class AuthenticationScreen extends StatelessWidget {
   // final Function onBackPressed;
   final Function onSignInTapped;
   final String errorMessage;
+  final bool busy;
 
-  const AuthenticationScreen({
+  const AuthenticationLayout({
     @required this.title,
     @required this.subtitle,
     @required this.form,
@@ -25,6 +26,7 @@ class AuthenticationScreen extends StatelessWidget {
     this.onSignInTapped,
     this.errorMessage,
     this.mainButtonTitle,
+    this.busy = false,
     Key key
   }) : super(key: key);
 
@@ -35,23 +37,6 @@ class AuthenticationScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           verticalSpaceMassive,
-          // if (onBackPressed == null) verticalSpaceMassive,
-          // if (onBackPressed != null) verticalSpaceLarge,
-          // if (onBackPressed != null)
-          //   Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       IconButton(
-          //         padding: EdgeInsets.zero,
-          //         alignment: Alignment.centerLeft,
-          //         icon: Icon(
-          //           Icons.arrow_back_ios,
-          //           color: Colors.black,
-          //         ),
-          //         onPressed: onBackPressed,
-          //       ),
-          //     ],
-          //   ),
           Center(
             child: Text(
             title,
@@ -82,7 +67,7 @@ class AuthenticationScreen extends StatelessWidget {
                 ),
               ),
             ),
-          if (onForgotPasswordTapped == null) verticalSpaceRegular,
+          // if (onForgotPasswordTapped == null) verticalSpaceRegular,
           verticalSpaceRegular,
           if (errorMessage != null)
             Text(
@@ -100,14 +85,18 @@ class AuthenticationScreen extends StatelessWidget {
                 color: greyButtonColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
-                mainButtonTitle,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
+              child: busy
+                  ? CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    )
+                  : Text(
+                      mainButtonTitle,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
             ),
           ),
           verticalSpaceRegular,
