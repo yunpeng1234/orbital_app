@@ -13,8 +13,8 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => SignInViewModel());
   serviceLocator.registerLazySingleton(() => RegisterViewModel());
   serviceLocator.registerLazySingleton(() => PasswordResetViewModel());
-  serviceLocator.registerLazySingleton(() => HomeViewModel());
   serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
   serviceLocator.registerLazySingleton(() => AllLocationsViewModel());
+  serviceLocator.registerFactory(() => HomeViewModel());
   serviceLocator.registerLazySingleton(() => AuthService());
 }

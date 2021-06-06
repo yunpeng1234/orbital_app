@@ -60,7 +60,62 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  verticalSpaceMassive, // Replace with location cards in future
+                  // verticalSpaceMassive, // Replace with location cards in future
+                  Container(
+                    height: 200,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        Container(
+                          width: 180,
+                          child: Card(
+                            margin: EdgeInsets.all(10),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(30.0),
+                              ),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 200,
+                                  height: 140,
+                                  child: Image(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                      'https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/06/03172655/default_tile_logo_mcd_red.png',
+                                    ),
+                                  ),
+                                ),
+                                Text('McDonalds'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Card with Beveled border',
+                          ),
+                        ),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Card with Beveled border',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
