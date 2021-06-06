@@ -45,6 +45,7 @@ const TextStyle greyBodyText = TextStyle(
   fontFamily: primaryFont,
 );
 const TextStyle titleText = TextStyle(
+  color: Colors.black,
   fontSize: 34,
   fontFamily: primaryFont
 );

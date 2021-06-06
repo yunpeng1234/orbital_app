@@ -11,9 +11,9 @@ class RegisterViewModel extends BaseViewModel {
   bool get error => _error;
   String get errorMessage => _errorMessage;
 
-  void navigateToSignIn() {
+  void navigateToSignIn()  {
     _error = false;
-    NavKey.navKey.currentState.pop();
+    navState.pop();
   }
 
   Future register(String email, String password) async {
@@ -25,4 +25,5 @@ class RegisterViewModel extends BaseViewModel {
       _error = true;
     }
   }
+
 }

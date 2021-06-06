@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
         child: MaterialApp(
           navigatorKey: NavKey.navKey,
-          initialRoute: 'signIn',
+          initialRoute: '/',
           onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );

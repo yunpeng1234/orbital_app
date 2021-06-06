@@ -12,11 +12,11 @@ class SignInViewModel extends BaseViewModel {
   String get errorMessage => _errorMessage;
 
   Future navigateToForgotPassword() async {
-    await NavKey.navKey.currentState.pushNamed('forgotPassword');
+    await navState.pushNamed('forgotPassword');
   }
 
   Future navigateToCreateAccount() async {
-    await NavKey.navKey.currentState.pushNamed('createAccount');
+    await navState.pushNamed('createAccount');
   }
 
   Future signIn(String email, String password) async {
@@ -26,6 +26,9 @@ class SignInViewModel extends BaseViewModel {
     setState(ViewState.idle);
     if (user == null) {
       _error = true;
+      return;
     }
+    navState.pushReplacementNamed('/');
   }
+
 }

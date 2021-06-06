@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/services/auth_service.dart';
+import 'package:orbital_app/view_models/app_drawer_view_model.dart';
 
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
 
-    final AuthService _auth = AuthService(); 
-    /* Function that creates a tile in a drawer
-    */
-    Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap}) {
+  @override
+  _AppDrawerState createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+
+    Widget _createDrawerItem({IconData icon, String text, Function onTap}) {
       return ListTile(
         title: Row(
           children: <Widget>[
@@ -21,6 +26,7 @@ class AppDrawer extends StatelessWidget {
         onTap: onTap,
       );
     }
+
   Widget _createHeader() {
       return DrawerHeader(
           margin: EdgeInsets.zero,
@@ -40,30 +46,33 @@ class AppDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500))),
           ]));
     }
-  
+
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          _createHeader(),
-          _createDrawerItem(
-            icon: Icons.person,
-            text: 'Home',
-            onTap: () => Navigator.pushReplacementNamed(context, '/')),
-          _createDrawerItem(
-            icon: Icons.home,
-            text: 'Profile Page',
-            onTap: () => Navigator.pushReplacementNamed(context, 'profilePage')),
-          _createDrawerItem(
-          icon: Icons.logout,
-          text: 'Logout',
-          onTap: () async{
-            await _auth.signOut();
-            Navigator.pushReplacementNamed(context, 'signIn');
-            }),
+    return BaseView<AppDrawerViewModel>(
+      builder: (context, model, child) => Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            _createHeader(),
+            _createDrawerItem(
+              icon: Icons.person,
+              text: 'Home',
+              onTap: () async {model.navigateToHome();}
+            ),
+            _createDrawerItem(
+            icon:
+            Icons.home,
+              text: 'Profile Page',
+              onTap: () async {model.navigateToProfilePage();}
+            ),
+            _createDrawerItem(
+            icon: Icons.logout,
+            text: 'Logout',
+            onTap: () async {model.signOut();}
+            ),
           ]
+        ),
       ),
     );
   }

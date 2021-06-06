@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/shared/drawer.dart';
+import 'package:orbital_app/shared/app_drawer.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePageView extends StatefulWidget {
   static const String routeName = '/profile';
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePageViewState createState() => _ProfilePageViewState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageViewState extends State<ProfilePageView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
