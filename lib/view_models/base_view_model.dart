@@ -6,14 +6,14 @@ enum ViewState{idle, busy}
 
 abstract class BaseViewModel extends ChangeNotifier {
   NavigatorState navState = NavKey.navKey.currentState;
-  ViewState _state = ViewState.idle;
+  ViewState state = ViewState.idle;
 
   bool isBusy() {
-    return _state == ViewState.busy;
+    return state == ViewState.busy;
   }
 
   void setState(ViewState viewState) {
-    _state = viewState;
+    state = viewState;
     notifyListeners();
   }
 

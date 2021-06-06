@@ -60,6 +60,12 @@ const TextStyle whiteButtonText = TextStyle(
   fontSize: bodyTextSize,
 );
 
+const TextStyle blackBodyText = TextStyle(
+  color: Colors.black,
+  fontSize: bodyTextSize,
+  fontFamily: primaryFont,
+);
+
 // Font Sizing
 const double bodyTextSize = 16;
 
