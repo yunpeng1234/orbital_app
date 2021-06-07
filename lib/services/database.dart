@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 
 class DatabaseService {
@@ -34,5 +35,31 @@ class DatabaseService {
   Stream<IndividualData> get userData {
     return users.doc(uid).snapshots()
       .map(_dataFromSnapshot);
+  }
+
+  final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
+
+  Future createOrderData(String item) async {
+    return await orders.doc(DateTime.now().toString()).set({
+      'To' : '',
+      'From': uid,
+      'Done' : false,
+      'item' : item
+    });
+  } 
+
+  List<Order> _orderFromSnapshot (QuerySnapshot ss) {
+    return ss.docs.map((x) {
+      return Order(
+        to: x.get('To'),
+        from: x.get('From'),
+        done: x.get('Done'),
+        item: x.get('Item'),
+      );
+    });
+  }
+
+  Stream<List<Order>> get orderData {
+    return orders.snapshots().map(_orderFromSnapshot);
   }
 }

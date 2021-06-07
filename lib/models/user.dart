@@ -10,5 +10,4 @@ class IndividualData {
   final String name;
 
   IndividualData({this.uid, this.name});
-
 }

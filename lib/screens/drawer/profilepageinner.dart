@@ -41,7 +41,6 @@ class _UserDataDisplayState extends State<UserDataDisplay> {
         ),
         TextButton(
           onPressed: () async {
-            print(toUpdate);
             user.updateUserData(toUpdate);
           },
           child: Text("Submit"),
