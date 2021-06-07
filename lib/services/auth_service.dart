@@ -47,9 +47,8 @@ class AuthService {
     try {
       UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
-      GeoPoint def = new GeoPoint(0.0, 0.0);
       //new doc per new user registered.
-      await DatabaseService(uid: user.uid).updateUserData("", def);
+      await DatabaseService(uid: user.uid).updateUserData("");
 
       return _userFromFirebase(user);
     } catch(e) {
@@ -76,9 +75,8 @@ class AuthService {
 
       UserCredential res = await _auth.signInWithCredential(credential);
       User user = res.user;
-      GeoPoint def = new GeoPoint(0.0, 0.0);
       //new doc per new user registered.
-      await DatabaseService(uid: user.uid).updateUserData("", def);
+      await DatabaseService(uid: user.uid).updateUserData("");
       return user;
     } catch (e) {
       print(e.toString());

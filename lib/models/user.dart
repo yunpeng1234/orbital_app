@@ -8,14 +8,7 @@ class Individual {
 class IndividualData {
   final String uid;
   final String name;
-  final GeoPoint location;
-  final String role;
 
-  IndividualData({this.uid, this.name, this.location, this.role});
+  IndividualData({this.uid, this.name});
 
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'location' : location,
-    'role' : role,
-  };
 }
