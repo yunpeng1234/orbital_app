@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/user.dart';
-import 'package:orbital_app/screens/home/home.dart';
+import 'package:orbital_app/screens/home/home_view.dart';
 import 'package:orbital_app/screens/authenticate/authenticate.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,6 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     }
-    return Home();
+    return HomeView();
   }
 }

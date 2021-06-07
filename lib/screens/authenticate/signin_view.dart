@@ -4,7 +4,7 @@ import 'package:orbital_app/view_models/signin_view_model.dart';
 import 'package:provider/provider.dart';
 import 'authentication_layout.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/screens/home/home.dart';
+import 'package:orbital_app/screens/home/home_view.dart';
 import 'package:orbital_app/models/user.dart';
 
 class SignInView extends StatefulWidget {
@@ -22,9 +22,7 @@ class _SignInViewState extends State<SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<Individual>(context) != null) {
-      return Home();
-    }
+
     return BaseView<SignInViewModel>(
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,

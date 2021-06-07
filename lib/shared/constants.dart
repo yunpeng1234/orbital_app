@@ -24,6 +24,7 @@ const Widget verticalSpaceSmall = SizedBox(height: 10.0);
 const Widget verticalSpaceRegular = SizedBox(height: 18.0);
 const Widget verticalSpaceMedium = SizedBox(height: 25);
 const Widget verticalSpaceLarge = SizedBox(height: 50.0);
+const Widget verticalSpaceVeryLarge = SizedBox(height: 90.0);
 const Widget verticalSpaceMassive = SizedBox(height: 120.0);
 
 // colors
@@ -44,6 +45,7 @@ const TextStyle greyBodyText = TextStyle(
   fontFamily: primaryFont,
 );
 const TextStyle titleText = TextStyle(
+  color: Colors.black,
   fontSize: 34,
   fontFamily: primaryFont
 );
@@ -55,7 +57,13 @@ const TextStyle brownButtonText = TextStyle(
 const TextStyle whiteButtonText = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
-  fontSize: 16,
+  fontSize: bodyTextSize,
+);
+
+const TextStyle blackBodyText = TextStyle(
+  color: Colors.black,
+  fontSize: bodyTextSize,
+  fontFamily: primaryFont,
 );
 
 // Font Sizing

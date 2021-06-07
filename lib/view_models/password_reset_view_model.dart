@@ -13,18 +13,19 @@ class PasswordResetViewModel extends BaseViewModel {
 
   void navigateToSignIn() {
     _error = false;
-    NavKey.navKey.currentState.pop();
+    navState.pop();
   }
 
   Future passwordReset(email) async {
     setState(ViewState.busy);
     try {
       await _auth.sendPasswordReset(email);
-      NavKey.navKey.currentState.pushNamed('signIn');
+      navState.pushNamed('signIn');
       _error = false;
     } catch (e) {
       _error = true;
     }
     setState(ViewState.idle);
   }
+
 }
