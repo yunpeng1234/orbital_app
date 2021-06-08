@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:orbital_app/services/auth_service.dart';
-import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/base_view_model.dart';
 import "package:provider/provider.dart";
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/widgets/floating_search_bar.dart';
 import 'package:orbital_app/screens/base_view.dart';
@@ -53,7 +50,7 @@ class HomeView extends StatelessWidget {
                               verticalSpaceTiny,
                               GestureDetector(
                                 onTap: () async {
-                                  model.navigateToAllLocations();
+                                  model.navigate('allLocations');
                                 },
                                 child: Text(
                                   'See All',
@@ -72,7 +69,7 @@ class HomeView extends StatelessWidget {
                           children: model.locations
                             .map((location) => HomeScreenCard(
                               location: location,
-                              onCardTapped: () => model.navigateToLocation(location),))
+                              onCardTapped: () => model.navigate('location', arguments: location)))
                             .toList()
                         ),
                       ),
@@ -107,11 +104,8 @@ class HomeView extends StatelessWidget {
                           children : model.locations
                               .map((location) => HomeScreenCard(
                                 location: location,
-                                onCardTapped: () => model.navigateToOrder(),))
+                                onCardTapped: () => model.navigate('order')))
                               .toList()
-                          // children: HomeScreenCard(title: 'McDonald\'s',
-                          //   url: 'https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/06/03172655/default_tile_logo_mcd_red.png',))
-                          //   .toList()
                         ),
                       ),
                     ],

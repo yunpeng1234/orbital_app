@@ -13,30 +13,6 @@ class InputOrderView extends StatelessWidget {
     this.location,
   }) : super(key: key);
 
-  Future _showSuccessDialog(BuildContext context, InputOrderViewModel model) {
-    return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) =>  AlertDialog(
-        title: Center(child: const Text('Successfully submitted!')),
-        titleTextStyle: blackBodyTextLarge,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        actions: <Widget>[
-          Center(
-            child: TextButton(
-              onPressed: () => model.navigateToHome(),
-              child: const Text(
-                'RETURN TO HOME',
-                style: brownButtonText,
-              ),
-            ),
-          )
-        ],
-      )
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +43,7 @@ class InputOrderView extends StatelessWidget {
                         onSaved: (val) {
                           model.setOrder(val);
                         },
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter your order';
-                          }
-                          return null;
-                        },
+                        validator: (val) => val.isEmpty ? 'Please enter your order.' : null,
                       ),
                       verticalSpaceRegular,
                       TextFormField(
@@ -81,24 +52,14 @@ class InputOrderView extends StatelessWidget {
                         decoration: textBoxDeco.copyWith(
                             hintText: 'Additional notes'
                         ),
-                        onSaved: (val) {
-                          model.setNotes(val);
-                        },
+                        onSaved: (val) => model.setNotes(val)
                       ),
                     ],
                   ),
                 ),
                 verticalSpaceLarge,
                 GestureDetector(
-                  onTap: () async {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      model.submitOrder();
-                    }
-                    if (! model.error) {
-                      _showSuccessDialog(context, model);
-                    }
-                  },
+                  onTap: () => model.submitOrder(_formKey, context),
                   child: Container(
                     width: double.infinity,
                     height: 50,

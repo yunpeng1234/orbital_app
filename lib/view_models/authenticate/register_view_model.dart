@@ -1,30 +1,35 @@
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import '../base_view_model.dart';
-import 'package:orbital_app/routes/nav_key.dart';
+import 'package:flutter/material.dart';
 
 class RegisterViewModel extends BaseViewModel {
   static final String _errorMessage = "Invalid email.";
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
-  bool _error = false;
 
-  bool get error => _error;
   String get errorMessage => _errorMessage;
 
-  void navigateToSignIn()  {
-    _error = false;
-    navState.pop();
+  void setEmail(String email) {
+    _emailController.text = email;
   }
 
-  Future register(String email, String password) async {
-    setState(ViewState.busy);
-    var user = await _auth.registerNative(email, password);
-    _error = false;
-    setState(ViewState.idle);
-    if (user == null) {
-      _error = true;
+  void setPassword(String password) {
+    _passwordController.text = password;
+  }
+
+  Future register(GlobalKey<FormState> formKey) async {
+    if (! processForm(formKey)) {
       return;
     }
+    var user = await runBusyFuture(
+        _auth.registerNative(
+            _emailController.text, _passwordController.text));
+    if (user == null) {
+      setError(true);
+      return;
+    }
+    navigateAndReplace('/');
   }
-
 }

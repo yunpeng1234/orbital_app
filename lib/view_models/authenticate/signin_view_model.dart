@@ -1,31 +1,35 @@
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
+import 'package:flutter/material.dart';
 import '../base_view_model.dart';
-import 'package:orbital_app/routes/nav_key.dart';
 
 class SignInViewModel extends BaseViewModel {
   static final String _errorMessage = 'Invalid email/password.';
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
-  bool _error = false;
 
-  bool get error => _error;
   String get errorMessage => _errorMessage;
 
-  Future navigateToForgotPassword() async {
-    await navState.pushNamed('forgotPassword');
+  void setEmail(String email) {
+    _emailController.text = email;
   }
 
-  Future navigateToCreateAccount() async {
-    await navState.pushNamed('createAccount');
+  void setPassword(String password) {
+    _passwordController.text = password;
   }
 
-  Future signIn(String email, String password) async {
-    var user = await runBusyFuture(_auth.signInNative(email, password));
-    _error = false;
-    if (user == null) {
-      _error = true;
+  Future signIn(GlobalKey<FormState> formKey) async {
+    if (! processForm(formKey)) {
       return;
     }
-    navState.pushReplacementNamed('/');
+    var user = await runBusyFuture(
+        _auth.signInNative(_emailController.text, _passwordController.text));
+    if (user == null) {
+      print(user);
+      setError(true);
+      return;
+    }
+    navigateAndReplace('/');
   }
 }

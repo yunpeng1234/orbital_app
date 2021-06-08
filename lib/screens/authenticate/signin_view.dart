@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
-import 'package:provider/provider.dart';
 import 'authentication_layout.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/screens/home/home_view.dart';
-import 'package:orbital_app/models/user.dart';
 
-class SignInView extends StatefulWidget {
+class SignInView extends StatelessWidget {
 
   SignInView({Key key}) : super(key: key);
 
-  @override
-  _SignInViewState createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
   final _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,36 +31,29 @@ class _SignInViewState extends State<SignInView> {
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Email"),
                     validator: (val) => val.isEmpty ? "Enter your email" : null,
-                    onChanged: (val) {
-                      setState(() {
-                        email = val;
-                      });
-                    }
+                    onSaved: (val) => model.setEmail(val)
                 ),
                 verticalSpaceRegular,
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Password"),
                     obscureText: true,
                     validator: (val) => val.isEmpty ? "Enter a password" : null,
-                    onChanged: (val) {
-                      setState(() {
-                        password = val;
-                      });
-                    }
+                    onSaved: (val) => model.setPassword(val)
                 ),
               ],
             ),
           ),
           onMainButtonTapped: () async {
-            if (_formKey.currentState.validate()) {
-              model.signIn(email, password);
-            }
+            // if (_formKey.currentState.validate()) {
+            //   _formKey.currentState.save();
+              model.signIn(_formKey);
+            //}
           },
           onForgotPasswordTapped: () async {
-            model.navigateToForgotPassword();
+            model.navigate('forgotPassword');
           },
           onCreateAccountTapped: () async {
-            model.navigateToCreateAccount();
+            model.navigate('createAccount');
           },
         ),
       ),

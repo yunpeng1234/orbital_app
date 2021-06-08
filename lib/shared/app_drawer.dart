@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 
 
@@ -58,13 +57,13 @@ class _AppDrawerState extends State<AppDrawer> {
             _createDrawerItem(
               icon: Icons.person,
               text: 'Home',
-              onTap: () async {model.navigateToHome();}
+              onTap: () => model.navigateAndReplace('/')
             ),
             _createDrawerItem(
             icon:
             Icons.home,
               text: 'Profile Page',
-              onTap: () async {model.navigateToProfilePage();}
+              onTap: () => model.navigateAndReplace('profilePage')
             ),
             _createDrawerItem(
             icon: Icons.logout,

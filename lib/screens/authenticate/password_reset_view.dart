@@ -4,17 +4,10 @@ import 'package:orbital_app/view_models/authenticate/password_reset_view_model.d
 import 'authentication_layout.dart';
 import 'package:orbital_app/shared/constants.dart';
 
-class PasswordResetView extends StatefulWidget {
-  const PasswordResetView({Key key}) : super(key: key);
+class PasswordResetView extends StatelessWidget {
+  PasswordResetView({Key key}) : super(key: key);
 
-  @override
-  _PasswordResetViewState createState() => _PasswordResetViewState();
-}
-
-class _PasswordResetViewState extends State<PasswordResetView> {
   final _formKey = GlobalKey<FormState>();
-  String email = '';
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +29,14 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Email"),
                     validator: (val) => val.isEmpty ? "Enter a valid email address" : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    }
+                    onSaved: (val) => model.setEmail(val)
                 ),
               ],
             ),
           ),
-          onMainButtonTapped: () => model.passwordReset(email),
+          onMainButtonTapped: () => model.passwordReset(_formKey),
           // onBackPressed: () => Navigator.pop(context),
-          onSignInTapped: () => model.navigateToSignIn(),
+          onSignInTapped: () => model.pop()
         ),
       ),
     );
