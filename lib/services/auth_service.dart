@@ -14,6 +14,10 @@ class AuthService {
     return user != null ? Individual(uid: user.uid) : null;
   }
 
+  String getUID() {
+    return _auth.currentUser.uid;
+  }
+
   //Sign in anon
   Future signTester() async {
     try {

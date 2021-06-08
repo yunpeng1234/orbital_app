@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/services/auth_service.dart';
-import 'package:orbital_app/view_models/app_drawer_view_model.dart';
+import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 
 
 class AppDrawer extends StatefulWidget {

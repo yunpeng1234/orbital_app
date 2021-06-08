@@ -10,7 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/widgets/floating_search_bar.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/view_models/home_view_model.dart';
+import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/screens/authenticate/signin_view.dart';
 import 'package:orbital_app/shared/widgets/home_screen_card.dart';
 
@@ -70,7 +70,9 @@ class HomeView extends StatelessWidget {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: model.locations
-                            .map((location) => HomeScreenCard(title: location.title, url: location.url,))
+                            .map((location) => HomeScreenCard(
+                              location: location,
+                              onCardTapped: () => model.navigateToLocation(location),))
                             .toList()
                         ),
                       ),
@@ -103,7 +105,9 @@ class HomeView extends StatelessWidget {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children : model.locations
-                              .map((location) => HomeScreenCard(title: location.title, url: location.url,))
+                              .map((location) => HomeScreenCard(
+                                location: location,
+                                onCardTapped: () => model.navigateToOrder(),))
                               .toList()
                           // children: HomeScreenCard(title: 'McDonald\'s',
                           //   url: 'https://d1nqx6es26drid.cloudfront.net/app/uploads/2015/06/03172655/default_tile_logo_mcd_red.png',))

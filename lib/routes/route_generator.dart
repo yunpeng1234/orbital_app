@@ -5,33 +5,53 @@ import 'package:orbital_app/screens/authenticate/password_reset_view.dart';
 import 'package:orbital_app/screens/authenticate/register_view.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
 import 'package:orbital_app/screens/home/all_locations_view.dart';
-
-// Don't delete yet
+import 'package:orbital_app/screens/submit_order_flow/input_order_view.dart';
+import 'package:orbital_app/screens/take_order_flow/order_view.dart';
+import 'package:orbital_app/screens/submit_order_flow/location_view.dart';
+import 'package:orbital_app/models/location.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    Widget page;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomeView());
+        page = HomeView();
+        break;
       case 'signIn':
-        return MaterialPageRoute(builder: (_) => SignInView());
+        page = SignInView();
+        break;
       case 'forgotPassword':
-        return MaterialPageRoute(builder: (_) => PasswordResetView());
+        page = PasswordResetView();
+        break;
       case 'createAccount':
-        return MaterialPageRoute(builder: (_) => RegisterView());
+        page = RegisterView();
+        break;
       case 'profilePage':
-        return MaterialPageRoute(builder: (_) => ProfilePageView());
+        page = ProfilePageView();
+        break;
       case 'allLocations':
-        return MaterialPageRoute(builder: (_) => AllLocationsView());
+        page = AllLocationsView();
+        break;
+      case 'order':
+        page = OrderView();
+        break;
+      case 'location':
+        final args = settings.arguments as Location;
+        page = LocationView(location: args);
+        break;
+      case 'inputOrder':
+        final args = settings.arguments as Location;
+        page = InputOrderView(location: args);
+        break;
       default:
-        return MaterialPageRoute(builder: (_) {
-          return Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          );
-        });
+        page = Scaffold(
+          body: Center(
+            child: Text('No route defined for ${settings.name}'),
+          ),
+        );
+        break;
     }
+    return MaterialPageRoute(builder: (_) => page);
   }
 }
 

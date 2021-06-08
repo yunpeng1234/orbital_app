@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/view_models/signin_view_model.dart';
+import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
 import 'package:provider/provider.dart';
 import 'authentication_layout.dart';
 import 'package:orbital_app/screens/base_view.dart';

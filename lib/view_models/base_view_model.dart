@@ -12,6 +12,13 @@ abstract class BaseViewModel extends ChangeNotifier {
     return state == ViewState.busy;
   }
 
+  Future runBusyFuture(Future busyFunc) async {
+    setState(ViewState.busy);
+    var value = await busyFunc;
+    setState(ViewState.idle);
+    return value;
+  }
+
   void setState(ViewState viewState) {
     state = viewState;
     notifyListeners();

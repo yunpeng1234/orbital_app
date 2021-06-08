@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/view_models/register_view_model.dart';
+import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
 import 'authentication_layout.dart';
 
 

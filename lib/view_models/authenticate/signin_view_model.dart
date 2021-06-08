@@ -1,6 +1,6 @@
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
-import 'base_view_model.dart';
+import '../base_view_model.dart';
 import 'package:orbital_app/routes/nav_key.dart';
 
 class SignInViewModel extends BaseViewModel {
@@ -20,15 +20,12 @@ class SignInViewModel extends BaseViewModel {
   }
 
   Future signIn(String email, String password) async {
-    setState(ViewState.busy);
-    var user = await _auth.signInNative(email, password);
+    var user = await runBusyFuture(_auth.signInNative(email, password));
     _error = false;
-    setState(ViewState.idle);
     if (user == null) {
       _error = true;
       return;
     }
     navState.pushReplacementNamed('/');
   }
-
 }

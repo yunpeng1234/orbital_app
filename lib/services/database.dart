@@ -1,14 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
+import 'service_locator.dart';
+import 'auth_service.dart';
+import 'dart:convert';
 
 class DatabaseService {
 
   final String uid;
+  static final AuthService _auth = serviceLocator<AuthService>();
 
   DatabaseService({this.uid});
   //Collection reference
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
+
+  static DatabaseService init() {
+    return DatabaseService(uid: _auth.getUID());
+  }
 
   Future updateUserData(String name) async {
     return await users.doc(uid).set({
@@ -40,12 +48,12 @@ class DatabaseService {
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
   Future createOrderData(String item) async {
-    return await orders.doc(DateTime.now().toString()).set({
-      'To' : '',
-      'From': uid,
-      'Done' : false,
-      'item' : item
-    });
+    Map<String, dynamic> data = new Map<String, dynamic>();
+    data['From'] = uid;
+    data['To'] = '';
+    data['Done'] = false;
+    data['Item'] = item;
+    return await orders.doc(DateTime.now().toString()).set(data);
   } 
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
