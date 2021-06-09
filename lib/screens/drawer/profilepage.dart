@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import "package:provider/provider.dart";
@@ -19,12 +20,13 @@ class _ProfilePageViewState extends State<ProfilePageView> {
   String toUpdate = '';
   final DatabaseService user  = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
 
+  
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: user.userData,
       builder:(BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
-        if(!snapshot.hasData) return new Text('Load');
         String username = snapshot.data.name;
         return Scaffold(
             appBar: AppBar(title: Text('texting'),),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orbital_app/shared/loading.dart';
 
 
 
@@ -25,30 +27,32 @@ class _OrderTestingState extends State<OrderTesting> {
   @override
   Widget build(BuildContext context) {
       return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Orders').snapshots(),
-        builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return new Text('Load');
+        stream: serv.orderData,
+        builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
+          if (!snapshot.hasData) return Loading();
           return Scaffold(
             appBar: AppBar(title: Text('texting'),),
             drawer: AppDrawer(),
             backgroundColor: primaryColor,
             resizeToAvoidBottomInset: false,
-            body: Column(
+            body: SingleChildScrollView(
+              child: Column(
               children: <Widget>[
                 ListView(
-                  children: snapshot.data.docs.map((doc) {
+                  children: snapshot.data.map((doc) {
                     return new ListTile(
-                      title: Text(doc['To'] + '\n' + doc['From']),
-                      subtitle: Text(doc['item'].toString()),
+                      title: Text(doc.to + '\n' + doc.from),
+                      subtitle: Text(doc.orderId.toString()),
                       trailing: IconButton(
                         icon: Icon(Icons.home),
                         onPressed: () async {
-                          serv.acceptOrderData(doc['item']);
-                        },),
+                          serv.acceptOrderData(doc.orderId);
+                        },
+                      ),
                       leading: IconButton(
                         icon: Icon(Icons.hearing_outlined),
                         onPressed: () async {
-                          serv.deleteOrderData(doc['item']);
+                          serv.deleteOrderData(doc.orderId);
                         },),
                     );
                   }).toList(),
@@ -61,7 +65,7 @@ class _OrderTestingState extends State<OrderTesting> {
                   child: Text('create order')
                 ),
               ],
-            ),
+            ),)
           );
         }
       );

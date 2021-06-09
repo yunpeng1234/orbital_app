@@ -62,14 +62,14 @@ class DatabaseService {
   }
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
-    return ss.docs.map((x) {
+    return ss.docs.map((x){
       return Order(
-        to: x.get('To'),
-        from: x.get('From'),
-        done: x.get('Done'),
-        orderId: x.get('Item'),
+        from: (x.data() as Map)['From'] ?? '',
+        to: (x.data() as Map)['To'] ?? '',
+        done: (x.data() as Map)['Done'] ?? false,
+        orderId: (x.data() as Map)['item']?? 0,
       );
-    });
+    }).toList();
   }
 
   Stream<List<Order>> get orderData {

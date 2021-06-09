@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
+import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/view_models/base_view_model.dart';
 import "package:provider/provider.dart";
 import 'package:orbital_app/models/user.dart';
@@ -22,7 +23,7 @@ class HomeView extends StatelessWidget {
     return BaseView<HomeViewModel>(
       onModelReady: (model) => model.getSomeLocations(),
       builder: (context, model, child) => model.state == ViewState.busy
-        ? Center(child: CircularProgressIndicator())
+        ? Center(child: Loading())
         : Scaffold(
             drawer: AppDrawer(),
             backgroundColor: primaryColor,
