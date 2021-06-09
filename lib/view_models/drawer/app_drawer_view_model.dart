@@ -10,4 +10,8 @@ class AppDrawerViewModel extends BaseViewModel {
     await _auth.signOut();
     navigateAndReplace('signIn');
   }
+
+  Future navigateToOrderTesting() async {
+    navState.pushReplacementNamed('orderTest');
+  }
 }
