@@ -4,8 +4,8 @@ class Order {
   final String from;
   final String to;
   final bool done;
-  final String item;
+  final int orderId;
 
-  Order({this.from, this.to, this.done, this.item});
+  Order({this.from, this.to, this.done, this.orderId});
 
 }

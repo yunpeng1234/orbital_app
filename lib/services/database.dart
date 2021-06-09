@@ -46,12 +46,18 @@ class DatabaseService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
-  Future createOrderData(String item) async {
-    return await orders.doc(DateTime.now().toString()).set({
+  Future createOrderData() async {
+    CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
+
+    DocumentSnapshot toGet = await temp.doc('fixed').get();
+    int orderId = toGet['id'];
+    temp.doc('fixed').update({'id' : orderId + 1});
+
+    return await orders.doc(orderId.toString()).set({
       'To' : '',
       'From': uid,
-      'Done': false,
-      'Item': item,
+      'Done' : false,
+      'item' : orderId,
     });
   } 
 
@@ -61,12 +67,20 @@ class DatabaseService {
         to: x.get('To'),
         from: x.get('From'),
         done: x.get('Done'),
-        item: x.get('Item'),
+        orderId: x.get('Item'),
       );
     });
   }
 
   Stream<List<Order>> get orderData {
     return orders.snapshots().map(_orderFromSnapshot);
+  }
+
+  Future acceptOrderData(int orderid) async {
+    return await orders.doc(orderid.toString()).update({'To': uid});
+  }
+
+  Future deleteOrderData(int orderid) async {
+    return await orders.doc(orderid.toString()).delete();
   }
 }
