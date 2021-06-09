@@ -1,27 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/view_models/register_view_model.dart';
+import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
 import 'authentication_layout.dart';
 
 
-class RegisterView extends StatefulWidget {
+class RegisterView extends StatelessWidget {
 
-  final Function toggler;
-
-  RegisterView({this.toggler});
-
-  @override
-  _RegisterViewState createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
   final _formkey = GlobalKey<FormState>();
-  bool loading = false;
-
-  //text field state
-  String email = '';
-  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,28 +29,20 @@ class _RegisterViewState extends State<RegisterView> {
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Email"),
                     validator: (val) => val.isEmpty ? "Enter your email" : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    }
+                    onChanged: (val) => model.setEmail(val)
                 ),
                 verticalSpaceRegular,
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Password"),
                     validator: (val) => val.length < 6 ? "Please enter a password of at least 6 characters" : null,
                     obscureText: true,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    }
+                    onChanged: (val) => model.setPassword(val)
                 ),
               ],
             ),
           ),
-          onMainButtonTapped: () async {
-            if (_formkey.currentState.validate()) {
-              model.register(email, password);
-            }
-          },
-          onSignInTapped: () => model.navigateToSignIn(),
+          onMainButtonTapped: () => model.register(_formkey),
+          onSignInTapped: () => model.pop(),
         ),
       ),
     );

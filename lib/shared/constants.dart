@@ -29,6 +29,7 @@ const Widget verticalSpaceMassive = SizedBox(height: 120.0);
 
 // colors
 const Color primaryColor = Color(0xffFCE5CD);
+const Color orangeAppBarColor = Color(0xffFFAA66);
 const Color greyButtonColor = Color(0xff4E4A40);
 const Color greyTextColor = Color(0xff868686);
 const Color brownTextColor = Color(0xffBE6640);
@@ -66,8 +67,15 @@ const TextStyle blackBodyText = TextStyle(
   fontFamily: primaryFont,
 );
 
+const TextStyle blackBodyTextLarge = TextStyle(
+  color: Colors.black,
+  fontSize: largeBodyTextSize,
+  fontFamily: primaryFont,
+);
+
 // Font Sizing
 const double bodyTextSize = 16;
+const double largeBodyTextSize = 20;
 
 // Screen Size Helpers
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
