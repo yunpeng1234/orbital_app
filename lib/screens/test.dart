@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:orbital_app/shared/loading.dart';
 
 
 
@@ -28,7 +29,7 @@ class _OrderTestingState extends State<OrderTesting> {
       return StreamBuilder(
         stream: serv.orderData,
         builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
-          if (!snapshot.hasData) return new Text('Load');
+          if (!snapshot.hasData) return Loading();
           return Scaffold(
             appBar: AppBar(title: Text('texting'),),
             drawer: AppDrawer(),
