@@ -5,7 +5,6 @@ import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:orbital_app/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
@@ -20,12 +19,13 @@ class OrderTesting extends StatefulWidget {
 }
 
 class _OrderTestingState extends State<OrderTesting> {
-  final serv = serviceLocator<DatabaseService>();
+  String usr = FirebaseAuth.instance.currentUser.uid;
+  final serv = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Order').snapshots(),
+        stream: FirebaseFirestore.instance.collection('Orders').snapshots(),
         builder:(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) return new Text('Load');
           return Scaffold(
@@ -38,8 +38,18 @@ class _OrderTestingState extends State<OrderTesting> {
                 ListView(
                   children: snapshot.data.docs.map((doc) {
                     return new ListTile(
-                        title: Text(doc['To']),
-                        subtitle: Text(doc['From'])
+                      title: Text(doc['To'] + '\n' + doc['From']),
+                      subtitle: Text(doc['item'].toString()),
+                      trailing: IconButton(
+                        icon: Icon(Icons.home),
+                        onPressed: () async {
+                          serv.acceptOrderData(doc['item']);
+                        },),
+                      leading: IconButton(
+                        icon: Icon(Icons.hearing_outlined),
+                        onPressed: () async {
+                          serv.deleteOrderData(doc['item']);
+                        },),
                     );
                   }).toList(),
                   shrinkWrap: true,
@@ -48,7 +58,8 @@ class _OrderTestingState extends State<OrderTesting> {
                     onPressed: () async {
                       serv.createOrderData();
                     },
-                    child: Text('create order'))
+                    child: Text('create order')
+                ),
               ],
             ),
           );
