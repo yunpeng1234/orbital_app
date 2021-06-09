@@ -19,7 +19,7 @@ class OrderView extends StatelessWidget {
             centerTitle: true,
             iconTheme: IconThemeData(color: Colors.black),
             title: Text(
-              'All Locations',
+              'Order',
               style: titleText,
             ),
             actions: [

@@ -106,10 +106,14 @@ class HomeView extends StatelessWidget {
                           children : model.locations
                               .map((location) => HomeScreenCard(
                                 location: location,
-                                onCardTapped: () => Navigator.push(context, MaterialPageRoute(builder:(context) => LocationTesting()))))
+                                onCardTapped: () => model.navigate('order')))
                               .toList()
                         ),
                       ),
+                      TextButton(
+                        child: Text('Test Location Service'),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder:(context) => LocationTesting())),
+                      )
                     ],
                   ),
                 )
