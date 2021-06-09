@@ -7,11 +7,13 @@ import 'auth_service.dart';
 class DatabaseService {
 
   final String uid;
+  final CollectionReference users = FirebaseFirestore.instance.collection('User');
+  final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
   static final AuthService _auth = serviceLocator<AuthService>();
 
   DatabaseService({this.uid});
   //Collection reference
-  final CollectionReference users = FirebaseFirestore.instance.collection('User');
+
 
   static DatabaseService init() {
     return DatabaseService(uid: _auth.getUID());
@@ -44,16 +46,20 @@ class DatabaseService {
       .map(_dataFromSnapshot);
   }
 
-  final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
+  Future createOrderData() async {
+    CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
-  Future createOrderData(String item) async {
-    return await orders.doc(DateTime.now().toString()).set({
+    DocumentSnapshot toGet = await temp.doc('fixed').get();
+    int orderId = toGet['id'];
+    temp.doc('fixed').update({'id' : orderId + 1});
+
+    return await orders.doc(orderId.toString()).set({
       'To' : '',
       'From': uid,
-      'Done': false,
-      'Item': item,
+      'Done' : false,
+      'item' : orderId,
     });
-  } 
+  }
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
     return ss.docs.map((x) {
@@ -68,5 +74,9 @@ class DatabaseService {
 
   Stream<List<Order>> get orderData {
     return orders.snapshots().map(_orderFromSnapshot);
+  }
+
+  Future accepOrderData(int orderid) async {
+    return await orders.doc(orderid.toString()).update({'To': uid});
   }
 }

@@ -28,7 +28,7 @@ class InputOrderViewModel extends BaseViewModel {
     }
     try {
       var order = await runBusyFuture(
-          _database.createOrderData(_orderController.text));
+          _database.createOrderData());
       _showSuccessDialog(context, this);
       return order;
     } catch (e) {
