@@ -3,7 +3,6 @@ import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
-import 'dart:convert';
 
 class DatabaseService {
 
@@ -48,12 +47,12 @@ class DatabaseService {
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
   Future createOrderData(String item) async {
-    Map<String, dynamic> data = new Map<String, dynamic>();
-    data['From'] = uid;
-    data['To'] = '';
-    data['Done'] = false;
-    data['Item'] = item;
-    return await orders.doc(DateTime.now().toString()).set(data);
+    return await orders.doc(DateTime.now().toString()).set({
+      'To' : '',
+      'From': uid,
+      'Done': false,
+      'Item': item,
+    });
   } 
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
