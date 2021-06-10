@@ -10,7 +10,7 @@ import 'package:orbital_app/shared/widgets/floating_search_bar.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/screens/authenticate/signin_view.dart';
-import 'package:orbital_app/shared/widgets/home_screen_card.dart';
+import 'package:orbital_app/shared/widgets/location_home_screen_card.dart';
 import 'package:orbital_app/screens/location_testing.dart';
 
 class HomeView extends StatelessWidget {
@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
     }
 
     return BaseView<HomeViewModel>(
-      onModelReady: (model) => model.getSomeLocations(),
+      onModelReady: (model) => model.getNearbyLocations(),
       builder: (context, model, child) => model.state == ViewState.busy
         ? Center(child: Loading())
         : Scaffold(
@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget {
                                   model.navigate('allLocations');
                                 },
                                 child: Text(
-                                  'See All',
+                                  'See More',
                                   style: brownButtonText.copyWith(
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -68,8 +68,8 @@ class HomeView extends StatelessWidget {
                         height: 200,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: model.dummyLocations
-                            .map((location) => HomeScreenCard(
+                          children: model.locations
+                            .map((location) => LocationHomeScreenCard(
                               location: location,
                               onCardTapped: () => model.navigate('location', arguments: location)))
                             .toList()
@@ -90,7 +90,7 @@ class HomeView extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
-                                  'See All',
+                                  'See More',
                                   style: brownButtonText.copyWith(
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -99,17 +99,17 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 200,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children : model.dummyLocations
-                              .map((location) => HomeScreenCard(
-                                location: location,
-                                onCardTapped: () => model.navigate('order')))
-                              .toList()
-                        ),
-                      ),
+                      // Container(
+                      //   height: 200,
+                      //   child: ListView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     children : model.locations
+                      //         .map((location) => LocationHomeScreenCard(
+                      //           location: location,
+                      //           onCardTapped: () => model.navigate('order')))
+                      //         .toList()
+                      //   ),
+                      // ),
                       TextButton(
                         child: Text('Test Location Service'),
                         onPressed: () => Navigator.push(context, MaterialPageRoute(builder:(context) => LocationTesting())),

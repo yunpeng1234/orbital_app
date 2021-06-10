@@ -58,8 +58,7 @@ class _LocationTestingState extends State<LocationTesting> {
             verticalSpaceRegular,
             GestureDetector(
               onTap: () async {
-                var position = await _geolocator.currentPosition();
-                var temp = await _service.getNearbyLocations(position.latitude, position.longitude);
+                var temp = await _service.getNearbyLocations();
               },
               child: Container(
                 width: double.infinity,

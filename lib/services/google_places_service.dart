@@ -1,4 +1,3 @@
-import 'package:places_service/places_service.dart';
 import 'package:google_place/google_place.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,16 +6,19 @@ import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/models/my_location.dart';
 
 class GooglePlacesService {
-  // final PlacesService _service = PlacesService();
+  final String apiKey = dotenv.env['PLACES_KEY'];
   final GooglePlace _service = GooglePlace(dotenv.env['PLACES_KEY']);
-  final String photoEndpoint = 'https://maps.googleapis.com/maps/api/place/photo?';
+  final GeolocationService _geolocator = serviceLocator<GeolocationService>();
+  final String urlEndpoint = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
 
-  // void init() {
-  //   _service.initialize(apiKey: dotenv.env['PLACES_KEY']);
-  // }
 
-  Future getNearbyLocations(double lat, double long) async {
-    List results = (await _service.search.getNearBySearch(Location(lat: lat, lng: long), 1000, type: 'restaurant')).results;
+  // Remove some awaits next time
+  Future getNearbyLocations() async {
+    Position position = await _geolocator.currentPosition();
+    List results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
+    if (results.length > 10) {
+     results = results.sublist(1, 10);
+    }
     List<MyLocation> locations = await Future.wait(results.map((result) async {
       String placeId = result.placeId;
       var details = (await _service.details.get(placeId, fields: "formatted_address")).result;
@@ -33,15 +35,11 @@ class GooglePlacesService {
         long: result.geometry.location.lng,
         name: result.name,
         address: address,
-        photoUrl: photoEndpoint + reference,
+        photoUrl: urlEndpoint + reference + '&key=' + apiKey,
       );
       print(loc);
       return loc;
     }).toList());
     return locations;
   }
-
-  // Future getDetails(String placeId) async {
-  //   return _service.getPlaceDetails(placeId);
-  // }
 }

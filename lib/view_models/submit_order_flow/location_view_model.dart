@@ -7,11 +7,7 @@ class LocationViewModel extends BaseViewModel {
   final TextEditingController orderController = new TextEditingController();
   final TextEditingController notesController = new TextEditingController();
 
-  Future navigateToInputOrderDummy(DummyLocation location) async {
-    await navState.pushNamed('inputOrder', arguments: location);
-  }
-
-  Future navigateToInputOrder(DummyLocation location) async {
+  Future navigateToInputOrder(MyLocation location) async {
     await navState.pushNamed('inputOrder', arguments: location);
   }
 

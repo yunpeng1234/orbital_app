@@ -8,7 +8,7 @@ import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/services/google_places_service.dart';
 
 class LocationView extends StatelessWidget {
-  final DummyLocation location;
+  final MyLocation location;
 
   const LocationView({
     Key key,
@@ -24,36 +24,43 @@ class LocationView extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
-                  location.title,
+                  location.name,
                   style: titleText,
                 ),
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Center(
-                  child: GestureDetector(
-                    onTap: () => model.navigateToInputOrder(location),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: greyButtonColor,
-                        borderRadius: BorderRadius.circular(8),
+                  child: Column(
+                    children: [
+                      Text(
+                        location.name,
                       ),
-                      child: model.isBusy()
-                          ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      )
-                          : Text(
-                        'Order',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      GestureDetector(
+                        onTap: () => model.navigateToInputOrder(location),
+                        child: Container(
+                          width: double.infinity,
+                          height: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: greyButtonColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: model.isBusy()
+                              ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          )
+                              : Text(
+                            'Order',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
