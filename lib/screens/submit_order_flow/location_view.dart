@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
+import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
-import 'package:orbital_app/models/location.dart';
+import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/models/dummy_location.dart';
+import 'package:orbital_app/services/google_places_service.dart';
 
 class LocationView extends StatelessWidget {
-  final Location location;
+  final DummyLocation location;
 
   const LocationView({
     Key key,
@@ -58,5 +61,3 @@ class LocationView extends StatelessWidget {
     );
   }
 }
-
-

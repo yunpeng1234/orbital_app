@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/models/location.dart';
+import 'package:orbital_app/models/dummy_location.dart';
 
 class HomeScreenCard extends StatelessWidget {
-  final Location location;
+  final DummyLocation location;
   final Function onCardTapped;
 
   const HomeScreenCard({

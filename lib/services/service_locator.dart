@@ -13,6 +13,7 @@ import 'dummy_database.dart';
 import 'geolocation_service.dart';
 import 'database.dart';
 import 'auth_service.dart';
+import 'google_places_service.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -29,5 +30,6 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => AuthService());
   serviceLocator.registerLazySingleton(() => GeolocationService());
   serviceLocator.registerLazySingleton(() => DatabaseService.init());
+  serviceLocator.registerLazySingleton(() => GooglePlacesService());
   serviceLocator.registerLazySingleton(() => DummyDatabase());
 }

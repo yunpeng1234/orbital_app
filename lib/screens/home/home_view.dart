@@ -68,7 +68,7 @@ class HomeView extends StatelessWidget {
                         height: 200,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: model.locations
+                          children: model.dummyLocations
                             .map((location) => HomeScreenCard(
                               location: location,
                               onCardTapped: () => model.navigate('location', arguments: location)))
@@ -103,7 +103,7 @@ class HomeView extends StatelessWidget {
                         height: 200,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children : model.locations
+                          children : model.dummyLocations
                               .map((location) => HomeScreenCard(
                                 location: location,
                                 onCardTapped: () => model.navigate('order')))

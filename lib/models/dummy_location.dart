@@ -1,13 +1,13 @@
 // The fields correspond to the dummy data for now, at https://jsonplaceholder.typicode.com/photos
 
-class Location {
+class DummyLocation {
   int albumId;
   int id;
   String title;
   String url;
   String thumnailUrl;
 
-  Location({
+  DummyLocation({
     this.albumId,
     this.id,
     this.title,
@@ -15,7 +15,7 @@ class Location {
     this.thumnailUrl,
   });
 
-  Location.fromJson(Map<String, dynamic> json) {
+  DummyLocation.fromJson(Map<String, dynamic> json) {
     albumId = json['albumId'];
     id = json['id'];
     title = json['title'];
