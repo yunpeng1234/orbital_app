@@ -16,24 +16,22 @@ class GeolocationService {
 
   Future getAddress() async {
     Position position = await _currentPosition();
-    // Uncomment line below to use geocoder package
-
-    final coordinates = new Coordinates(position.latitude, position.longitude);
 
     // Uncomment to submit request to google directly
 
     // var url = Uri.parse((endpoint + '${position.latitude}'+ ',' + '${position.longitude}'+ '&key=' + apiKey));
-    // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+    // var response = await http.post(url);
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
-    //
+
 
     // Uncomment to use geocoder package
 
-    var address = await Geocoder.google(apiKey).findAddressesFromCoordinates(coordinates);
+    final coordinates = new Coordinates(position.latitude, position.longitude);
+    var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     print(address);
     print("${address.first.featureName} : ${address.first.addressLine}");
-    return address.first.featureName + ', ' + address.first.addressLine;
+    return address.first.addressLine;
 
     // Uncomment to use geocoding package
 
