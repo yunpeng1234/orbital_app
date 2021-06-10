@@ -59,7 +59,7 @@ class DatabaseService {
       'Done' : false,
       'item' : orderId,
     });
-  } 
+  }
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
     return ss.docs.map((x){

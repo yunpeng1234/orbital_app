@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:orbital_app/services/geolocation_service.dart';
 import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/password_reset_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
@@ -9,6 +10,7 @@ import 'package:orbital_app/view_models/order_view_model.dart';
 import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
 import 'package:orbital_app/view_models/submit_order_flow/input_order_view_model.dart';
 import 'dummy_database.dart';
+import 'geolocation_service.dart';
 import 'database.dart';
 import 'auth_service.dart';
 
@@ -25,6 +27,7 @@ void setupServiceLocator() {
   serviceLocator.registerFactory(() => InputOrderViewModel());
   serviceLocator.registerFactory(() => OrderViewModel());
   serviceLocator.registerLazySingleton(() => AuthService());
+  serviceLocator.registerLazySingleton(() => GeolocationService());
   serviceLocator.registerLazySingleton(() => DatabaseService.init());
   serviceLocator.registerLazySingleton(() => DummyDatabase());
 }

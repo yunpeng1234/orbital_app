@@ -5,10 +5,12 @@ import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'routes/route_generator.dart';
 import 'routes/nav_key.dart';
 
-void main() async{
+Future main() async{
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupServiceLocator();

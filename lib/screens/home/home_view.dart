@@ -11,6 +11,7 @@ import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/screens/authenticate/signin_view.dart';
 import 'package:orbital_app/shared/widgets/home_screen_card.dart';
+import 'package:orbital_app/screens/location_testing.dart';
 
 class HomeView extends StatelessWidget {
 
@@ -109,6 +110,10 @@ class HomeView extends StatelessWidget {
                               .toList()
                         ),
                       ),
+                      TextButton(
+                        child: Text('Test Location Service'),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder:(context) => LocationTesting())),
+                      )
                     ],
                   ),
                 )

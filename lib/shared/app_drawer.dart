@@ -72,11 +72,11 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () async {model.signOut();}
             ),
             _createDrawerItem(
-              icon: Icons.question_answer,
-              text: 'Testing page',
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) => OrderTesting()));
-              }
+                icon: Icons.question_answer,
+                text: 'Testing page',
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context) => OrderTesting()));
+                }
             ),
           ]
         ),

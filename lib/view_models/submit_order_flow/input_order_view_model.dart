@@ -9,8 +9,6 @@ class InputOrderViewModel extends BaseViewModel {
   final TextEditingController _orderController = new TextEditingController();
   final TextEditingController _notesController = new TextEditingController();
   final DatabaseService _database = serviceLocator<DatabaseService>();
-  final bool error = false;
-
 
   void setOrder(String order) {
     _orderController.text = order;
