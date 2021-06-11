@@ -11,6 +11,8 @@ import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/shared/loading.dart';
+import 'package:place_picker/place_picker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 
@@ -23,6 +25,14 @@ class OrderTesting extends StatefulWidget {
 class _OrderTestingState extends State<OrderTesting> {
   String usr = FirebaseAuth.instance.currentUser.uid;
   final serv = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
+
+  void showPlacePicker() async {
+    LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            PlacePicker(dotenv.env['PLACES_KEY'])));
+
+    print(result.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +74,18 @@ class _OrderTestingState extends State<OrderTesting> {
                   },
                   child: Text('create order')
                 ),
+                TextButton(
+                  onPressed: () {
+                    showPlacePicker();
+                  },
+                  child: Text("Pick a place"),
+                )
               ],
             ),)
           );
         }
       );
+
+
   }
 }
