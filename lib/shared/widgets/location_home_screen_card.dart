@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/models/location.dart';
+import 'package:orbital_app/models/dummy_location.dart';
+import 'package:orbital_app/models/my_location.dart';
 
-class HomeScreenCard extends StatelessWidget {
-  final Location location;
+class LocationHomeScreenCard extends StatelessWidget {
+  final MyLocation location;
   final Function onCardTapped;
 
-  const HomeScreenCard({
+  const LocationHomeScreenCard({
     this.location,
     this.onCardTapped,
     Key key,
@@ -35,7 +36,8 @@ class HomeScreenCard extends StatelessWidget {
                 child: Image(
                   fit: BoxFit.fill,
                   image: NetworkImage(
-                    location.url,
+                    location.photoUrl,
+                        // : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mcdonalds.com.sg%2F&psig=AOvVaw1IKce6KrFXgY0v8RHaUjoG&ust=1623433478667000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCC45DPjfECFQAAAAAdAAAAABAD'
                   ),
                 ),
               ),
@@ -46,7 +48,7 @@ class HomeScreenCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        location.title,
+                        location.name,
                         style: blackBodyText,
                       ),
                     ),

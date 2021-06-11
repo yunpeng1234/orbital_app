@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:async';
-import 'package:orbital_app/models/location.dart';
+import 'package:orbital_app/models/dummy_location.dart';
 import 'dart:convert';
 import 'dart:math';
 
@@ -9,7 +9,7 @@ class DummyDatabase {
   var client = new Client();
 
   Future<List<dynamic>> getSomeLocations() async {
-    var locations = <Location>[];
+    var locations = <DummyLocation>[];
 
     // Get locations
     var response = await client.get(Uri.parse('$endpoint/photos'));
@@ -19,7 +19,7 @@ class DummyDatabase {
 
     // Loop and convert each item to a Comment
     for (var comment in parsed) {
-      locations.add(Location.fromJson(comment));
+      locations.add(DummyLocation.fromJson(comment));
     }
 
     var rng = new Random();

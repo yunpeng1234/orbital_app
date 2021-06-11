@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orbital_app/services/google_places_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/services/geolocation_service.dart';
 import 'package:orbital_app/shared/constants.dart';
@@ -12,6 +13,7 @@ class LocationTesting extends StatefulWidget {
 
 class _LocationTestingState extends State<LocationTesting> {
   final _geolocator = serviceLocator<GeolocationService>();
+  final _service = serviceLocator<GooglePlacesService>();
   String address;
 
   @override
@@ -53,6 +55,29 @@ class _LocationTestingState extends State<LocationTesting> {
             ),
             verticalSpaceRegular,
             if (address != null) Text(address),
+//             verticalSpaceRegular,
+//             GestureDetector(
+//               onTap: () async {
+//                 var temp = await _service.getNearbyLocations();
+//               },
+//               child: Container(
+//                 width: double.infinity,
+//                 height: 50,
+//                 alignment: Alignment.center,
+//                 decoration: BoxDecoration(
+//                   color: greyButtonColor,
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 child:  Text(
+//                   'Get location details',
+//                   style: TextStyle(
+//                     color: Colors.white,
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: 16,
+//                   ),
+//                 ),
+//               ),
+//             ),
           ],
         )
     );
