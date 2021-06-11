@@ -35,6 +35,12 @@ class LocationView extends StatelessWidget {
                     children: [
                       Text(
                         location.name,
+                        style: blackBodyText,
+                      ),
+                      verticalSpaceRegular,
+                      Text(
+                        location.address,
+                        style: blackBodyText,
                       ),
                       GestureDetector(
                         onTap: () => model.navigateToInputOrder(location),

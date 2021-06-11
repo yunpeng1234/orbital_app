@@ -17,12 +17,15 @@ class GooglePlacesService {
     Position position = await _geolocator.currentPosition();
     List results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
     if (results.length > 10) {
-     results = results.sublist(1, 10);
+     results = results.sublist(0, 10);
     }
     List<MyLocation> locations = await Future.wait(results.map((result) async {
       String placeId = result.placeId;
-      var details = (await _service.details.get(placeId, fields: "formatted_address")).result;
-      String address = details.formattedAddress;
+      var details = await _service.details.get(placeId, fields: "formatted_address");
+      if (details == null || details.result == null) {
+        return null;
+      }
+      String address = details.result.formattedAddress;
       var reference = result.photos;
       if (reference == null) {
         reference ='';
@@ -40,6 +43,7 @@ class GooglePlacesService {
       print(loc);
       return loc;
     }).toList());
+    locations.removeWhere((elem) => elem == null);
     return locations;
   }
 }
