@@ -1,21 +1,22 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart'; //Geocoding package is iffy, gonna try google geocoding now
 import 'package:geocoder/geocoder.dart';
+import 'google_places_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 
 class GeolocationService {
-  String endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
-  String apiKey = dotenv.env['PLACES_KEY'];
+  final String endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+  final String apiKey = dotenv.env['PLACES_KEY'];
 
-  Future _currentPosition() async {
+  Future currentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
     return position;
   }
 
   Future getAddress() async {
-    Position position = await _currentPosition();
+    Position position = await currentPosition();
 
     // Uncomment to submit request to google directly
 

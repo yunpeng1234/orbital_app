@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
+import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
-import 'package:orbital_app/models/location.dart';
+import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/models/dummy_location.dart';
+import 'package:orbital_app/services/google_places_service.dart';
 
 class LocationView extends StatelessWidget {
-  final Location location;
+  final MyLocation location;
 
   const LocationView({
     Key key,
@@ -21,36 +24,49 @@ class LocationView extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
-                  location.title,
+                  location.name,
                   style: titleText,
                 ),
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Center(
-                  child: GestureDetector(
-                    onTap: () => model.navigateToInputOrder(location),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: greyButtonColor,
-                        borderRadius: BorderRadius.circular(8),
+                  child: Column(
+                    children: [
+                      Text(
+                        location.name,
+                        style: blackBodyText,
                       ),
-                      child: model.isBusy()
-                          ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                      )
-                          : Text(
-                        'Order',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      verticalSpaceRegular,
+                      Text(
+                        location.address,
+                        style: blackBodyText,
+                      ),
+                      GestureDetector(
+                        onTap: () => model.navigateToInputOrder(location),
+                        child: Container(
+                          width: double.infinity,
+                          height: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: greyButtonColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: model.isBusy()
+                              ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          )
+                              : Text(
+                            'Order',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -58,5 +74,3 @@ class LocationView extends StatelessWidget {
     );
   }
 }
-
-
