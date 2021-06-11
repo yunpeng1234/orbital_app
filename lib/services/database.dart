@@ -3,11 +3,14 @@ import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 class DatabaseService {
 
   final String uid;
   static final AuthService _auth = serviceLocator<AuthService>();
+  final geo = Geoflutterfire();
+
 
   DatabaseService({this.uid});
   //Collection reference
@@ -58,6 +61,7 @@ class DatabaseService {
       'From': uid,
       'Done' : false,
       'item' : orderId,
+      //'DeliverLoc': deliverTo.data,
     });
   }
 
@@ -68,6 +72,7 @@ class DatabaseService {
         to: (x.data() as Map)['To'] ?? '',
         done: (x.data() as Map)['Done'] ?? false,
         orderId: (x.data() as Map)['item']?? 0,
+        //deliverTo: (x.data() as Map)['DeliverLoc'],
       );
     }).toList();
   }
@@ -75,6 +80,24 @@ class DatabaseService {
   Stream<List<Order>> get orderData {
     return orders.snapshots().map(_orderFromSnapshot);
   }
+
+  List<Order> _orderFromFilter (List<DocumentSnapshot> docSnap) {
+    return docSnap.map((x) {
+      return Order(
+        from: (x.data() as Map)['From'] ?? '',
+        to: (x.data() as Map)['To'] ?? '',
+        done: (x.data() as Map)['Done'] ?? false,
+        orderId: (x.data() as Map)['item']?? 0,
+        //deliverTo: (x.data() as Map)['DeliverLoc'],
+      );
+    });
+  }
+
+  // Stream<List<Order>> get filteredByLocation(GeoFirePoint center) {
+  //   return geo.collection(collectionRef: orders)
+  //   .within(center: center, radius: 2.0, field: 'DeliverTo')
+  //   .map(_orderFromFilter);
+  // }
 
   Future acceptOrderData(int orderid) async {
     return await orders.doc(orderid.toString()).update({'To': uid});

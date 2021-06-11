@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
@@ -25,15 +26,18 @@ class OrderTesting extends StatefulWidget {
 class _OrderTestingState extends State<OrderTesting> {
   String usr = FirebaseAuth.instance.currentUser.uid;
   final serv = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
+  GeoFirePoint location;
 
   void showPlacePicker() async {
     LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
 
-    print(result.toString());
+    location = _converter(result);
   }
-
+  GeoFirePoint _converter(LocationResult result) {
+    return GeoFirePoint(result.latLng.latitude, result.latLng.longitude);
+  }
   @override
   Widget build(BuildContext context) {
       return StreamBuilder(
