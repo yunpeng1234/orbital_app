@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:orbital_app/services/database.dart';
 import '../base_view_model.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ class InputOrderViewModel extends BaseViewModel {
   final TextEditingController _orderController = new TextEditingController();
   final TextEditingController _notesController = new TextEditingController();
   final DatabaseService _database = serviceLocator<DatabaseService>();
+  final geo = Geoflutterfire();
 
   void setOrder(String order) {
     _orderController.text = order;
@@ -26,7 +29,7 @@ class InputOrderViewModel extends BaseViewModel {
     }
     try {
       var order = await runBusyFuture(
-          _database.createOrderData());
+          _database.createOrderData(GeoFirePoint(0.0, 0.0), GeoFirePoint(0.0, 0.0), '',''));
       _showSuccessDialog(context, this);
       return order;
     } catch (e) {

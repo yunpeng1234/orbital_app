@@ -49,31 +49,43 @@ class DatabaseService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
-  Future createOrderData() async {
+  Future createOrderData(GeoFirePoint deliverTo, GeoFirePoint restaurant, String order, String comments) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
     DocumentSnapshot toGet = await temp.doc('fixed').get();
     int orderId = toGet['id'];
     temp.doc('fixed').update({'id' : orderId + 1});
 
+    await users.doc(uid).set({
+      'Current' : orderId,
+    });
+
     return await orders.doc(orderId.toString()).set({
       'To' : '',
       'From': uid,
       'Done' : false,
-      'item' : orderId,
-      //'DeliverLoc': deliverTo.data,
+      'Item' : orderId,
+      'DeliverTo': deliverTo.data,
+      'Restaurant': restaurant.data,
+      'Order': order,
+      'Comments': comments,
     });
   }
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
+
     return ss.docs.map((x){
-      return Order(
+      var two =  Order(
         from: (x.data() as Map)['From'] ?? '',
         to: (x.data() as Map)['To'] ?? '',
         done: (x.data() as Map)['Done'] ?? false,
-        orderId: (x.data() as Map)['item']?? 0,
-        //deliverTo: (x.data() as Map)['DeliverLoc'],
+        orderId: (x.data() as Map)['Item']?? 0,
+        deliverTo: ((x.data() as Map)['DeliverTo'] as Map)['geopoint'] ?? null,
+        restaurant: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
+        order: (x.data() as Map)['Order'] ?? '',
+        comments: (x.data() as Map)['Comments'] ?? '',
       );
+      return two;
     }).toList();
   }
 
@@ -82,28 +94,55 @@ class DatabaseService {
   }
 
   List<Order> _orderFromFilter (List<DocumentSnapshot> docSnap) {
+    print(docSnap.map((x) {
+      print((x.data() as Map)['From']);
+      print(3);
+    }));
     return docSnap.map((x) {
-      return Order(
+      var two =  Order(
         from: (x.data() as Map)['From'] ?? '',
         to: (x.data() as Map)['To'] ?? '',
         done: (x.data() as Map)['Done'] ?? false,
-        orderId: (x.data() as Map)['item']?? 0,
-        //deliverTo: (x.data() as Map)['DeliverLoc'],
+        orderId: (x.data() as Map)['Item']?? 0,
+        deliverTo: ((x.data() as Map)['DeliverTo'] as Map)['geopoint'] ?? null,
+        restaurant: ((x.data() as Map)['Restaurant'] as Map)['geopoint'] ?? null,
+        order: (x.data() as Map)['Order'],
+        comments: (x.data() as Map)['Comments'],
+        
       );
-    });
+      return two;
+    }).toList();
   }
 
-  // Stream<List<Order>> get filteredByLocation(GeoFirePoint center) {
-  //   return geo.collection(collectionRef: orders)
-  //   .within(center: center, radius: 2.0, field: 'DeliverTo')
-  //   .map(_orderFromFilter);
-  // }
+  Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
+    return geo.collection(collectionRef: orders)
+    .within(center: center, radius: 2.0, field: 'Restaurant')
+    .map(_orderFromFilter);
+  }
+
+  bool _locationCheck(GeoPoint target) {
+    return true;
+  }
 
   Future acceptOrderData(int orderid) async {
+    await users.doc(uid).update({
+      'Current' : orderid,
+    });
+
     return await orders.doc(orderid.toString()).update({'To': uid});
   }
 
   Future deleteOrderData(int orderid) async {
+    String deliverer = (await orders.doc(orderid.toString()).get())['To'];
+    String deliveree = (await orders.doc(orderid.toString()).get())['From'];
+
+    await users.doc(deliveree).update({
+      'Current' : FieldValue.delete(),
+    });
+    await users.doc(deliverer).update({
+      'Current' : FieldValue.delete(),
+    });
+
     return await orders.doc(orderid.toString()).delete();
   }
 }

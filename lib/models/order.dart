@@ -7,8 +7,11 @@ class Order {
   final String to;
   final bool done;
   final int orderId;
-  //final GeoFirePoint deliverTo ;
+  final GeoPoint deliverTo;
+  final GeoPoint restaurant;
+  final String order;
+  final String comments; 
 
-  Order({this.from, this.to, this.done, this.orderId});
+  Order({this.from, this.to, this.done, this.orderId, this.deliverTo, this.restaurant, this.order, this.comments});
 
 }
