@@ -8,10 +8,12 @@ class Order {
   final bool done;
   final int orderId;
   final GeoPoint deliverTo;
-  final GeoPoint restaurant;
+  final GeoPoint restaurantLocation;
   final String order;
   final String comments; 
+  final String restaurantName;
+  final String restaurantAddress;
 
-  Order({this.from, this.to, this.done, this.orderId, this.deliverTo, this.restaurant, this.order, this.comments});
+  Order({this.from, this.to, this.done, this.orderId, this.deliverTo, this.restaurantLocation, this.order, this.comments, this.restaurantAddress, this.restaurantName});
 
 }

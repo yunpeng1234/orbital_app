@@ -56,7 +56,7 @@ class DatabaseService {
     int orderId = toGet['id'];
     temp.doc('fixed').update({'id' : orderId + 1});
 
-    await users.doc(uid).set({
+    await users.doc(uid).update({
       'Current' : orderId,
     });
 
@@ -69,6 +69,8 @@ class DatabaseService {
       'Restaurant': restaurant.data,
       'Order': order,
       'Comments': comments,
+      'RestaurantName' : '',
+      'RestaurantAddress' : '',
     });
   }
 
@@ -81,9 +83,12 @@ class DatabaseService {
         done: (x.data() as Map)['Done'] ?? false,
         orderId: (x.data() as Map)['Item']?? 0,
         deliverTo: ((x.data() as Map)['DeliverTo'] as Map)['geopoint'] ?? null,
-        restaurant: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
+        restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
         order: (x.data() as Map)['Order'] ?? '',
         comments: (x.data() as Map)['Comments'] ?? '',
+        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
+
       );
       return two;
     }).toList();
@@ -105,9 +110,11 @@ class DatabaseService {
         done: (x.data() as Map)['Done'] ?? false,
         orderId: (x.data() as Map)['Item']?? 0,
         deliverTo: ((x.data() as Map)['DeliverTo'] as Map)['geopoint'] ?? null,
-        restaurant: ((x.data() as Map)['Restaurant'] as Map)['geopoint'] ?? null,
+        restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint'] ?? null,
         order: (x.data() as Map)['Order'],
         comments: (x.data() as Map)['Comments'],
+        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
         
       );
       return two;
@@ -136,13 +143,18 @@ class DatabaseService {
     String deliverer = (await orders.doc(orderid.toString()).get())['To'];
     String deliveree = (await orders.doc(orderid.toString()).get())['From'];
 
-    await users.doc(deliveree).update({
+    if(deliverer == '') {
+      await users.doc(deliveree).update({
       'Current' : FieldValue.delete(),
     });
-    await users.doc(deliverer).update({
-      'Current' : FieldValue.delete(),
-    });
-
+    } else {
+      await users.doc(deliveree).update({
+        'Current' : FieldValue.delete(),
+      });
+      await users.doc(deliverer).update({
+        'Current' : FieldValue.delete(),
+      });
+    }
     return await orders.doc(orderid.toString()).delete();
   }
 }
