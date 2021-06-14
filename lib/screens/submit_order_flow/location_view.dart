@@ -9,8 +9,9 @@ import 'package:orbital_app/services/google_places_service.dart';
 
 class LocationView extends StatelessWidget {
   final MyLocation location;
+  final _formKey = GlobalKey<FormState>();
 
-  const LocationView({
+  LocationView({
     Key key,
     this.location,
   }) : super(key: key);
@@ -42,8 +43,43 @@ class LocationView extends StatelessWidget {
                         location.address,
                         style: blackBodyText,
                       ),
+                      verticalSpaceLarge,
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              minLines: 1,
+                              maxLines: null,
+                              decoration: textBoxDeco.copyWith(
+                                  hintText: 'Enter your order!'
+                              ),
+                              onSaved: (val) {
+                                model.setOrder(val);
+                              },
+                              validator: (val) => val.isEmpty ? 'Please enter your order.' : null,
+                            ),
+                            verticalSpaceRegular,
+                            TextFormField(
+                                minLines: 1,
+                                maxLines: null,
+                                decoration: textBoxDeco.copyWith(
+                                    hintText: 'Additional notes'
+                                ),
+                                onSaved: (val) => model.setComments(val)
+                            ),
+                          ],
+                        ),
+                      ),
+                      verticalSpaceRegular,
+                      if (model.chosenLocationAddress != null)
+                        Text(
+                          model.chosenLocationAddress,
+                          style: blackBodyText,
+                        ),
+                      verticalSpaceRegular,
                       GestureDetector(
-                        onTap: () => model.navigateToInputOrder(location),
+                        onTap: () => model.showPlacePicker(),
                         child: Container(
                           width: double.infinity,
                           height: 50,
@@ -57,7 +93,32 @@ class LocationView extends StatelessWidget {
                             valueColor: AlwaysStoppedAnimation(Colors.white),
                           )
                               : Text(
-                            'Order',
+                            'Select Location',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                      verticalSpaceLarge,
+                      GestureDetector(
+                        onTap: () => model.submitOrder(_formKey, context, location),
+                        child: Container(
+                          width: double.infinity,
+                          height: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: greyButtonColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: model.isBusy()
+                              ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          )
+                              : Text(
+                            'Submit Order',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

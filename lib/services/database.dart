@@ -49,7 +49,14 @@ class DatabaseService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
-  Future createOrderData(GeoFirePoint deliverTo, GeoFirePoint restaurant, String order, String comments) async {
+  Future createOrderData(
+      GeoFirePoint deliverTo,
+      GeoFirePoint restaurant,
+      String order,
+      String comments,
+      String restaurantName,
+      String restaurantAddress,
+      ) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
     DocumentSnapshot toGet = await temp.doc('fixed').get();
@@ -69,8 +76,8 @@ class DatabaseService {
       'Restaurant': restaurant.data,
       'Order': order,
       'Comments': comments,
-      'RestaurantName' : '',
-      'RestaurantAddress' : '',
+      'RestaurantName' : restaurantName,
+      'RestaurantAddress' : restaurantAddress,
     });
   }
 

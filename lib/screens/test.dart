@@ -97,7 +97,7 @@ class _OrderTestingState extends State<OrderTesting> {
                   onPressed: () async {
                     GeoFirePoint curr = lol;
                     GeoFirePoint placeholder = location;
-                    serv.createOrderData(curr, placeholder, '' , '');
+                    // serv.createOrderData(curr, placeholder, '' , '');
                     
                   },
                   child: Text('create order')
