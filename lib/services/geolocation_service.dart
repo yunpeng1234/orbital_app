@@ -30,8 +30,10 @@ class GeolocationService {
 
     // Uncomment to use geocoder package
 
-    final coordinates = new GeoC.Coordinates(position.latitude, position.longitude);
-    var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(coordinates);
+    final coordinates = new GeoC.Coordinates(
+        position.latitude, position.longitude);
+    var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
     return address.first.addressLine;
 
     // Uncomment to use geocoding package
@@ -43,4 +45,9 @@ class GeolocationService {
     // print(address);
     // return address;
   }
+
+  double calcDistance() {
+
+  }
+
 }

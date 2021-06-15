@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      ScrollingLocationCards(),
+                      // ScrollingLocationCards(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -82,7 +82,7 @@ class HomeView extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
-                                  'See More',
+                                  'Filter Orders',
                                   style: brownButtonText.copyWith(
                                       fontWeight: FontWeight.bold),
                                 ),

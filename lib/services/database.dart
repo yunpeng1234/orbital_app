@@ -129,10 +129,13 @@ class DatabaseService {
   Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 2.0, field: 'Restaurant')
-    .map(_orderFromFilter);
+    .map(_orderFromFilter)
+    .map((list) => list.where((order) => order.to == '').toList()
+    );
   }
 
-  bool _locationCheck(GeoPoint target) {
+  bool _destinationCheck(Order order) {
+    GeoPoint destination = order.deliverTo;
     return true;
   }
 
