@@ -20,14 +20,18 @@ class DatabaseService {
     return DatabaseService(uid: _auth.getUID());
   }
 
-  Future<void> updateUserData(String name) async {
+  Future<void> initialiseUserData(String name) async {
     return await users.doc(uid).set({
       'Username' : name,
       'PicUrl' : '',
     });
   } // things that are tied to the user themselves
   
-  
+  Future<void> updateUserData(String name) async {
+    return await users.doc(uid).update({
+      'Username' : name,
+    });
+  }
   Future<void> updateUserPic(String url) async {
     return await users.doc(uid).update({
       'PicUrl' : url,

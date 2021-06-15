@@ -46,8 +46,9 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                   onTap: () async {
                     PickedFile image = await ImagePicker().getImage(
                       source: ImageSource.gallery);
-                    
+                    print(image.path);
                     String dlUrl = await StorageService().uploadFile(image);
+                    print(dlUrl);
                     await user.updateUserPic(dlUrl);
                     setState(() {});
                   }
