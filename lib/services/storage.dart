@@ -13,7 +13,7 @@ class StorageService {
     String userID = string;
 
     Reference storageRef = store.ref().child('user/profile/${userID}');
-    UploadTask wait = storageRef.putFile(File(file.path)).then((snapshot) => (snapshot));
-    return await storageRef.getDownloadURL();
+    UploadTask wait = storageRef.putFile(File(file.path));
+    return storageRef.getDownloadURL();
   }
 }
