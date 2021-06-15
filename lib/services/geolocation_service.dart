@@ -11,7 +11,7 @@ class GeolocationService {
   final String endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
   final String apiKey = dotenv.env['PLACES_KEY'];
 
-  Future currentPosition() async {
+  Future<GeoFirePoint> currentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
     GeoFirePoint res = GeoFirePoint(position.latitude,position.longitude);
     return res;

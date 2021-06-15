@@ -157,14 +157,14 @@ class DatabaseService {
 
     if(deliverer == '') {
       await users.doc(deliveree).update({
-      'Current' : FieldValue.delete(),
+      'SubmittedOrder' : FieldValue.delete(),
     });
     } else {
       await users.doc(deliveree).update({
-        'Current' : FieldValue.delete(),
+        'TakenOrder' : FieldValue.delete(),
       });
       await users.doc(deliverer).update({
-        'Current' : FieldValue.delete(),
+        'SubmittedOrder' : FieldValue.delete(),
       });
     }
     return await orders.doc(orderid.toString()).delete();
