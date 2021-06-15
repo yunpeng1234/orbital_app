@@ -28,8 +28,8 @@ class OrderCard extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: ListView(
               children: <Widget>[
                 Text(
                   'From: ${order.from}',
@@ -43,6 +43,12 @@ class OrderCard extends StatelessWidget {
                 verticalSpaceTiny,
                 Text(
                   'Restaurant: ${order.restaurantName}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Order: ${order.order}',
+                  style: blackBodyText,
                 ),
               ],
             ),
