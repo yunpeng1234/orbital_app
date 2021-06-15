@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/order.dart';
 
-class OrderHomeScreenCard extends StatelessWidget {
+class OrderCard extends StatelessWidget {
   final Order order;
   final Function onCardTapped;
 
-  const OrderHomeScreenCard({
+  const OrderCard({
     this.order,
     this.onCardTapped,
     Key key,
@@ -27,18 +27,25 @@ class OrderHomeScreenCard extends StatelessWidget {
               Radius.circular(20.0),
             ),
           ),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'From: ${order.from}',
-                style: blackBodyText,
-              ),
-              verticalSpaceRegular,
-              Text(
-                'From: ${order.orderId}',
-                style: blackBodyText,
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'From: ${order.from}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Id: ${order.orderId}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Name: ${order.restaurantName}',
+                ),
+              ],
+            ),
           ),
         ),
       ),

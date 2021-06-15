@@ -95,8 +95,8 @@ class DatabaseService {
         restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
         order: (x.data() as Map)['Order'] ?? '',
         comments: (x.data() as Map)['Comments'] ?? '',
-        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
-        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantAddress: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
 
       );
       return two;
@@ -122,8 +122,8 @@ class DatabaseService {
         restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint'] ?? null,
         order: (x.data() as Map)['Order'],
         comments: (x.data() as Map)['Comments'],
-        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
-        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantAddress: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
         
       );
       return two;

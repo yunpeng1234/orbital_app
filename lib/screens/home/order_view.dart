@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/order_view_model.dart';
 
 class OrderView extends StatelessWidget {
+  final Order order;
+
+  const OrderView({
+    Key key,
+    this.order,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +26,9 @@ class OrderView extends StatelessWidget {
             centerTitle: true,
             iconTheme: IconThemeData(color: Colors.black),
             title: Text(
-              'Order',
+              'Order Details',
               style: titleText,
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.sort),
-                onPressed: () {},
-              )
-            ],
           ),
         )
     );
