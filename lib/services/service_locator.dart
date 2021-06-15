@@ -9,6 +9,7 @@ import 'package:orbital_app/view_models/home/all_locations_view_model.dart';
 import 'package:orbital_app/view_models/order_view_model.dart';
 import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
 import 'package:orbital_app/view_models/submit_order_flow/input_order_view_model.dart';
+import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
 import 'dummy_database.dart';
 import 'geolocation_service.dart';
 import 'database.dart';
@@ -23,7 +24,8 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => PasswordResetViewModel());
   serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
   serviceLocator.registerLazySingleton(() => AllLocationsViewModel());
-  serviceLocator.registerFactory(() => HomeViewModel());
+  serviceLocator.registerLazySingleton(() => ScrollingLocationCardsViewModel());
+  serviceLocator.registerLazySingleton(() => HomeViewModel());
   serviceLocator.registerFactory(() => LocationViewModel());
   serviceLocator.registerFactory(() => InputOrderViewModel());
   serviceLocator.registerFactory(() => OrderViewModel());

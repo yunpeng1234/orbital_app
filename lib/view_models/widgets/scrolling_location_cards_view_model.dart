@@ -8,29 +8,11 @@ import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/services/google_places_service.dart';
 import 'dart:async';
 
-class HomeViewModel extends BaseViewModel {
-  final DummyDatabase _dummy = serviceLocator<DummyDatabase>();
-  final DatabaseService _database = serviceLocator<DatabaseService>();
+class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
-  final StreamController <ViewState> _stateController  = StreamController<ViewState>();
-  List<DummyLocation> dummyLocations;
   List<MyLocation> locations;
-  Stream<List<Order>> orders;
-
-  Future _getSomeLocations() async {
-    dummyLocations = await runBusyFuture(_dummy.getSomeLocations());
-  }
 
   Future getNearbyLocations() async {
     locations = await runBusyFuture(_service.getNearbyLocations());
-  }
-
-  // Future getNearbyOrders() async {
-  //   orders = await runBusyFuture(_database.filteredByLocation());
-  // }
-
-  Future init() async {
-    getNearbyLocations();
-    // getNearbyOrders();
   }
 }

@@ -32,7 +32,7 @@ class _OrderTestingState extends State<OrderTesting> {
   final serv = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
   GeoFirePoint location;
   GeolocationService pog = serviceLocator<GeolocationService>();
-  Future<GeoFirePoint> ss =  serviceLocator<GeolocationService>().position();
+  Future<GeoFirePoint> ss =  serviceLocator<GeolocationService>().currentPosition();
   GeoFirePoint lol;
 
 

@@ -1,5 +1,6 @@
 import 'package:google_place/google_place.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:orbital_app/services/geolocation_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
@@ -14,7 +15,7 @@ class GooglePlacesService {
 
   // Remove some awaits next time
   Future getNearbyLocations() async {
-    Position position = await _geolocator.currentPosition();
+    GeoFirePoint position = await _geolocator.currentPosition();
     List results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
     if (results.length > 10) {
      results = results.sublist(0, 10);

@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart'; //Geocoding package is iffy, gonna try google geocoding now
+import 'package:geocoding/geocoding.dart';
 import 'package:geocoder/geocoder.dart' as GeoC;
 import 'google_places_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,15 +13,9 @@ class GeolocationService {
 
   Future currentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
-    return position;
-  }
-
-  Future<GeoFirePoint> position() async {
-    Position position = await Geolocator.getCurrentPosition();
     GeoFirePoint res = GeoFirePoint(position.latitude,position.longitude);
     return res;
   }
-
 
   Future getAddress() async {
     Position position = await Geolocator.getCurrentPosition();
@@ -38,8 +32,6 @@ class GeolocationService {
 
     final coordinates = new GeoC.Coordinates(position.latitude, position.longitude);
     var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(coordinates);
-    print(address);
-    print("${address.first.featureName} : ${address.first.addressLine}");
     return address.first.addressLine;
 
     // Uncomment to use geocoding package

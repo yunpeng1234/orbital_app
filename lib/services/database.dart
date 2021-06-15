@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
+import 'package:orbital_app/services/geolocation_service.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -8,8 +9,9 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 class DatabaseService {
 
   final String uid;
-  static final AuthService _auth = serviceLocator<AuthService>();
   final geo = Geoflutterfire();
+  static final AuthService _auth = serviceLocator<AuthService>();
+  static final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
 
 
   DatabaseService({this.uid});
@@ -129,6 +131,7 @@ class DatabaseService {
   }
 
   Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
+    // GeoFirePoint center = await _geolocationService.currentPosition();
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 2.0, field: 'Restaurant')
     .map(_orderFromFilter);
