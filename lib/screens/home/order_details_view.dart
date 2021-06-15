@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/view_models/order_view_model.dart';
+import 'package:orbital_app/view_models/home/order_details_view_model.dart';
 
-class OrderView extends StatelessWidget {
+class OrderDetailsView extends StatelessWidget {
   final Order order;
 
-  const OrderView({
+  const OrderDetailsView({
     Key key,
     this.order,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<OrderViewModel>(
+    return BaseView<OrderDetailsViewModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: primaryColor,
           resizeToAvoidBottomInset: false,
@@ -62,6 +62,31 @@ class OrderView extends StatelessWidget {
                 Text(
                     'Comments: ${order.comments}',
                   style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                GestureDetector(
+                  onTap: () => model.takeOrder(context, order.orderId),
+                  child: Container(
+                    width: double.infinity,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: greyButtonColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: model.isBusy()
+                        ? CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    )
+                        : Text(
+                      'Take Order',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

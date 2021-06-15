@@ -14,7 +14,7 @@ class GooglePlacesService {
 
 
   // Remove some awaits next time
-  Future getNearbyLocations() async {
+  Future<List<MyLocation>> getNearbyLocations() async {
     GeoFirePoint position = await _geolocator.currentPosition();
     List results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
     if (results.length > 10) {
@@ -41,7 +41,6 @@ class GooglePlacesService {
         address: address,
         photoUrl: urlEndpoint + reference + '&key=' + apiKey,
       );
-      print(loc);
       return loc;
     }).toList());
     locations.removeWhere((elem) => elem == null);

@@ -51,7 +51,7 @@ class DatabaseService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
-  Future createOrderData(
+  Future<void> createOrderData(
       GeoFirePoint deliverTo,
       GeoFirePoint restaurant,
       String order,
@@ -66,7 +66,7 @@ class DatabaseService {
     temp.doc('fixed').update({'id' : orderId + 1});
 
     await users.doc(uid).update({
-      'Current' : orderId,
+      'SubmittedOrder' : orderId,
     });
 
     return await orders.doc(orderId.toString()).set({
@@ -108,10 +108,6 @@ class DatabaseService {
   }
 
   List<Order> _orderFromFilter (List<DocumentSnapshot> docSnap) {
-    print(docSnap.map((x) {
-      print((x.data() as Map)['From']);
-      print(3);
-    }));
     return docSnap.map((x) {
       var two =  Order(
         from: (x.data() as Map)['From'] ?? '',
@@ -140,9 +136,9 @@ class DatabaseService {
     return true;
   }
 
-  Future acceptOrderData(int orderid) async {
+  Future<void> acceptOrderData(int orderid) async {
     await users.doc(uid).update({
-      'Current' : orderid,
+      'TakenOrder' : orderid,
     });
 
     return await orders.doc(orderid.toString()).update({'To': uid});

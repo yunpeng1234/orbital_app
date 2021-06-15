@@ -61,4 +61,19 @@ class LocationCard extends StatelessWidget {
       ),
     );
   }
+
+  // Widget getImage() {
+  //   try {
+  //     return Image(
+  //       fit: BoxFit.fill,
+  //       image: NetworkImage(
+  //         location.photoUrl,
+  //       )
+  //     )
+  //   } catch (e) {
+  //     return CircularProgressIndicator(
+  //       valueColor: AlwaysStoppedAnimation(Colors.white),
+  //     );
+  //   }
+  // }
 }
