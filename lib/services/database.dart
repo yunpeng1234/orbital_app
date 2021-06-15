@@ -20,25 +20,25 @@ class DatabaseService {
     return DatabaseService(uid: _auth.getUID());
   }
 
-  Future updateUserData(String name) async {
+  Future<void> updateUserData(String name) async {
     return await users.doc(uid).set({
       'Username' : name,
+      'PicUrl' : '',
     });
   } // things that are tied to the user themselves
   
-
-  List<IndividualData> _userFromSnapshot (QuerySnapshot ss) {
-    return ss.docs.map((doc) {
-      return IndividualData(
-        name: doc.get('Username')?? '', 
-      );
+  
+  Future<void> updateUserPic(String url) async {
+    return await users.doc(uid).update({
+      'PicUrl' : url,
     });
   }
- 
+
   IndividualData _dataFromSnapshot(DocumentSnapshot snapshot) {
     return IndividualData(
       uid: uid,
       name: (snapshot.data() as Map)['Username'],
+      picUrl: (snapshot.data() as Map)['PicUrl'],
     );
   }
 
