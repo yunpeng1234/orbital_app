@@ -8,6 +8,7 @@ class Individual {
 class IndividualData {
   final String uid;
   final String name;
+  final String picUrl;
 
-  IndividualData({this.uid, this.name});
+  IndividualData({this.uid, this.name, this.picUrl});
 }
