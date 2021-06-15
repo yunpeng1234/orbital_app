@@ -131,7 +131,6 @@ class DatabaseService {
   }
 
   Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
-    // GeoFirePoint center = await _geolocationService.currentPosition();
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 2.0, field: 'Restaurant')
     .map(_orderFromFilter);

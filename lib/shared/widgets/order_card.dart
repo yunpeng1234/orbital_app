@@ -42,7 +42,7 @@ class OrderCard extends StatelessWidget {
                 ),
                 verticalSpaceTiny,
                 Text(
-                  'Name: ${order.restaurantName}',
+                  'Restaurant: ${order.restaurantName}',
                 ),
               ],
             ),

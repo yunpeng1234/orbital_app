@@ -10,6 +10,7 @@ import 'package:orbital_app/screens/home/order_view.dart';
 import 'package:orbital_app/screens/submit_order_flow/location_view.dart';
 import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/screens/location_testing.dart';
 
 class RouteGenerator {
@@ -35,7 +36,8 @@ class RouteGenerator {
         page = AllLocationsView();
         break;
       case 'order':
-        page = OrderView();
+        final args = settings.arguments as Order;
+        page = OrderView(order: args,);
         break;
       case 'location':
         final args = settings.arguments as MyLocation;

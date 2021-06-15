@@ -19,15 +19,51 @@ class OrderView extends StatelessWidget {
           backgroundColor: primaryColor,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
             automaticallyImplyLeading: true,
-            elevation: 0,
-            centerTitle: true,
-            iconTheme: IconThemeData(color: Colors.black),
             title: Text(
               'Order Details',
               style: titleText,
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: <Widget>[
+                Text(
+                'From: ${order.from}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'ID: ${order.orderId}',
+                    style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Restaurant Name: ${order.restaurantName}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Restaurant Address: ${order.restaurantAddress}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Deliver To: ${order.deliverTo}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Order: ${order.order}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                    'Comments: ${order.comments}',
+                  style: blackBodyText,
+                ),
+              ],
             ),
           ),
         )
