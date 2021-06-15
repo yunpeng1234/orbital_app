@@ -23,12 +23,10 @@ class ScrollingOrderCards extends StatelessWidget {
           valueColor: AlwaysStoppedAnimation(Colors.white),
         )
         : StreamBuilder(
-            stream: model.orders,
+            stream: model.controller.stream,
             builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
             if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
               print(snapshot);
-              print(snapshot.hasData);
-              print(snapshot.data);
               return CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               );

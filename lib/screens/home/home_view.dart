@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // ScrollingLocationCards(),
+                      ScrollingLocationCards(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[

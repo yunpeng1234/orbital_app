@@ -25,6 +25,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
   String toUpdate = '';
   final DatabaseService user  = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
 
+
   
 
   @override
@@ -32,7 +33,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
     return StreamBuilder(
       stream: user.userData,
       builder:(BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
-        if (!snapshot.hasData) { return Loading();}
+        if (!snapshot.hasData) {Loading();}
         String username = snapshot.data.name;
         return Scaffold(
             appBar: AppBar(title: Text('texting'),),

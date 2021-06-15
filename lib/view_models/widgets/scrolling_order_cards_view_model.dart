@@ -14,9 +14,12 @@ class ScrollingOrderCardsViewModel<T> extends BaseViewModel {
   final DatabaseService _database = serviceLocator<DatabaseService>();
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   Stream<List<Order>> orders;
+  StreamController<List<Order>> controller = StreamController<List<Order>>.broadcast();
 
   Future getNearbyOrders() async {
     GeoFirePoint position = await _geolocator.currentPosition();
-    orders = _database.filteredByLocation(position).asBroadcastStream();
+    print('here');
+    //
+    controller.add(await _database.filteredByLocation(position).first);
   }
 }

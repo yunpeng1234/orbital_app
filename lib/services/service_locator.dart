@@ -30,7 +30,7 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => HomeViewModel());
   serviceLocator.registerLazySingleton(() => LocationViewModel());
   serviceLocator.registerFactory(() => InputOrderViewModel());
-  serviceLocator.registerLazySingleton(() => OrderDetailsViewModel());
+  serviceLocator.registerFactory(() => OrderDetailsViewModel());
   serviceLocator.registerLazySingleton(() => AuthService());
   serviceLocator.registerLazySingleton(() => GeolocationService());
   serviceLocator.registerLazySingleton(() => DatabaseService.init());
