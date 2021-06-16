@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
+import 'package:orbital_app/services/geolocation_service.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -8,8 +9,9 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 class DatabaseService {
 
   final String uid;
-  static final AuthService _auth = serviceLocator<AuthService>();
   final geo = Geoflutterfire();
+  static final AuthService _auth = serviceLocator<AuthService>();
+  static final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
 
 
   DatabaseService({this.uid});
@@ -53,7 +55,14 @@ class DatabaseService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
 
-  Future createOrderData(GeoFirePoint deliverTo, GeoFirePoint restaurant, String order, String comments) async {
+  Future<void> createOrderData(
+      GeoFirePoint deliverTo,
+      GeoFirePoint restaurant,
+      String order,
+      String comments,
+      String restaurantName,
+      String restaurantAddress,
+      ) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
     DocumentSnapshot toGet = await temp.doc('fixed').get();
@@ -61,7 +70,7 @@ class DatabaseService {
     temp.doc('fixed').update({'id' : orderId + 1});
 
     await users.doc(uid).update({
-      'Current' : orderId,
+      'SubmittedOrder' : orderId,
     });
 
     return await orders.doc(orderId.toString()).set({
@@ -73,8 +82,8 @@ class DatabaseService {
       'Restaurant': restaurant.data,
       'Order': order,
       'Comments': comments,
-      'RestaurantName' : '',
-      'RestaurantAddress' : '',
+      'RestaurantName' : restaurantName,
+      'RestaurantAddress' : restaurantAddress,
     });
   }
 
@@ -90,8 +99,8 @@ class DatabaseService {
         restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
         order: (x.data() as Map)['Order'] ?? '',
         comments: (x.data() as Map)['Comments'] ?? '',
-        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
-        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantAddress: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
 
       );
       return two;
@@ -103,10 +112,6 @@ class DatabaseService {
   }
 
   List<Order> _orderFromFilter (List<DocumentSnapshot> docSnap) {
-    print(docSnap.map((x) {
-      print((x.data() as Map)['From']);
-      print(3);
-    }));
     return docSnap.map((x) {
       var two =  Order(
         from: (x.data() as Map)['From'] ?? '',
@@ -117,8 +122,8 @@ class DatabaseService {
         restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint'] ?? null,
         order: (x.data() as Map)['Order'],
         comments: (x.data() as Map)['Comments'],
-        restaurantAddress: (x.data() as Map)['RestaurantName'] ?? '',
-        restaurantName: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantAddress: (x.data() as Map)['RestaurantAddress'] ?? '',
+        restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
         
       );
       return two;
@@ -128,16 +133,19 @@ class DatabaseService {
   Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 2.0, field: 'Restaurant')
-    .map(_orderFromFilter);
+    .map(_orderFromFilter)
+    .map((list) => list.where((order) => order.to == '').toList()
+    );
   }
 
-  bool _locationCheck(GeoPoint target) {
+  bool _destinationCheck(Order order) {
+    GeoPoint destination = order.deliverTo;
     return true;
   }
 
-  Future acceptOrderData(int orderid) async {
+  Future<void> acceptOrderData(int orderid) async {
     await users.doc(uid).update({
-      'Current' : orderid,
+      'TakenOrder' : orderid,
     });
 
     return await orders.doc(orderid.toString()).update({'To': uid});
@@ -149,14 +157,14 @@ class DatabaseService {
 
     if(deliverer == '') {
       await users.doc(deliveree).update({
-      'Current' : FieldValue.delete(),
+      'SubmittedOrder' : FieldValue.delete(),
     });
     } else {
       await users.doc(deliveree).update({
-        'Current' : FieldValue.delete(),
+        'TakenOrder' : FieldValue.delete(),
       });
       await users.doc(deliverer).update({
-        'Current' : FieldValue.delete(),
+        'SubmittedOrder' : FieldValue.delete(),
       });
     }
     return await orders.doc(orderid.toString()).delete();

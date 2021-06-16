@@ -27,7 +27,7 @@ abstract class BaseViewModel extends ChangeNotifier {
     navState.pop();
   }
 
-  Future runBusyFuture(Future busyFunc) async {
+  Future<T> runBusyFuture<T>(Future<T> busyFunc) async {
     setState(ViewState.busy);
     try {
       var value = await busyFunc;

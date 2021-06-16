@@ -32,7 +32,7 @@ class _OrderTestingState extends State<OrderTesting> {
   final serv = DatabaseService(uid: FirebaseAuth.instance.currentUser.uid);
   GeoFirePoint location;
   GeolocationService pog = serviceLocator<GeolocationService>();
-  Future<GeoFirePoint> ss =  serviceLocator<GeolocationService>().position();
+  Future<GeoFirePoint> ss =  serviceLocator<GeolocationService>().currentPosition();
   GeoFirePoint lol;
 
 
@@ -97,7 +97,7 @@ class _OrderTestingState extends State<OrderTesting> {
                   onPressed: () async {
                     GeoFirePoint curr = lol;
                     GeoFirePoint placeholder = location;
-                    serv.createOrderData(curr, placeholder, '' , '');
+                    // serv.createOrderData(curr, placeholder, '' , '');
                     
                   },
                   child: Text('create order')

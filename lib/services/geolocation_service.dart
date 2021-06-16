@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart'; //Geocoding package is iffy, gonna try google geocoding now
+import 'package:geocoding/geocoding.dart';
 import 'package:geocoder/geocoder.dart' as GeoC;
 import 'google_places_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,17 +11,11 @@ class GeolocationService {
   final String endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
   final String apiKey = dotenv.env['PLACES_KEY'];
 
-  Future currentPosition() async {
-    Position position = await Geolocator.getCurrentPosition();
-    return position;
-  }
-
-  Future<GeoFirePoint> position() async {
+  Future<GeoFirePoint> currentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
     GeoFirePoint res = GeoFirePoint(position.latitude,position.longitude);
     return res;
   }
-
 
   Future getAddress() async {
     Position position = await Geolocator.getCurrentPosition();
@@ -36,10 +30,10 @@ class GeolocationService {
 
     // Uncomment to use geocoder package
 
-    final coordinates = new GeoC.Coordinates(position.latitude, position.longitude);
-    var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(coordinates);
-    print(address);
-    print("${address.first.featureName} : ${address.first.addressLine}");
+    final coordinates = new GeoC.Coordinates(
+        position.latitude, position.longitude);
+    var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(
+        coordinates);
     return address.first.addressLine;
 
     // Uncomment to use geocoding package
@@ -51,4 +45,9 @@ class GeolocationService {
     // print(address);
     // return address;
   }
+
+  double calcDistance() {
+
+  }
+
 }

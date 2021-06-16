@@ -3,11 +3,11 @@ import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/models/my_location.dart';
 
-class LocationHomeScreenCard extends StatelessWidget {
+class LocationCard extends StatelessWidget {
   final MyLocation location;
   final Function onCardTapped;
 
-  const LocationHomeScreenCard({
+  const LocationCard({
     this.location,
     this.onCardTapped,
     Key key,
@@ -61,4 +61,19 @@ class LocationHomeScreenCard extends StatelessWidget {
       ),
     );
   }
+
+  // Widget getImage() {
+  //   try {
+  //     return Image(
+  //       fit: BoxFit.fill,
+  //       image: NetworkImage(
+  //         location.photoUrl,
+  //       )
+  //     )
+  //   } catch (e) {
+  //     return CircularProgressIndicator(
+  //       valueColor: AlwaysStoppedAnimation(Colors.white),
+  //     );
+  //   }
+  // }
 }

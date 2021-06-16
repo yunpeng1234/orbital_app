@@ -6,10 +6,11 @@ import 'package:orbital_app/screens/authenticate/register_view.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
 import 'package:orbital_app/screens/home/all_locations_view.dart';
 import 'package:orbital_app/screens/submit_order_flow/input_order_view.dart';
-import 'package:orbital_app/screens/take_order_flow/order_view.dart';
-import 'package:orbital_app/screens/submit_order_flow/location_view.dart';
+import 'package:orbital_app/screens/home/order_details_view.dart';
+import 'package:orbital_app/screens/home/location_view.dart';
 import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/screens/location_testing.dart';
 
 class RouteGenerator {
@@ -35,7 +36,8 @@ class RouteGenerator {
         page = AllLocationsView();
         break;
       case 'order':
-        page = OrderView();
+        final args = settings.arguments as Order;
+        page = OrderDetailsView(order: args,);
         break;
       case 'location':
         final args = settings.arguments as MyLocation;

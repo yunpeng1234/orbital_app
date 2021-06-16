@@ -24,18 +24,18 @@ class InputOrderViewModel extends BaseViewModel {
   // Only submitting order data for now (listed as 'item' in database), to possibly include more
   // in the future e.g. location, extra notes
   Future submitOrder(GlobalKey<FormState> formKey, BuildContext context) async {
-    if (! processForm(formKey)) {
-      return;
-    }
-    try {
-      var order = await runBusyFuture(
-          _database.createOrderData(GeoFirePoint(0.0, 0.0), GeoFirePoint(0.0, 0.0), '',''));
-      _showSuccessDialog(context, this);
-      return order;
-    } catch (e) {
-      print(e.toString());
-      return;
-    }
+    // if (! processForm(formKey)) {
+    //   return;
+    // }
+    // try {
+    //   var order = await runBusyFuture(
+    //       _database.createOrderData(GeoFirePoint(0.0, 0.0), GeoFirePoint(0.0, 0.0), '',''));
+    //   _showSuccessDialog(context, this);
+    //   return order;
+    // } catch (e) {
+    //   print(e.toString());
+    //   return;
+    // }
   }
 
   Future navigateToHome() async {
