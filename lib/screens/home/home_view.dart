@@ -24,7 +24,6 @@ class HomeView extends StatelessWidget {
     }
 
     return BaseView<HomeViewModel>(
-      // onModelReady: (model) => model.getNearbyLocations(),
       builder: (context, model, child) => model.state == ViewState.busy
         ? Center(child: Loading())
         : Scaffold(
@@ -49,24 +48,24 @@ class HomeView extends StatelessWidget {
                           ),
                           // Jank way of making the 'See All' look like its centered
                           // to the other text
-                          Column(
-                            children: [
-                              verticalSpaceTiny,
-                              GestureDetector(
-                                onTap: () async {
-                                  model.navigate('allLocations');
-                                },
-                                child: Text(
-                                  'See More',
-                                  style: brownButtonText.copyWith(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Column(
+                          //   children: [
+                          //     verticalSpaceTiny,
+                          //     GestureDetector(
+                          //       onTap: () async {
+                          //         model.navigate('allLocations');
+                          //       },
+                          //       child: Text(
+                          //         'See More',
+                          //         style: brownButtonText.copyWith(
+                          //             fontWeight: FontWeight.bold),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
-                      // ScrollingLocationCards(),
+                      ScrollingLocationCards(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -80,7 +79,7 @@ class HomeView extends StatelessWidget {
                           //   children: [
                           //     verticalSpaceTiny,
                           //     GestureDetector(
-                          //       onTap: () {},
+                          //       onTap: () => model.showPlacePicker(),
                           //       child: Text(
                           //         'Filter Orders',
                           //         style: brownButtonText.copyWith(
@@ -91,9 +90,7 @@ class HomeView extends StatelessWidget {
                           // ),
                         ],
                       ),
-                      model.chosenLocation == null
-                          ? ScrollingOrderCards(chosenLocation: model.chosenLocation)
-                          : ScrollingOrderCards(),
+                      ScrollingOrderCards(),
                       // Container(
                       //   height: 200,
                       //   child: ListView(
