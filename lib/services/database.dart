@@ -92,7 +92,6 @@ class DatabaseService {
   }
 
   List<Order> _orderFromSnapshot (QuerySnapshot ss) {
-
     return ss.docs.map((x){
       var two =  Order(
         from: (x.data() as Map)['From'] ?? '',
@@ -186,5 +185,16 @@ class DatabaseService {
       });
     }
     return await orders.doc(orderid.toString()).delete();
+  }
+
+  Future completeOrderData(int orderid) async {
+    await orders.doc(orderid.toString()).update({
+      'Done' : true,
+    });
+  }
+
+
+  Stream<List<Order>> userOrder() {
+    return orders.where('From', isEqualTo: uid).snapshots().map(_orderFromSnapshot);
   }
 }
