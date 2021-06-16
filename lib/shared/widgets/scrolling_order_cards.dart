@@ -9,9 +9,10 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'location_card.dart';
 
 class ScrollingOrderCards extends StatelessWidget {
-
+  final GeoFirePoint chosenLocation;
 
   const ScrollingOrderCards({
+    this.chosenLocation,
     Key key,
   }) : super(key: key);
 
@@ -42,16 +43,29 @@ class ScrollingOrderCards extends StatelessWidget {
                 ],
               );
             }
-            return Container(
-              height: 200,
-              child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: snapshot.data
-                        .map((order) => OrderCard(
-                        order: order,
-                        onCardTapped: () => model.navigate('order', arguments: order)))
-                        .toList()
-              ),
+            return Column(
+              children: [
+                Container(
+                  height: 200,
+                  child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: snapshot.data
+                            .map((order) => OrderCard(
+                            order: order,
+                            onCardTapped: () => model.navigate('order', arguments: order)))
+                            .toList()
+                  ),
+                ),
+                verticalSpaceRegular,
+                GestureDetector(
+                  onTap: () => model.showPlacePicker(),
+                  child: Text(
+                    'Filter Orders',
+                    style: brownButtonText.copyWith(
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             );
         }
       )

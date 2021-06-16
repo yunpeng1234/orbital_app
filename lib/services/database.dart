@@ -146,6 +146,16 @@ class DatabaseService {
     );
   }
 
+  Stream<List<Order>> filteredByLocationAndDestination(GeoFirePoint center, GeoFirePoint chosenLocation) {
+    return geo.collection(collectionRef: orders)
+        .within(center: center, radius: 2.0, field: 'Restaurant')
+        .map(_orderFromFilter)
+        .map((list) => list.where((order) => order.to == '' &&
+          chosenLocation.distance(lat: order.deliverTo.latitude, lng: order.deliverTo.longitude) < 0.5) // distance in km
+        .toList()
+    );
+  }
+
   bool _destinationCheck(Order order) {
     GeoPoint destination = order.deliverTo;
     return true;
