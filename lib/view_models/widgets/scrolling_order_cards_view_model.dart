@@ -18,8 +18,7 @@ class ScrollingOrderCardsViewModel<T> extends BaseViewModel {
 
   Future getNearbyOrders() async {
     GeoFirePoint position = await _geolocator.currentPosition();
-    print('here');
-    //
+    // orders = _database.filteredByLocation(position);
     controller.add(await _database.filteredByLocation(position).first);
   }
 }

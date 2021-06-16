@@ -32,6 +32,21 @@ class OrderCard extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 Text(
+                  'Restaurant: ${order.restaurantName}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Deliver To: ${order.deliverToAddress}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Order: ${order.order}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
                   'From: ${order.from}',
                   style: blackBodyText,
                 ),
@@ -41,15 +56,7 @@ class OrderCard extends StatelessWidget {
                   style: blackBodyText,
                 ),
                 verticalSpaceTiny,
-                Text(
-                  'Restaurant: ${order.restaurantName}',
-                  style: blackBodyText,
-                ),
-                verticalSpaceTiny,
-                Text(
-                  'Order: ${order.order}',
-                  style: blackBodyText,
-                ),
+
               ],
             ),
           ),

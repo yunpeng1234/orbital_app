@@ -62,6 +62,8 @@ class DatabaseService {
       String comments,
       String restaurantName,
       String restaurantAddress,
+      String deliverToAddress,
+      String userAddressDetails,
       ) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
@@ -79,6 +81,8 @@ class DatabaseService {
       'Done' : false,
       'Item' : orderId,
       'DeliverTo': deliverTo.data,
+      'DeliverToAddress': deliverToAddress,
+      'UserAddressDetails': userAddressDetails,
       'Restaurant': restaurant.data,
       'Order': order,
       'Comments': comments,
@@ -96,6 +100,8 @@ class DatabaseService {
         done: (x.data() as Map)['Done'] ?? false,
         orderId: (x.data() as Map)['Item']?? 0,
         deliverTo: ((x.data() as Map)['DeliverTo'] as Map)['geopoint'] ?? null,
+        deliverToAddress: (x.data() as Map)['DeliverToAddress'] ?? '',
+        userAddressDetails: (x.data() as Map)['UserAddressDetails'] ?? '',
         restaurantLocation: ((x.data() as Map)['Restaurant'] as Map)['geopoint']?? null,
         order: (x.data() as Map)['Order'] ?? '',
         comments: (x.data() as Map)['Comments'] ?? '',
@@ -124,6 +130,8 @@ class DatabaseService {
         comments: (x.data() as Map)['Comments'],
         restaurantAddress: (x.data() as Map)['RestaurantAddress'] ?? '',
         restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
+        deliverToAddress: (x.data() as Map)['DeliverToAddress'] ?? '',
+        userAddressDetails: (x.data() as Map)['UserAddressDetails'] ?? '',
         
       );
       return two;
