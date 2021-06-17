@@ -39,6 +39,16 @@ class _ScrollingOrderCardsState extends State<ScrollingOrderCards> {
                   Text(
                     'No orders in your area! :(',
                     style: titleText,
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpaceRegular,
+                  GestureDetector(
+                    onTap: () => model.showPlacePicker(),
+                    child: Text(
+                      'Filter Orders',
+                      style: brownButtonText.copyWith(
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               );
