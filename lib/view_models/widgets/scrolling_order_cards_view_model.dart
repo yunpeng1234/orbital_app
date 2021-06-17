@@ -13,19 +13,28 @@ class ScrollingOrderCardsViewModel<T> extends BaseViewModel {
   final DatabaseService _database = serviceLocator<DatabaseService>();
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   Stream<List<Order>> orders;
-  StreamController<List<Order>> controller = StreamController<List<Order>>.broadcast();
+  // StreamController<List<Order>> controller = StreamController<List<Order>>.broadcast();
+  GeoFirePoint userLocation;
   GeoFirePoint chosenLocation;
 
-  Future getNearbyOrders() async {
-    GeoFirePoint position = await _geolocator.currentPosition();
-    // orders = _database.filteredByLocation(position);
-    controller.add(await _database.filteredByLocation(position).first);
+  Future getCurrentPosition() async {
+    userLocation = await runBusyFuture(_geolocator.currentPosition());
+    getNearbyOrders();
   }
 
-  Future _getNearbyOrdersFiltered() async {
-    GeoFirePoint position = await _geolocator.currentPosition();
-    // orders = _database.filteredByLocation(position);
-    controller.add(await _database.filteredByLocationAndDestination(position, chosenLocation).first);
+  // Future getNearbyOrders() async {
+  //   GeoFirePoint position = await _geolocator.currentPosition();
+  //   // orders = _database.filteredByLocation(position);
+  //   controller.add(await _database.filteredByLocation(position).first);
+  // }
+
+  void getNearbyOrders()  {
+    orders = _database.filteredByLocation(userLocation);
+  }
+
+  void _getNearbyOrdersFiltered() {
+    orders = _database.filteredByLocationAndDestination(userLocation, chosenLocation);
+    notifyListeners();
   }
 
   GeoFirePoint _converter(LocationResult result) {
@@ -38,7 +47,7 @@ class ScrollingOrderCardsViewModel<T> extends BaseViewModel {
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
     chosenLocation = _converter(result);
-    _getNearbyOrdersFiltered();
+    await _getNearbyOrdersFiltered();
   }
 
 }

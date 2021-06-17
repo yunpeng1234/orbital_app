@@ -6,29 +6,29 @@ import 'package:orbital_app/view_models/base_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_order_cards_view_model.dart';
 import 'package:orbital_app/shared/widgets/order_card.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'dart:async';
 
 
-class ScrollingOrderCards extends StatelessWidget {
-  final GeoFirePoint chosenLocation;
+class ScrollingOrderCards extends StatefulWidget {
 
   const ScrollingOrderCards({
-    this.chosenLocation,
     Key key,
   }) : super(key: key);
 
   @override
+  _ScrollingOrderCardsState createState() => _ScrollingOrderCardsState();
+}
+
+class _ScrollingOrderCardsState extends State<ScrollingOrderCards> {
+
+  @override
   Widget build(BuildContext context) {
     return BaseView<ScrollingOrderCardsViewModel>(
-      onModelReady: (model) => model.getNearbyOrders(),
-      builder: (context, model, child) => model.state == ViewState.busy
-        ? CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(Colors.white),
-        )
-        : StreamBuilder(
-            stream: model.controller.stream,
+      onModelReady: (model) => model.getCurrentPosition(),
+      builder: (context, model, child) => StreamBuilder(
+            stream: model.orders,
             builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
             if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
-              print(snapshot);
               return CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.white),
               );
