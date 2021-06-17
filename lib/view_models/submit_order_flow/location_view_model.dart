@@ -1,3 +1,5 @@
+import 'package:orbital_app/services/geolocation_service.dart';
+
 import '../base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:place_picker/place_picker.dart';
@@ -12,10 +14,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class LocationViewModel extends BaseViewModel {
   final TextEditingController _orderController = new TextEditingController();
   final TextEditingController _commentsController = new TextEditingController();
+  final TextEditingController _detailsController = new TextEditingController();
   final DatabaseService _database = serviceLocator<DatabaseService>();
+  final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   final geo = Geoflutterfire();
-  GeoFirePoint chosenLocation;
-  String chosenLocationAddress;
+  GeoFirePoint userLocation;
+  String userLocationAddress;
 
   void setOrder(String order) {
     _orderController.text = order;
@@ -23,6 +27,10 @@ class LocationViewModel extends BaseViewModel {
 
   void setComments(String comments) {
     _commentsController.text = comments;
+  }
+
+  void setDetails(String details) {
+    _detailsController.text = details;
   }
 
   Future _showSuccessDialog(BuildContext context, LocationViewModel model) {
@@ -61,8 +69,9 @@ class LocationViewModel extends BaseViewModel {
     }
     try {
       var order = await runBusyFuture(
-          _database.createOrderData(chosenLocation, GeoFirePoint(restaurant.lat, restaurant.long),
-              _orderController.text, _commentsController.text, restaurant.name, restaurant.address));
+          _database.createOrderData(userLocation, GeoFirePoint(restaurant.lat, restaurant.long),
+          _orderController.text, _commentsController.text, restaurant.name, restaurant.address,
+          userLocationAddress, _detailsController.text));
       _showSuccessDialog(context, this);
       return order;
     } catch (e) {
@@ -84,8 +93,14 @@ class LocationViewModel extends BaseViewModel {
     LocationResult result = await navState.push(MaterialPageRoute(
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
-    chosenLocation = _converter(result);
-    chosenLocationAddress = result.formattedAddress;
+    userLocation = _converter(result);
+    userLocationAddress = result.formattedAddress;
+    notifyListeners();
+  }
+
+  Future getCurrentPosition() async {
+    userLocation = await runBusyFuture(_geolocator.currentPosition());
+    userLocationAddress = await runBusyFuture(_geolocator.getAddress());
     notifyListeners();
   }
 }

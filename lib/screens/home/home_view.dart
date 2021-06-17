@@ -24,7 +24,6 @@ class HomeView extends StatelessWidget {
     }
 
     return BaseView<HomeViewModel>(
-      // onModelReady: (model) => model.getNearbyLocations(),
       builder: (context, model, child) => model.state == ViewState.busy
         ? Center(child: Loading())
         : Scaffold(
@@ -49,21 +48,21 @@ class HomeView extends StatelessWidget {
                           ),
                           // Jank way of making the 'See All' look like its centered
                           // to the other text
-                          Column(
-                            children: [
-                              verticalSpaceTiny,
-                              GestureDetector(
-                                onTap: () async {
-                                  model.navigate('allLocations');
-                                },
-                                child: Text(
-                                  'See More',
-                                  style: brownButtonText.copyWith(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Column(
+                          //   children: [
+                          //     verticalSpaceTiny,
+                          //     GestureDetector(
+                          //       onTap: () async {
+                          //         model.navigate('allLocations');
+                          //       },
+                          //       child: Text(
+                          //         'See More',
+                          //         style: brownButtonText.copyWith(
+                          //             fontWeight: FontWeight.bold),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                       ScrollingLocationCards(),
@@ -76,19 +75,19 @@ class HomeView extends StatelessWidget {
                           ),
                           // Jank way of making the 'See All' look like its centered
                           // to the other text
-                          Column(
-                            children: [
-                              verticalSpaceTiny,
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  'Filter Orders',
-                                  style: brownButtonText.copyWith(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Column(
+                          //   children: [
+                          //     verticalSpaceTiny,
+                          //     GestureDetector(
+                          //       onTap: () => model.showPlacePicker(),
+                          //       child: Text(
+                          //         'Filter Orders',
+                          //         style: brownButtonText.copyWith(
+                          //             fontWeight: FontWeight.bold),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                       ScrollingOrderCards(),
@@ -103,10 +102,6 @@ class HomeView extends StatelessWidget {
                       //           .toList()
                       //   ),
                       // ),
-                      TextButton(
-                        child: Text('Test Location Service'),
-                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder:(context) => LocationTesting())),
-                      )
                     ],
                   ),
                 )

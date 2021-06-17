@@ -24,12 +24,13 @@ class GooglePlacesService {
       String placeId = result.placeId;
       var details = await _service.details.get(placeId, fields: "formatted_address");
       if (details == null || details.result == null) {
+        if (details != null) print(details.status);
         return null;
       }
       String address = details.result.formattedAddress;
       var reference = result.photos;
       if (reference == null) {
-        reference ='';
+        reference = '';
       } else {
         reference = result.photos.first.photoReference;
       }

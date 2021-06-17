@@ -26,7 +26,7 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
   serviceLocator.registerLazySingleton(() => AllLocationsViewModel());
   serviceLocator.registerLazySingleton(() => ScrollingLocationCardsViewModel());
-  serviceLocator.registerLazySingleton(() => ScrollingOrderCardsViewModel());
+  serviceLocator.registerFactory(() => ScrollingOrderCardsViewModel());
   serviceLocator.registerLazySingleton(() => HomeViewModel());
   serviceLocator.registerLazySingleton(() => LocationViewModel());
   serviceLocator.registerFactory(() => InputOrderViewModel());

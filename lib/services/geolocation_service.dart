@@ -17,7 +17,7 @@ class GeolocationService {
     return res;
   }
 
-  Future getAddress() async {
+  Future<String> getAddress() async {
     Position position = await Geolocator.getCurrentPosition();
 
     // Uncomment to submit request to google directly
