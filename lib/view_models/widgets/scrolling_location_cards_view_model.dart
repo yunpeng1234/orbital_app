@@ -10,9 +10,9 @@ import 'dart:async';
 
 class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
-  Future<List<MyLocation>> locations;
+  List<MyLocation> locations;
 
   Future getNearbyLocations() async {
-    locations = _service.getNearbyLocations();
+    locations = await runBusyFuture(_service.getNearbyLocations());
   }
 }
