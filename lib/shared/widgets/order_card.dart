@@ -14,13 +14,23 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // if(order.done) {
+    //   return Container(
+    //     width: 180,
+    //     height: 140,
+    //     color: Colors.green,
+    //   );
+    // }
+
     return Container(
+      
       width: 180,
       height: 140,
       child: GestureDetector(
         onTap: onCardTapped,
         child: Card(
           margin: EdgeInsets.all(10),
+          color: !order.done ? Colors.white : Colors.green,
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.all(
@@ -47,7 +57,12 @@ class OrderCard extends StatelessWidget {
                 ),
                 verticalSpaceTiny,
                 Text(
-                  'From: ${order.from}',
+                  'From: ${order.fromName}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceTiny,
+                Text(
+                  'Id: ${order.toName}',
                   style: blackBodyText,
                 ),
                 verticalSpaceTiny,

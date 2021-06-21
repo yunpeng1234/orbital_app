@@ -12,7 +12,7 @@ import 'package:orbital_app/shared/widgets/scrolling_order_cards.dart';
 
 
 
-class ScrollingOrderCardsViewModel extends BaseViewModel {
+class ScrollingTakenOrderViewModel extends BaseViewModel {
 
   final OrderService _database = serviceLocator<OrderService>();
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
@@ -21,10 +21,8 @@ class ScrollingOrderCardsViewModel extends BaseViewModel {
   GeoFirePoint userLocation;
   GeoFirePoint chosenLocation;
 
-  Future init() async {
-    userLocation = await runBusyFuture(_geolocator.currentPosition());
-    getNearbyOrders();
-    
+  Future init() {
+      getNearbyOrdersTo();
   }
 
   // Future getNearbyOrders() async {

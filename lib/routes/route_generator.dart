@@ -5,6 +5,8 @@ import 'package:orbital_app/screens/authenticate/password_reset_view.dart';
 import 'package:orbital_app/screens/authenticate/register_view.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
 import 'package:orbital_app/screens/home/all_locations_view.dart';
+import 'package:orbital_app/screens/home/taken_order_view.dart';
+import 'package:orbital_app/screens/home/my_order_view.dart';
 import 'package:orbital_app/screens/submit_order_flow/input_order_view.dart';
 import 'package:orbital_app/screens/home/order_details_view.dart';
 import 'package:orbital_app/screens/home/location_view.dart';
@@ -36,6 +38,14 @@ class RouteGenerator {
       case 'order':
         final args = settings.arguments as Order;
         page = OrderDetailsView(order: args,);
+        break;
+      case 'takenOrder':
+        final args = settings.arguments as Order;
+        page = TakenOrderView(order: args,);
+        break;
+      case 'myOrder':
+        final args = settings.arguments as Order;
+        page = MyOrderView(order: args,);
         break;
       case 'location':
         final args = settings.arguments as MyLocation;

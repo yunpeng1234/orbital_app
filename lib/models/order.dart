@@ -5,6 +5,8 @@ import 'package:orbital_app/services/database.dart';
 class Order {
   final String from;
   final String to;
+  final String fromName;
+  final String toName;
   final bool done;
   final int orderId;
   final String deliverToAddress;
@@ -19,6 +21,8 @@ class Order {
   Order({
     this.from,
     this.to,
+    this.fromName,
+    this.toName,
     this.done,
     this.orderId,
     this.deliverToAddress,
