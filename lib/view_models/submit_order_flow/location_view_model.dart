@@ -6,7 +6,7 @@ import 'package:place_picker/place_picker.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/services/service_locator.dart';
-import 'package:orbital_app/services/database.dart';
+import 'package:orbital_app/services/orderservice.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -14,7 +14,7 @@ class LocationViewModel extends BaseViewModel {
   final TextEditingController _orderController = new TextEditingController();
   final TextEditingController _commentsController = new TextEditingController();
   final TextEditingController _detailsController = new TextEditingController();
-  final DatabaseService _database = serviceLocator<DatabaseService>();
+  final OrderService _database = serviceLocator<OrderService>();
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   final geo = Geoflutterfire();
   GeoFirePoint userLocation;
