@@ -8,10 +8,8 @@ import 'package:orbital_app/screens/home/all_locations_view.dart';
 import 'package:orbital_app/screens/submit_order_flow/input_order_view.dart';
 import 'package:orbital_app/screens/home/order_details_view.dart';
 import 'package:orbital_app/screens/home/location_view.dart';
-import 'package:orbital_app/models/dummy_location.dart';
 import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/models/order.dart';
-import 'package:orbital_app/screens/location_testing.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -46,9 +44,6 @@ class RouteGenerator {
       case 'inputOrder':
         final args = settings.arguments as MyLocation;
         page = InputOrderView(location: args);
-        break;
-      case 'locationTest':
-        page = LocationTesting();
         break;
       default:
         page = Scaffold(
