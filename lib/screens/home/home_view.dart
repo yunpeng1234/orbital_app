@@ -33,7 +33,6 @@ class HomeView extends StatelessWidget {
             body: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                buildFloatingSearchBar(),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ListView(
@@ -48,7 +47,8 @@ class HomeView extends StatelessWidget {
                       verticalSpaceRegular,
                     ],
                   ),
-                )
+                ),
+                buildFloatingSearchBar(),
               ],
             )
           ),

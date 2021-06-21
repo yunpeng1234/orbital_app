@@ -45,7 +45,6 @@ class ScrollingLocationCards extends StatelessWidget {
           if (snapshot.connectionState != ConnectionState.done || ! snapshot.hasData) {
             return ScrollingCardsLayout(
               isLoading: true,
-              isEmpty: false,
               title: 'Locations',
             );
           }
