@@ -21,7 +21,11 @@ class GooglePlacesService {
      results = results.sublist(0, 10);
     }
     List<MyLocation> locations = await Future.wait(results.map((result) async {
+      // print(result.placeId);
+      // print(result.formattedAddress);
+      // print(result.photos.first);
       String placeId = result.placeId;
+      print(result);
       var details = await _service.details.get(placeId, fields: "formatted_address");
       if (details == null || details.result == null) {
         if (details != null) print(details.status);

@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
                 buildFloatingSearchBar(),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Column(
+                  child: ListView(
                     children: <Widget>[
                       verticalSpaceVeryLarge,
                       Row(
