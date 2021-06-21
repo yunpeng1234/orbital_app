@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:orbital_app/services/geolocation_service.dart';
+import 'package:orbital_app/services/orderservice.dart';
 import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/password_reset_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
@@ -35,4 +36,5 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => GeolocationService());
   serviceLocator.registerLazySingleton(() => DatabaseService.init());
   serviceLocator.registerLazySingleton(() => GooglePlacesService());
+  serviceLocator.registerLazySingleton(() => OrderService.init());
 }
