@@ -3,6 +3,7 @@ import 'package:orbital_app/shared/constants.dart';
 
 class ScrollingCardsLayout extends StatelessWidget {
 
+  final bool isLoading;
   final bool isEmpty;
   final String title;
   final String sideButtonText;
@@ -11,6 +12,7 @@ class ScrollingCardsLayout extends StatelessWidget {
   final Function onSideButtonTapped;
 
   ScrollingCardsLayout({
+    this.isLoading,
     this.isEmpty,
     this.title,
     this.sideButtonText,
@@ -22,6 +24,24 @@ class ScrollingCardsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                title,
+                style: titleText,
+              ),
+            ],
+          ),
+          CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Colors.white),
+          ),
+        ],
+      );
+    }
     return Column(
       children: [
         Row(
@@ -47,7 +67,7 @@ class ScrollingCardsLayout extends StatelessWidget {
           ],
         ),
         Container(
-          height: 180,
+          height: 200,
           child: isEmpty
             ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,14 +85,6 @@ class ScrollingCardsLayout extends StatelessWidget {
             ),
         ),
         verticalSpaceRegular,
-        // if (onSideButtonTapped != null) GestureDetector(
-        //   onTap: onSideButtonTapped,
-        //   child: Text(
-        //     sideButtonText,
-        //     style: brownButtonText.copyWith(
-        //         fontWeight: FontWeight.bold),
-        //   ),
-        // ),
       ],
     );
   }

@@ -38,11 +38,11 @@ class RouteGenerator {
         final args = settings.arguments as Order;
         page = OrderDetailsView(order: args,);
         break;
-      case 'takenOrder':
+      case 'takenOrders':
         final args = settings.arguments as Order;
         page = TakenOrderView(order: args,);
         break;
-      case 'myOrder':
+      case 'myOrders':
         final args = settings.arguments as Order;
         page = MyOrderView(order: args,);
         break;

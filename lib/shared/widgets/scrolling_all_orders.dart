@@ -82,11 +82,13 @@ class ScrollingAllOrders extends StatelessWidget {
         stream: model.orders,
         builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
         if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
-          return CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.white),
+          return ScrollingCardsLayout(
+            isLoading: true,
+            title: 'All Orders',
           );
         }
         return ScrollingCardsLayout(
+          isLoading: false,
           isEmpty: snapshot.data.isEmpty,
           title: 'All Orders',
           sideButtonText: 'Filter Orders',

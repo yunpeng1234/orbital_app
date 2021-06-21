@@ -39,16 +39,7 @@ class HomeView extends StatelessWidget {
                   child: ListView(
                     children: <Widget>[
                       verticalSpaceLarge,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Locations',
-                            style: titleText,
-                          ),
-                        ],
-                      ),
-                      // ScrollingLocationCards(),
+                      ScrollingLocationCards(),
                       ScrollingAllOrders(),
                       verticalSpaceRegular,
                       ScrollingMyOrders(),

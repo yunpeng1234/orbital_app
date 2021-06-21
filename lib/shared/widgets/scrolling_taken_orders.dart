@@ -81,11 +81,13 @@ class ScrollingTakenOrders extends StatelessWidget {
             stream: model.orders,
             builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
               if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
-                return CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                return ScrollingCardsLayout(
+                  isLoading: true,
+                  title: 'Taken Orders',
                 );
               }
               return ScrollingCardsLayout(
+                isLoading: false,
                 isEmpty: snapshot.data.isEmpty,
                 title: 'Taken Orders',
                 noDataText: 'You haven\'t taken any orders!',
@@ -100,7 +102,7 @@ class ScrollingTakenOrders extends StatelessWidget {
     return snapshot.data
         .map((order) => OrderCard(
         order: order,
-        onCardTapped: () => model.navigate('takenOrder', arguments: order)))
+        onCardTapped: () => model.navigate('takenOrders', arguments: order)))
         .toList();
   }
 }
