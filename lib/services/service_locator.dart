@@ -11,7 +11,7 @@ import 'package:orbital_app/view_models/submit_order_flow/location_view_model.da
 import 'package:orbital_app/view_models/submit_order_flow/input_order_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_order_cards_view_model.dart';
-import 'dummy_database.dart';
+
 import 'geolocation_service.dart';
 import 'database.dart';
 import 'auth_service.dart';
@@ -35,5 +35,4 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => GeolocationService());
   serviceLocator.registerLazySingleton(() => DatabaseService.init());
   serviceLocator.registerLazySingleton(() => GooglePlacesService());
-  serviceLocator.registerLazySingleton(() => DummyDatabase());
 }

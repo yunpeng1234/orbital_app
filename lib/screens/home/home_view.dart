@@ -13,8 +13,6 @@ import 'package:orbital_app/shared/widgets/scrolling_order_cards.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/screens/authenticate/signin_view.dart';
-import 'package:orbital_app/screens/location_testing.dart';
-
 class HomeView extends StatelessWidget {
 
   @override

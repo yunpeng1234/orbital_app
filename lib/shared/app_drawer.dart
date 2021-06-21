@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
-import 'package:orbital_app/screens/test.dart';
 
 
 class AppDrawer extends StatefulWidget {
@@ -70,13 +69,6 @@ class _AppDrawerState extends State<AppDrawer> {
             icon: Icons.logout,
             text: 'Logout',
             onTap: () async {model.signOut();}
-            ),
-            _createDrawerItem(
-                icon: Icons.question_answer,
-                text: 'Testing page',
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder:(context) => OrderTesting()));
-                }
             ),
           ]
         ),
