@@ -6,7 +6,7 @@ import 'package:place_picker/place_picker.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/services/service_locator.dart';
-import 'package:orbital_app/services/orderservice.dart';
+import 'package:orbital_app/services/order_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
