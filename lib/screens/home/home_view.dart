@@ -7,7 +7,7 @@ import 'package:orbital_app/shared/widgets/scrolling_my_order.dart';
 import 'package:orbital_app/view_models/base_view_model.dart';
 import "package:provider/provider.dart";
 import 'package:orbital_app/models/user.dart';
-import 'package:orbital_app/shared/widgets/floating_search_bar.dart';
+import 'package:orbital_app/shared/widgets/my_search_bar.dart';
 import 'package:orbital_app/shared/widgets/scrolling_location_cards.dart';
 import 'package:orbital_app/shared/widgets/scrolling_taken_orders.dart';
 import 'package:orbital_app/shared/widgets/scrolling_all_orders.dart';
@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                 ),
-                buildFloatingSearchBar(),
+                MySearchBar(),
               ],
             )
           ),
