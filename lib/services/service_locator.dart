@@ -10,6 +10,7 @@ import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 import 'package:orbital_app/view_models/home/all_locations_view_model.dart';
 import 'package:orbital_app/view_models/home/my_order_view_model.dart';
 import 'package:orbital_app/view_models/home/order_details_view_model.dart';
+import 'package:orbital_app/view_models/home/search_results_view_model.dart';
 import 'package:orbital_app/view_models/home/taken_order_view_model.dart';
 import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
@@ -44,6 +45,7 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => TakenOrderViewModel());
   serviceLocator.registerLazySingleton(() => MyOrderViewModel());
   serviceLocator.registerLazySingleton(() => MySearchBarViewModel());
+  serviceLocator.registerLazySingleton(() => SearchResultsViewModel());
   serviceLocator.registerFactory(() => OrderDetailsViewModel());
   
 }

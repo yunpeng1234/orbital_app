@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/home/home_view.dart';
 import 'package:orbital_app/screens/authenticate/signin_view.dart';
 import 'package:orbital_app/screens/authenticate/password_reset_view.dart';
 import 'package:orbital_app/screens/authenticate/register_view.dart';
 import 'package:orbital_app/screens/drawer/profilepage.dart';
 import 'package:orbital_app/screens/home/all_locations_view.dart';
+import 'package:orbital_app/screens/home/search_results_view.dart';
 import 'package:orbital_app/screens/home/taken_order_view.dart';
 import 'package:orbital_app/screens/home/my_order_view.dart';
 import 'package:orbital_app/screens/home/order_details_view.dart';
@@ -18,6 +20,9 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         page = HomeView();
+        break;
+      case 'loading' :
+        page = Loading();
         break;
       case 'signIn':
         page = SignInView();
@@ -49,6 +54,10 @@ class RouteGenerator {
       case 'location':
         final args = settings.arguments as MyLocation;
         page = LocationView(location: args);
+        break;
+      case 'searchResults':
+        final args = settings.arguments as String;
+        page = SearchResultsView(query: args);
         break;
       default:
         page = Scaffold(

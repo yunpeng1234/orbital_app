@@ -12,17 +12,17 @@ abstract class BaseViewModel extends ChangeNotifier {
     return state == ViewState.busy;
   }
 
-  Future navigate(String routeName, {Object arguments}) async {
+  void navigate(String routeName, {Object arguments}) {
     setError(false);
     navState.pushNamed(routeName, arguments: arguments);
   }
 
-  Future navigateAndReplace(String routeName, {Object arguments}) async {
+  void navigateAndReplace(String routeName, {Object arguments}) {
     setError(false);
     navState.pushReplacementNamed(routeName, arguments: arguments);
   }
 
-  Future pop() async {
+  void pop() {
     setError(false);
     navState.pop();
   }

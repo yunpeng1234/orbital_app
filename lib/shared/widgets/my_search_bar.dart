@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
+import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/shared/widgets/prediction_card.dart';
 import 'package:orbital_app/view_models/widgets/my_search_bar_view_model.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class MySearchBar extends StatelessWidget {
-  const MySearchBar({Key key}) : super(key: key);
+  final FloatingSearchBarController controller = FloatingSearchBarController();
+  MySearchBar({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,11 @@ class MySearchBar extends StatelessWidget {
         openAxisAlignment: 0.0,
         width: 500,
         debounceDelay: const Duration(milliseconds: 500),
+        controller: controller,
         onQueryChanged: (query) {
           model.getAutocomplete(query);
         },
+        onSubmitted: (query) => model.navigate('searchResults', arguments: query),
         // Specify a custom transition to be used for
         // animating between opened and closed stated.
         // transition: CircularFloatingSearchBarTransition(),
@@ -46,11 +50,17 @@ class MySearchBar extends StatelessWidget {
             child: Material(
               color: Colors.white,
               elevation: 4.0,
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: model.predictions
+              child: model.isBusy()
+                  ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white)
+                  )
+                  : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: model.predictions
                     // .map((prediction) => Text(prediction, style: blackBodyText,)).toList()
-                    .map((prediction) => PredictionCard(info: prediction, onCardTapped: () {})).toList()
+                      .map((prediction) => PredictionCard(info: prediction, onCardTapped: () {
+                        model.navigateToLocation(prediction, this);
+                      })).toList()
             ),
           ));
         },

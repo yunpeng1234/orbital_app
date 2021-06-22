@@ -3,7 +3,7 @@ import 'package:tuple/tuple.dart';
 import 'package:orbital_app/shared/constants.dart';
 
 class PredictionCard extends StatelessWidget {
-  final Tuple2<String, String> info;
+  final Tuple3<String, String, String> info;
   final Function onCardTapped;
 
   const PredictionCard({
@@ -15,30 +15,28 @@ class PredictionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-
-      width: 180,
-      height: 140,
-      child: GestureDetector(
-        onTap: onCardTapped,
-        child: Container(
-          height: 50,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-              children: [
-                Text(
-                  info.item1,
-                  style: blackBodyText,
-                ),
-                Text(
-                  info.item2,
-                  style: greyBodyText,
-                )
-              ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: onCardTapped,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    info.item2,
+                    style: blackBodyText,
+                  ),
+                  Text(
+                    info.item3,
+                    style: greyBodyText,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

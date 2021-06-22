@@ -34,7 +34,7 @@ class OrderCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.all(
-              Radius.circular(20.0),
+              Radius.circular(10.0),
             ),
           ),
           child: Padding(
