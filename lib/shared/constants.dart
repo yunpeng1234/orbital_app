@@ -33,7 +33,7 @@ const Color orangeAppBarColor = Color(0xffFFAA66);
 const Color greyButtonColor = Color(0xff4E4A40);
 const Color greyTextColor = Color(0xff868686);
 const Color brownTextColor = Color(0xffBE6640);
-
+Color darkGrey = Colors.grey[600];
 // fonts
 const String primaryFont = 'Raleway';
 
@@ -50,6 +50,12 @@ const TextStyle titleText = TextStyle(
   fontSize: 34,
   fontFamily: primaryFont
 );
+
+TextStyle subtitleText = TextStyle(
+  color: darkGrey,
+  fontSize: 25,
+  fontFamily: primaryFont
+);
 const TextStyle brownButtonText = TextStyle(
   color: brownTextColor,
   fontSize: bodyTextSize,
@@ -64,6 +70,12 @@ const TextStyle whiteButtonText = TextStyle(
 const TextStyle blackBodyText = TextStyle(
   color: Colors.black,
   fontSize: bodyTextSize,
+  fontFamily: primaryFont,
+);
+
+const TextStyle customisedBodyText = TextStyle(
+  color: Colors.black,
+  fontSize: 14.0,
   fontFamily: primaryFont,
 );
 

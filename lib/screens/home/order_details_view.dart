@@ -28,6 +28,7 @@ class OrderDetailsView extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   'Order ID: ${order.orderId}',

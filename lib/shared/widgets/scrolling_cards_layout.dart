@@ -42,6 +42,49 @@ class ScrollingCardsLayout extends StatelessWidget {
         ],
       );
     }
+    if (isEmpty) {
+      return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              title,
+              style: titleText,
+            ),
+            if (onSideButtonTapped != null) Column(
+              children: [
+                verticalSpaceTiny,
+                GestureDetector(
+                  onTap: onSideButtonTapped,
+                  child: Text(
+                    sideButtonText,
+                    style: brownButtonText.copyWith(
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Container(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                verticalSpaceRegular,
+                Text(
+                  noDataText,
+                  style: subtitleText,
+                  textAlign: TextAlign.center,
+                  ),
+              ],
+            ),
+        )
+        ]
+      );
+
+    }
+
     return Column(
       children: [
         Row(

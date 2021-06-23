@@ -21,6 +21,17 @@ class MyLocation {
   //   long = json['long'];
   //   placeName = json['placeName'];
   // }
+  String filteredName() {
+    String filtered;
+    if(this.name.length > 20) {
+      String temp = this.name.substring(0,17);
+      int res = temp.lastIndexOf(' ');
+      filtered = temp.substring(0,res);
+    } else {
+      filtered = this.name;
+    }
+    return filtered;
+  }
 
   @override
   String toString() {

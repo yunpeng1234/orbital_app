@@ -14,6 +14,7 @@ class LocationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       width: 180,
       height: 140,
@@ -47,8 +48,9 @@ class LocationCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        location.name,
-                        style: blackBodyText,
+                        location.filteredName(),
+                        style: customisedBodyText,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],

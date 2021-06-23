@@ -29,9 +29,10 @@ class MyOrderView extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                'From: ${order.from}',
+                'From: ${order.fromName}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
@@ -51,7 +52,7 @@ class MyOrderView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                  'Deliver To: ${order.deliverTo}',
+                  'Deliver To: ${order.deliverToAddress}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
@@ -61,7 +62,7 @@ class MyOrderView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                    'Comments: ${order.comments}',
+                    'Comments: ${order.newComment()}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,

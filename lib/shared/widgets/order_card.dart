@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/order.dart';
+import 'package:orbital_app/shared/widgets/iconword.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;
@@ -32,39 +33,15 @@ class OrderCard extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: ListView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Restaurant: ${order.restaurantName}',
-                  style: blackBodyText,
-                ),
+                IconText(icon:Icons.local_restaurant, text: order.restaurantName ),
                 verticalSpaceTiny,
-                Text(
-                  'Deliver To: ${order.deliverToAddress}',
-                  style: blackBodyText,
-                ),
+                IconText(icon: Icons.location_on, text: order.deliverToAddress),
                 verticalSpaceTiny,
-                Text(
-                  'Order: ${order.order}',
-                  style: blackBodyText,
-                ),
+                IconText(icon: Icons.dinner_dining, text: order.order),
                 verticalSpaceTiny,
-                Text(
-                  'From: ${order.fromName}',
-                  style: blackBodyText,
-                ),
-                verticalSpaceTiny,
-                Text(
-                  'Id: ${order.toName}',
-                  style: blackBodyText,
-                ),
-                verticalSpaceTiny,
-                Text(
-                  'Id: ${order.orderId}',
-                  style: blackBodyText,
-                ),
-                verticalSpaceTiny,
-
               ],
             ),
           ),

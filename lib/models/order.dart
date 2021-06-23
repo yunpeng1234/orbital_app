@@ -34,4 +34,7 @@ class Order {
     this.restaurantAddress,
     this.restaurantName});
 
+  String newComment() {
+    return comments == "" ? "Nil" : comments;
+  }
 }
