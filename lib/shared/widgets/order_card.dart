@@ -33,8 +33,8 @@ class OrderCard extends StatelessWidget {
           ),
           child: Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 IconText(icon:Icons.local_restaurant, text: order.restaurantName ),
                 verticalSpaceTiny,
