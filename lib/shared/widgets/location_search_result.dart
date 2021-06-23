@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/my_location.dart';
 
 class LocationSearchResult extends StatelessWidget {

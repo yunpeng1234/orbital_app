@@ -10,31 +10,6 @@ class ScrollingLocationCards extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return BaseView<ScrollingLocationCardsViewModel>(
-  //       onModelReady: (model) => model.init(),
-  //       builder: (context, model, child) =>  model.isBusy()
-  //         ? CircularProgressIndicator(
-  //           valueColor: AlwaysStoppedAnimation(Colors.white),
-  //         )
-  //         : Container(
-  //           height: 200,
-  //           child: ListView(
-  //             scrollDirection: Axis.horizontal,
-  //             children: model.locations
-  //               .map((location) =>
-  //               LocationCard(
-  //                 location: location,
-  //                 onCardTapped: () =>
-  //                   model.navigate(
-  //                     'location', arguments: location)))
-  //                   .toList()
-  //               ),
-  //             )
-  //           );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ScrollingLocationCardsViewModel>(

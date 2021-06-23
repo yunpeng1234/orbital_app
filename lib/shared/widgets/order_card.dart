@@ -14,13 +14,6 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if(order.done) {
-    //   return Container(
-    //     width: 180,
-    //     height: 140,
-    //     color: Colors.green,
-    //   );
-    // }
 
     return Container(
       

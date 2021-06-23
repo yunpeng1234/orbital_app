@@ -7,74 +7,10 @@ import 'package:orbital_app/shared/widgets/order_card.dart';
 
 class ScrollingMyOrders extends StatelessWidget {
 
-
   ScrollingMyOrders({
     
     Key key,
   }) : super(key: key);
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return BaseView<ScrollingMyOrderViewModel>(
-  //     onModelReady: (model) => model.init(),
-  //     builder: (context, model, child) => StreamBuilder(
-  //           stream: model.orders,
-  //           builder:(BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
-  //           if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
-  //             return CircularProgressIndicator(
-  //               valueColor: AlwaysStoppedAnimation(Colors.white),
-  //             );
-  //           } else if (snapshot.data.isEmpty) {
-  //
-  //             return Column(
-  //               children: [
-  //                 verticalSpaceRegular,
-  //                 Text(
-  //                   'No orders in your area! :(',
-  //                   style: titleText,
-  //                   textAlign: TextAlign.center,
-  //                 ),
-  //                 verticalSpaceRegular,
-  //                 // GestureDetector(
-  //                 //   onTap: () => model.showPlacePicker(),
-  //                 //   child: Text(
-  //                 //     'Filter Orders',
-  //                 //     style: brownButtonText.copyWith(
-  //                 //         fontWeight: FontWeight.bold),
-  //                 //   ),
-  //                 // ),
-  //               ],
-  //             );
-  //           }
-  //           return Column(
-  //             children: [
-  //               Container(
-  //                 height: 200,
-  //                 child: ListView(
-  //                       scrollDirection: Axis.horizontal,
-  //                       children: snapshot.data
-  //                           .map((order) => OrderCard(
-  //                           order: order,
-  //                           onCardTapped: () => model.navigate('myOrder', arguments: order)))
-  //                           .toList()
-  //                 ),
-  //               ),
-  //               verticalSpaceRegular,
-  //               // GestureDetector(
-  //               //   onTap: () => model.showPlacePicker(),
-  //               //   child: Text(
-  //               //     'Filter Orders',
-  //               //     style: brownButtonText.copyWith(
-  //               //         fontWeight: FontWeight.bold),
-  //               //   ),
-  //               // ),
-  //
-  //             ],
-  //           );
-  //       }
-  //     )
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
