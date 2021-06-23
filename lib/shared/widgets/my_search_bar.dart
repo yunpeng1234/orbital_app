@@ -13,6 +13,7 @@ class MySearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<MySearchBarViewModel>(
+      onModelReady: (model) => model.init(controller),
       builder: (context, model, child) => FloatingSearchBar(
         hint: 'Search...',
         backgroundColor: Colors.white60,
@@ -51,15 +52,20 @@ class MySearchBar extends StatelessWidget {
               color: Colors.white,
               elevation: 4.0,
               child: model.isBusy()
-                  ? CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Colors.white)
+                  ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.black)
+                      ),
+                    ),
                   )
                   : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: model.predictions
                     // .map((prediction) => Text(prediction, style: blackBodyText,)).toList()
                       .map((prediction) => PredictionCard(info: prediction, onCardTapped: () {
-                        model.navigateToLocation(prediction, this);
+                        model.navigateToLocation(prediction);
                       })).toList()
             ),
           ));
