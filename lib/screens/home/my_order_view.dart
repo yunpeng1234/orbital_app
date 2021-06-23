@@ -104,7 +104,7 @@ class MyOrderView extends StatelessWidget {
                       valueColor: AlwaysStoppedAnimation(Colors.white),
                     )
                         : Text(
-                      'cancel Order',
+                      'Cancel Order',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

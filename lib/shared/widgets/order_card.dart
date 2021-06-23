@@ -14,13 +14,6 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if(order.done) {
-    //   return Container(
-    //     width: 180,
-    //     height: 140,
-    //     color: Colors.green,
-    //   );
-    // }
 
     return Container(
       
@@ -34,7 +27,7 @@ class OrderCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.all(
-              Radius.circular(20.0),
+              Radius.circular(10.0),
             ),
           ),
           child: Padding(

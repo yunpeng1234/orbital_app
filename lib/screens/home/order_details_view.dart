@@ -30,12 +30,7 @@ class OrderDetailsView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                'From: ${order.from}',
-                  style: blackBodyText,
-                ),
-                verticalSpaceRegular,
-                Text(
-                  'ID: ${order.orderId}',
+                  'Order ID: ${order.orderId}',
                     style: blackBodyText,
                 ),
                 verticalSpaceRegular,
@@ -50,7 +45,12 @@ class OrderDetailsView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                  'Deliver To: ${order.deliverTo}',
+                  'Deliver To: ${order.deliverToAddress}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Address Details: ${order.userAddressDetails}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
