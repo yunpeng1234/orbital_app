@@ -43,17 +43,13 @@ class LocationCard extends StatelessWidget {
               ),
               SizedBox(
                 height: 38,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        location.filteredName(),
-                        style: customisedBodyText,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+                child: Center(
+                  child: Text(
+                    // location.name,
+                    location.filteredName(),
+                    style: customisedBodyText,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ],
