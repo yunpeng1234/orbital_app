@@ -35,6 +35,7 @@ class LocationView extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
+                    verticalSpaceRegular,
                     Text(
                       location.name,
                       style: blackBodyText,
@@ -44,13 +45,15 @@ class LocationView extends StatelessWidget {
                       location.address,
                       style: blackBodyText,
                     ),
-                    verticalSpaceLarge,
+                    verticalSpaceRegular,
                     if (model.userLocationAddress != null) Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          'Your Address: \n${model.userLocationAddress}',
-                          style: blackBodyText,
+                        Flexible(
+                          child: Text(
+                            'Your Address: \n${model.userLocationAddress}',
+                            style: blackBodyText,
+                          ),
                         ),
                       ],
                     ),

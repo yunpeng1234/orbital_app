@@ -56,12 +56,17 @@ class MyOrderView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
+                  'Address Details: ${order.newAddressDetails()}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
                   'Order: ${order.order}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
                 Text(
-                    'Comments: ${order.newComment()}',
+                  'Comments: ${order.newComment()}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,

@@ -35,6 +35,10 @@ class Order {
     this.restaurantName});
 
   String newComment() {
-    return comments == "" ? "Nil" : comments;
+    return comments == "" ? "NIL" : comments;
+  }
+
+  String newAddressDetails() {
+    return userAddressDetails == "" ? "NIL" : userAddressDetails;
   }
 }
