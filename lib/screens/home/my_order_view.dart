@@ -3,7 +3,6 @@ import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/home/my_order_view_model.dart';
-import 'package:orbital_app/view_models/home/order_details_view_model.dart';
 
 class MyOrderView extends StatelessWidget {
   final Order order;
@@ -90,6 +89,7 @@ class MyOrderView extends StatelessWidget {
                     ),
                   ),
                 ),
+                verticalSpaceRegular,
                 GestureDetector(
                   onTap: () => model.cancelOrder(context, order.orderId),
                   child: Container(
