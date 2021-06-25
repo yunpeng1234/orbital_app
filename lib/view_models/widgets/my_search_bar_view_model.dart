@@ -11,7 +11,7 @@ class MySearchBarViewModel extends BaseViewModel {
   List<Tuple3<String, String, String>> predictions = [Tuple3<String, String, String>('1', 'Title', 'Subtitle')];
   FloatingSearchBarController _controller;
 
-  Future init(FloatingSearchBarController controller) {
+  void init(FloatingSearchBarController controller) {
     _controller = controller;
   }
 

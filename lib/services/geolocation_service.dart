@@ -1,10 +1,6 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geocoder/geocoder.dart' as GeoC;
-import 'google_places_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 
 class GeolocationService {
@@ -44,10 +40,6 @@ class GeolocationService {
     // String address = placemarkMap['name'] + ', '+ placemarkMap['street'] + ', '+ placemarkMap['postalCode'];
     // print(address);
     // return address;
-  }
-
-  double calcDistance() {
-
   }
 
 }

@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:orbital_app/services/geolocation_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/models/my_location.dart';
-import 'dart:io';
 
 class GooglePlacesService {
   final String apiKey = dotenv.env['PLACES_KEY'];

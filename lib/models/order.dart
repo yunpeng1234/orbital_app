@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
-import 'package:orbital_app/services/database.dart';
+
 
 class Order {
   final String from;

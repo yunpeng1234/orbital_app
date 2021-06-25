@@ -41,6 +41,6 @@ class ScrollingAllOrdersViewModel extends BaseViewModel {
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
     chosenLocation = _converter(result);
-    await _getNearbyOrdersFiltered();
+     _getNearbyOrdersFiltered();
   }
 }

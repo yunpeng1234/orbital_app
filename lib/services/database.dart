@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/services/geolocation_service.dart';
 import 'service_locator.dart';

@@ -9,7 +9,7 @@ class ScrollingMyOrdersViewModel extends BaseViewModel {
   final OrderService _database = serviceLocator<OrderService>();
   Stream<List<Order>> orders;
 
-  Future init() {
+  void init() {
     _getNearbyOrdersFrom();
   }
 

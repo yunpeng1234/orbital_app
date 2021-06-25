@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:orbital_app/services/auth_service.dart';
-import 'package:orbital_app/services/google_places_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:provider/provider.dart';
