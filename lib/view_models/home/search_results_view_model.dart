@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:tuple/tuple.dart';
 import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/view_models/base_view_model.dart';
 import 'package:orbital_app/services/service_locator.dart';
