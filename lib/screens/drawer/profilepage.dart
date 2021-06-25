@@ -8,6 +8,10 @@ import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/shared/widgets/avatar.dart';
 import "package:orbital_app/services/database.dart";
 import 'package:orbital_app/shared/constants.dart';
+import 'package:orbital_app/screens/base_view.dart';
+import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
+
+
 
 class ProfilePageView extends StatefulWidget {
   static const String routeName = '/profile';
@@ -26,7 +30,8 @@ class _ProfilePageViewState extends State<ProfilePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return BaseView<ProfilePageViewModel>(
+      builder: (context, model, child) => StreamBuilder(
       stream: user.userData,
       builder:(BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
         if (!snapshot.hasData) {Loading();}
@@ -71,9 +76,59 @@ class _ProfilePageViewState extends State<ProfilePageView> {
               ],
             )
         );
-      
-      }
-      
+        }
+        )
       );
+      
+    //   );
+    // return StreamBuilder(
+    //   stream: user.userData,
+    //   builder:(BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
+    //     if (!snapshot.hasData) {Loading();}
+    //     String username = snapshot.data.name;
+    //     return Scaffold(
+    //         appBar: AppBar(title: Text('texting'),),
+    //         drawer: AppDrawer(),
+    //         backgroundColor: primaryColor,
+    //         resizeToAvoidBottomInset: false,
+    //         body: Column(
+    //           children: <Widget>[
+    //             Avatar(
+    //               avatarUrl: snapshot.data.picUrl,
+    //               onTap: () async {
+    //                 PickedFile image = await ImagePicker().getImage(
+    //                   source: ImageSource.gallery);
+    //                 print(image.path);
+    //                 String dlUrl = await StorageService().uploadFile(image);
+    //                 print(dlUrl);
+    //                 await user.updateUserPic(dlUrl);
+    //                 setState(() {});
+    //               }
+    //             ),
+    //             Text(username, style: TextStyle(fontSize: 50.0)),
+    //             SizedBox(height: 10.0),
+    //             Form(
+    //               child: TextFormField(
+    //                 decoration: textBoxDeco.copyWith(hintText: "New Username"),
+    //                 onChanged: (val) {
+    //                   setState(() {
+    //                     toUpdate = val;
+    //                   });
+    //                 },
+    //               )
+    //             ),
+    //             TextButton(
+    //               onPressed: () async {
+    //                 user.updateUserData(toUpdate);
+    //               },
+    //               child: Text("Submit"),
+    //               ),
+    //           ],
+    //         )
+    //     );
+      
+    //   }
+      
+    //   );
  }
 }

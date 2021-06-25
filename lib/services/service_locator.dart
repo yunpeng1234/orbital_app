@@ -4,6 +4,7 @@ import 'package:orbital_app/services/order_service.dart';
 import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/password_reset_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
+import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 import 'package:orbital_app/view_models/home/all_locations_view_model.dart';
@@ -34,6 +35,7 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => RegisterViewModel());
   serviceLocator.registerLazySingleton(() => PasswordResetViewModel());
   serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
+  serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
   serviceLocator.registerLazySingleton(() => AllLocationsViewModel());
   serviceLocator.registerLazySingleton(() => ScrollingLocationCardsViewModel());
   serviceLocator.registerLazySingleton(() => ScrollingAllOrdersViewModel());
@@ -46,5 +48,5 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => MySearchBarViewModel());
   serviceLocator.registerLazySingleton(() => SearchResultsViewModel());
   serviceLocator.registerFactory(() => OrderDetailsViewModel());
-  
+
 }
