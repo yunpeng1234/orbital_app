@@ -17,6 +17,7 @@ import 'package:orbital_app/view_models/widgets/scrolling_my_orders_view_model.d
 import 'package:orbital_app/view_models/widgets/scrolling_taken_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_all_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/my_search_bar_view_model.dart';
+import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
 import 'geolocation_service.dart';
 import 'database.dart';
 import 'auth_service.dart';
@@ -46,5 +47,5 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => MySearchBarViewModel());
   serviceLocator.registerLazySingleton(() => SearchResultsViewModel());
   serviceLocator.registerFactory(() => OrderDetailsViewModel());
-  
+  serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
 }
