@@ -1,3 +1,5 @@
+import 'package:orbital_app/shared/widgets/popup_text.dart';
+
 import '../base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
@@ -45,5 +47,18 @@ class MyOrderViewModel extends BaseViewModel {
 
   Future navigateToHome() async {
     navState.pushReplacementNamed('/');
+  }
+
+  Future popupDialog (BuildContext context, int orderId) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:(BuildContext context) => PopUpText(
+        text: 'Confirm',
+        message: 'Please check that the order is correct before confirming delivery',
+        onTapYes: completeOrder(context, orderId),
+        onTapNo: cancelOrder(context,orderId)
+      )
+    );
   }
 }
