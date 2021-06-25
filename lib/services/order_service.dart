@@ -8,19 +8,13 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 
 class OrderService {
 
-  final String uid;
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
   static final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
 
-
-  OrderService({this.uid});
-  //Collection reference
-
-  static OrderService init() {
-    return OrderService(uid: _auth.getUID());
+  String getUID() {
+    return _auth.getUID();
   }
-
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
@@ -42,13 +36,15 @@ class OrderService {
       ) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
+    String currentUID = getUID();
+
     DocumentSnapshot toGet = await temp.doc('fixed').get();
     int orderId = toGet['id'];
     temp.doc('fixed').update({'id' : orderId + 1});
 
-    String from = await uidToName(uid);
+    String from = await uidToName(currentUID);
 
-    await users.doc(uid).update({
+    await users.doc(currentUID).update({
       'SubmittedOrder' : orderId,
     });
 
@@ -56,7 +52,7 @@ class OrderService {
       'To' : '',
       'ToName' : '',
       'FromName' : from,
-      'From': uid,
+      'From': currentUID,
       'Done' : false,
       'Item' : orderId,
       'DeliverTo': deliverTo.data,
@@ -122,7 +118,7 @@ class OrderService {
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 2.0, field: 'Restaurant')
     .map(_orderFromFilter)
-    .map((list) => list.where((order) => order.to == '' && order.from != uid).toList()
+    .map((list) => list.where((order) => order.to == '' && order.from != getUID()).toList()
     );
   }
 
@@ -137,22 +133,24 @@ class OrderService {
   }
 
   Stream<List<Order>> filterByFrom() {
-      Stream<QuerySnapshot> res = orders.where('From', isEqualTo: uid).snapshots();
+      Stream<QuerySnapshot> res = orders.where('From', isEqualTo: getUID()).snapshots();
       return res.map(_orderFromSnapshot);
   }
 
   Stream<List<Order>> filterByTo () {
-    Stream<QuerySnapshot> res = orders.where('To', isEqualTo: uid).snapshots();
+    Stream<QuerySnapshot> res = orders.where('To', isEqualTo: getUID()).snapshots();
       return res.map(_orderFromSnapshot);
   }
 
 
   Future<void> acceptOrderData(int orderid) async {
-    await users.doc(uid).update({
+    String currentUID = getUID();
+
+    await users.doc(currentUID).update({
       'TakenOrder' : orderid,
     });
 
-    return await orders.doc(orderid.toString()).update({'To': uid});
+    return await orders.doc(orderid.toString()).update({'To': currentUID});
   }
 
   Future deleteOrderData(int orderid) async {
@@ -189,6 +187,6 @@ class OrderService {
 
 
   Stream<List<Order>> userOrder() {
-    return orders.where('From', isEqualTo: uid).snapshots().map(_orderFromSnapshot);
+    return orders.where('From', isEqualTo: getUID()).snapshots().map(_orderFromSnapshot);
   }
 }

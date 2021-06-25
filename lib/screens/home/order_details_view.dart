@@ -31,8 +31,13 @@ class OrderDetailsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
+                  'From: ${order.fromName}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
                   'Order ID: ${order.orderId}',
-                    style: blackBodyText,
+                  style: blackBodyText,
                 ),
                 verticalSpaceRegular,
                 Text(
@@ -51,7 +56,7 @@ class OrderDetailsView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                  'Address Details: ${order.userAddressDetails}',
+                  'Address Details: ${order.newAddressDetails()}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
@@ -61,7 +66,7 @@ class OrderDetailsView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                    'Comments: ${order.comments}',
+                    'Comments: ${order.newComment()}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
