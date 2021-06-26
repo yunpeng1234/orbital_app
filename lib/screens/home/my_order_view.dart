@@ -95,7 +95,7 @@ class MyOrderView extends StatelessWidget {
                   ),
                 ),
                 verticalSpaceRegular,
-                GestureDetector(
+                if (order.to == null) GestureDetector(
                   onTap: () => model.cancelOrder(context, order.orderId),
                   child: Container(
                     width: double.infinity,
