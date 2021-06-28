@@ -10,12 +10,12 @@ import 'dart:async';
 class MyOrderViewModel extends BaseViewModel {
   final OrderService _database = serviceLocator<OrderService>();
 
-  Future _showSuccessDialog(BuildContext context, MyOrderViewModel model) {
+  Future _showSuccessDialog(BuildContext context, MyOrderViewModel model, String message) {
     return showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) =>  AlertDialog(
-          title: Center(child: const Text('Order cancelled!')),
+          title: Center(child: Text(message)),
           titleTextStyle: blackBodyTextLarge,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -37,12 +37,12 @@ class MyOrderViewModel extends BaseViewModel {
 
   Future cancelOrder(BuildContext context, int orderId) async {
     await runBusyFuture(_database.deleteOrderData(orderId));
-    _showSuccessDialog(context, this);
+    _showSuccessDialog(context, this, 'Order cancelled!');
   }
 
   Future completeOrder(BuildContext context, int orderId) async {
     await runBusyFuture(_database.deleteOrderData(orderId));
-    _showSuccessDialog(context, this);
+    _showSuccessDialog(context, this, 'Order completed!');
   }
 
   Future navigateToHome() async {
