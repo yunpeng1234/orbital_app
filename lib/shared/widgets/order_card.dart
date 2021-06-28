@@ -36,7 +36,7 @@ class OrderCard extends StatelessWidget {
             child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Taken', style: blackBodyText,),
+                if (order.to != '') Text('Taken', style: blackBodyText,),
                 IconText(icon:Icons.local_restaurant, text: order.restaurantName ),
                 verticalSpaceTiny,
                 IconText(icon: Icons.location_on, text: order.deliverToAddress),
