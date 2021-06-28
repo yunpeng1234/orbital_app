@@ -30,6 +30,10 @@ class MyOrderView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                if (order.to != null) Text(
+                  'Order taken by: ${order.toName}',
+                  style: blackBodyText,
+                ),
                 Text(
                 'From: ${order.fromName}',
                   style: blackBodyText,
@@ -95,7 +99,7 @@ class MyOrderView extends StatelessWidget {
                   ),
                 ),
                 verticalSpaceRegular,
-                if (order.to == null) GestureDetector(
+                if (order.to == '') GestureDetector(
                   onTap: () => model.cancelOrder(context, order.orderId),
                   child: Container(
                     width: double.infinity,

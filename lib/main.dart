@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: _auth.user,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: AppBarTheme(
               elevation: 0,

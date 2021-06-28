@@ -8,7 +8,7 @@ import 'package:orbital_app/services/google_places_service.dart';
 
 class MySearchBarViewModel extends BaseViewModel {
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
-  List<Tuple3<String, String, String>> predictions = [Tuple3<String, String, String>('1', 'Title', 'Subtitle')];
+  List<Tuple3<String, String, String>> predictions = [Tuple3<String, String, String>('1', 'Enter your search!', '')];
   FloatingSearchBarController _controller;
 
   void init(FloatingSearchBarController controller) {
