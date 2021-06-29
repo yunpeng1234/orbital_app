@@ -1,41 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/services/geolocation_service.dart';
 import '../base_view_model.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/services/google_places_service.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
-  final ScrollController controller = ScrollController();
+  final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
   List<MyLocation> locations = [];
   List<String> placeIds;
 
-  Future init() async {
-    await runBusyFuture(initFunc());
+  Future init(ScrollController controller, int toLoad) async {
     controller.addListener(() {
-      if (controller.position.pixels == controller.position.maxScrollExtent) {
-        getData();
+      if (controller.offset >= controller.position.maxScrollExtent && !controller.position.outOfRange) {
+        getDetails(toLoad);
         this.notifyListeners();
       }
     });
-    print(locations);
-    // _getNearbyLocations();
+    await runBusyFuture(getDetailsAndPlaceId(toLoad));
   }
 
-  Future initFunc() async {
+  Future getDetailsAndPlaceId(int toLoad) async {
     placeIds = await _service.getNearbyPlaceIds();
-    await getData();
+    await getDetails(toLoad);
     return;
   }
 
-  Future getData() async {
-    if (placeIds.length < 5) {
+  Future getDetails(int toLoad) async {
+    if (placeIds.length < toLoad) {
       return;
     }
-    List<String> toConvert = placeIds.sublist(0, 5);
-    placeIds.removeRange(0, 5);
+    List<String> toConvert = placeIds.sublist(0, toLoad);
+    placeIds.removeRange(0, toLoad);
     locations.addAll(await Future.wait(toConvert.map((placeId) async {
       return await _service.placeIdToLocation(placeId);
     }).toList()));

@@ -30,7 +30,10 @@ class ScrollingMyOrders extends StatelessWidget {
             isEmpty: snapshot.data.isEmpty,
             title: 'My Orders',
             noDataText: 'You don\'t have any orders!',
-            widgetList: _buildCardList(snapshot, model),
+            widgetList: ListView(
+              scrollDirection: Axis.horizontal,
+              children: _buildCardList(snapshot, model),
+            ),
         );
         }
       )

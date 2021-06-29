@@ -30,7 +30,10 @@ class ScrollingAllOrders extends StatelessWidget {
           title: 'Nearby Orders',
           sideButtonText: 'Filter Orders',
           noDataText: 'No orders in your area! :(',
-          widgetList: _buildCardList(snapshot, model),
+          widgetList: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _buildCardList(snapshot, model),
+          ),
           onSideButtonTapped: () => model.showPlacePicker(),
         );
         }

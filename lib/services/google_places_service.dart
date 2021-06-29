@@ -29,7 +29,6 @@ class GooglePlacesService {
     String fields = 'place_id,geometry,name,formatted_address,photo';
     DetailsResponse details = await _service.details.get(placeId, fields: fields);
     if (details == null || details.result == null) {
-      if (details != null) print(details.status);
       return null;
     }
     return details.result;
@@ -43,7 +42,6 @@ class GooglePlacesService {
     } else {
       reference = details.photos.first.photoReference;
     }
-    print(details.internationalPhoneNumber);
     MyLocation loc = MyLocation(
       placeId: details.placeId,
       lat: details.geometry.location.lat,
@@ -52,6 +50,7 @@ class GooglePlacesService {
       address: address,
       photoUrl: urlEndpoint + reference + '&key=' + apiKey,
     );
+    print('here');
     return loc;
   }
 
@@ -73,7 +72,7 @@ class GooglePlacesService {
   Future<List<String>> getNearbyPlaceIds() async {
     GeoFirePoint position = await _geolocator.currentPosition();
     List<SearchResult> results = (await _service.search.getNearBySearch(
-        Location(lat: position.latitude, lng: position.longitude), 1000,
+        Location(lat: position.latitude, lng: position.longitude), 500,
         type: 'restaurant')).results;
     return results.map((result) => result.placeId).toList();
   }
