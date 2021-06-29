@@ -80,7 +80,8 @@ class LocationViewModel extends BaseViewModel {
   }
 
   Future navigateToHome() async {
-    navState.pushReplacementNamed('/');
+    navState.pop();
+    navState.pop();
   }
 
   GeoFirePoint _converter(LocationResult result) {
