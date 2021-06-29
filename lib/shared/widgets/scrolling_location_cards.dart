@@ -6,7 +6,9 @@ import 'scrolling_cards_layout.dart';
 import 'package:orbital_app/models/my_location.dart';
 
 class ScrollingLocationCards extends StatelessWidget {
-  const ScrollingLocationCards({
+
+
+  ScrollingLocationCards({
     Key key,
   }) : super(key: key);
 
@@ -14,29 +16,45 @@ class ScrollingLocationCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ScrollingLocationCardsViewModel>(
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => FutureBuilder(
-        future: model.locations,
-        builder:(BuildContext context, AsyncSnapshot<List<MyLocation>> snapshot) {
-          if (snapshot.connectionState != ConnectionState.done || ! snapshot.hasData) {
-            return ScrollingCardsLayout(
-              isLoading: true,
-              title: 'Locations',
-            );
-          }
+      builder: (context, model, child) {
+        if (model.isBusy()) {
+          return ScrollingCardsLayout(
+            isLoading: true,
+            title: 'Locations',
+          );
+        }
         return ScrollingCardsLayout(
           isLoading: false,
-          isEmpty: snapshot.data.isEmpty,
+          isEmpty: model.locations.isEmpty,
           title: 'Locations',
           noDataText: 'No locations to show!',
-          widgetList: _buildCardList(snapshot, model),
+          widgetList: _buildCardList(model),
+          listView: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: model.locations.length + 1,
+            itemBuilder: (context, index) {
+              if (index >= 20) {
+                return null;
+              }
+              if (index == model.locations.length) {
+                return CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                );
+              }
+              return LocationCard(
+                location: model.locations[index],
+                onCardTapped: () => model.navigate('location', arguments: model.locations[index]),
+              );
+            },
+            controller: model.controller,
+          ),
         );
         }
-    )
     );
   }
 
-  List<LocationCard> _buildCardList( AsyncSnapshot<List<MyLocation>> snapshot, ScrollingLocationCardsViewModel model) {
-    return snapshot.data
+  List<LocationCard> _buildCardList(ScrollingLocationCardsViewModel model) {
+    return model.locations
       .map((location) => LocationCard(
         location: location,
         onCardTapped: () => model.navigate('location', arguments: location)))

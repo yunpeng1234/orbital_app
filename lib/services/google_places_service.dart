@@ -58,8 +58,8 @@ class GooglePlacesService {
   Future<List<MyLocation>> getNearbyLocations() async {
     GeoFirePoint position = await _geolocator.currentPosition();
     List<SearchResult> results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
-    if (results.length > 10) {
-     results = results.sublist(0, 10);
+    if (results.length > 4) {
+     results = results.sublist(0, 4);
     }
     // List<MyLocation> locations = await Future.wait(results.map((result) async {
     //   DetailsResult details = await getDetails(result.placeId);
@@ -68,6 +68,14 @@ class GooglePlacesService {
     // locations.removeWhere((elem) => elem == null);
     // return locations;
     return resultsListToLocation(results);
+  }
+
+  Future<List<String>> getNearbyPlaceIds() async {
+    GeoFirePoint position = await _geolocator.currentPosition();
+    List<SearchResult> results = (await _service.search.getNearBySearch(
+        Location(lat: position.latitude, lng: position.longitude), 1000,
+        type: 'restaurant')).results;
+    return results.map((result) => result.placeId).toList();
   }
 
   Future<List<AutocompletePrediction>> placesAutocomplete(String input) async {

@@ -8,7 +8,8 @@ class ScrollingCardsLayout extends StatelessWidget {
   final String title;
   final String sideButtonText;
   final String noDataText;
-  final List<Widget> widgetList;
+  List<Widget> widgetList;
+  final ListView listView;
   final Function onSideButtonTapped;
 
   ScrollingCardsLayout({
@@ -18,6 +19,7 @@ class ScrollingCardsLayout extends StatelessWidget {
     this.sideButtonText,
     this.noDataText,
     this.widgetList,
+    this.listView,
     this.onSideButtonTapped,
     Key key,
   }) : super(key: key);
@@ -77,6 +79,7 @@ class ScrollingCardsLayout extends StatelessWidget {
                   style: subtitleText,
                   textAlign: TextAlign.center,
                   ),
+                verticalSpaceRegular,
               ],
             ),
         )
@@ -122,10 +125,7 @@ class ScrollingCardsLayout extends StatelessWidget {
                   ),
               ],
             )
-            : ListView(
-              scrollDirection: Axis.horizontal,
-              children: widgetList
-            ),
+            : listView
         ),
         verticalSpaceRegular,
       ],
