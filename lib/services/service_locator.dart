@@ -12,7 +12,7 @@ import 'package:orbital_app/view_models/home/my_order_view_model.dart';
 import 'package:orbital_app/view_models/home/order_details_view_model.dart';
 import 'package:orbital_app/view_models/home/search_results_view_model.dart';
 import 'package:orbital_app/view_models/home/taken_order_view_model.dart';
-import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
+import 'package:orbital_app/view_models/home/location_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_my_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_taken_orders_view_model.dart';
