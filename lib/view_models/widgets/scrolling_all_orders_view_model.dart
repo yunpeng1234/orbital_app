@@ -12,22 +12,19 @@ import 'package:place_picker/place_picker.dart';
 class ScrollingAllOrdersViewModel extends BaseViewModel {
 
   final OrderService _database = serviceLocator<OrderService>();
-  final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   Stream<List<Order>> orders;
-  GeoFirePoint userLocation;
   GeoFirePoint chosenLocation;
 
   Future init() async {
-    userLocation = await runBusyFuture(_geolocator.currentPosition());
     _getNearbyOrders();
   }
 
   void _getNearbyOrders()  {
-    orders = _database.filteredByLocation(userLocation);
+    orders = _database.filteredByLocation();
   }
 
   void _getNearbyOrdersFiltered() {
-    orders = _database.filteredByLocationAndDestination(userLocation, chosenLocation);
+    orders = _database.filteredByLocationAndDestination(chosenLocation);
     notifyListeners();
   }
 

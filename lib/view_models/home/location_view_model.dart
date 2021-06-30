@@ -11,14 +11,13 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LocationViewModel extends BaseViewModel {
-  final TextEditingController _orderController = new TextEditingController();
-  final TextEditingController _commentsController = new TextEditingController();
-  final TextEditingController _detailsController = new TextEditingController();
+  final TextEditingController _orderController = TextEditingController();
+  final TextEditingController _commentsController = TextEditingController();
+  final TextEditingController _detailsController = TextEditingController();
   final OrderService _database = serviceLocator<OrderService>();
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
-  final geo = Geoflutterfire();
-  GeoFirePoint userLocation;
-  String userLocationAddress;
+  GeoFirePoint deliveryLocation;
+  String deliveryLocationAddress;
 
   void setOrder(String order) {
     _orderController.text = order;
@@ -68,9 +67,9 @@ class LocationViewModel extends BaseViewModel {
     }
     try {
       var order = await runBusyFuture(
-          _database.createOrderData(userLocation, GeoFirePoint(restaurant.lat, restaurant.long),
+          _database.createOrderData(deliveryLocation, GeoFirePoint(restaurant.lat, restaurant.long),
           _orderController.text, _commentsController.text, restaurant.name, restaurant.address,
-          userLocationAddress, _detailsController.text));
+          deliveryLocationAddress, _detailsController.text));
       _showSuccessDialog(context, this);
       return order;
     } catch (e) {
@@ -93,14 +92,14 @@ class LocationViewModel extends BaseViewModel {
     LocationResult result = await navState.push(MaterialPageRoute(
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
-    userLocation = _converter(result);
-    userLocationAddress = result.formattedAddress;
+    deliveryLocation = _converter(result);
+    deliveryLocationAddress = result.formattedAddress;
     notifyListeners();
   }
 
   Future getCurrentPosition() async {
-    userLocation = await runBusyFuture(_geolocator.currentPosition());
-    userLocationAddress = await runBusyFuture(_geolocator.getAddress());
+    deliveryLocation = _geolocator.currentPosition();
+    deliveryLocationAddress = await runBusyFuture(_geolocator.getAddress());
     notifyListeners();
   }
 }

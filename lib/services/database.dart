@@ -10,8 +10,6 @@ class DatabaseService {
   final String uid;
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
-  static final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
-
 
   DatabaseService({this.uid});
   //Collection reference

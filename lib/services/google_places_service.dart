@@ -57,8 +57,8 @@ class GooglePlacesService {
   }
 
   Future<List<MyLocation>> getNearbyLocations() async {
-    GeoFirePoint position = await _geolocator.currentPosition();
-    List<SearchResult> results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
+    GeoFirePoint position =  _geolocator.currentPosition();
+    List<SearchResult> results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 500, type: 'restaurant')).results;
     if (results.length > 4) {
      results = results.sublist(0, 4);
     }
@@ -72,7 +72,7 @@ class GooglePlacesService {
   }
 
   Future<List<String>> getNearbyPlaceIds() async {
-    GeoFirePoint position = await _geolocator.currentPosition();
+    GeoFirePoint position = _geolocator.currentPosition();
     List<SearchResult> results = (await _service.search.getNearBySearch(
         Location(lat: position.latitude, lng: position.longitude), 500,
         type: 'restaurant')).results;
@@ -80,7 +80,7 @@ class GooglePlacesService {
   }
 
   Future<List<AutocompletePrediction>> placesAutocomplete(String input) async {
-    GeoFirePoint position = await _geolocator.currentPosition();
+    GeoFirePoint position = _geolocator.currentPosition();
     AutocompleteResponse result = await _service.autocomplete.get(input,
       location: LatLon(position.latitude, position.longitude),
       radius: 2000,

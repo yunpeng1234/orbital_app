@@ -6,29 +6,34 @@ import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/services/google_places_service.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 
 class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
-  final int _maxPages = 5;
+  final int _maxPages = 3;
   final int toLoad = 3;
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
   final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
   List<MyLocation> locations = [];
-  List<String> placeIds;
+  List<String> placeIds = [];
   int page = 0;
 
-  int maxItems() {
-    return _maxPages * toLoad;
-  }
 
   Future init(ScrollController controller) async {
+    _geolocationService.listenToPosition((position) {
+      page = 0;
+      if (locations.isNotEmpty) locations.clear();
+      runBusyFuture(getDetailsAndPlaceId());
+    });
     controller.addListener(() {
       if (controller.offset >= controller.position.maxScrollExtent && !controller.position.outOfRange) {
         getDetails();
         this.notifyListeners();
       }
     });
-    await runBusyFuture(getDetailsAndPlaceId());
+    if (placeIds.isEmpty) runBusyFuture(getDetailsAndPlaceId());
+  }
+
+  int maxItems() {
+    return _maxPages * toLoad;
   }
 
   Future getDetailsAndPlaceId() async {

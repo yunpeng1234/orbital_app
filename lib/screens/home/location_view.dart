@@ -44,12 +44,12 @@ class LocationView extends StatelessWidget {
                       style: blackBodyText,
                     ),
                     verticalSpaceRegular,
-                    if (model.userLocationAddress != null) Row(
+                    if (model.deliveryLocationAddress != null) Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Flexible(
                           child: Text(
-                            'Your Address: \n${model.userLocationAddress}',
+                            'Your Address: \n${model.deliveryLocationAddress}',
                             style: blackBodyText,
                           ),
                         ),
