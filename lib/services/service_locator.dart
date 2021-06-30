@@ -55,7 +55,7 @@ void setupServiceLocator() {
       dependsOn: [GeolocationService, GooglePlacesService]);
 
   serviceLocator.registerSingletonWithDependencies(() => ScrollingAllOrdersViewModel(),
-      dependsOn: [OrderService]);
+      dependsOn: [GeolocationService, OrderService]);
 
   serviceLocator.registerSingletonWithDependencies(() => ScrollingTakenOrdersViewModel(),
       dependsOn: [OrderService]);
