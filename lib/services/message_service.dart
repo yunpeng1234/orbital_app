@@ -21,7 +21,7 @@ class MessageService {
   Future<void> sendMessage(String uid, String message) async {
     String from = _auth.getUID();
     String to = uid;
-    DateTime temp = DateTime.now();
+    Timestamp temp = Timestamp.now();
 
 
     /// Adds to the other user's message collection
