@@ -10,6 +10,7 @@ class GooglePlacesService {
   final GooglePlace _service = GooglePlace(dotenv.env['PLACES_KEY']);
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   final String urlEndpoint = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+  int queryCount = 0;
 
   Future<List<MyLocation>> resultsListToLocation(List<SearchResult> results) async {
     List<MyLocation> locations = await Future.wait(results.map((result) async {
@@ -50,7 +51,8 @@ class GooglePlacesService {
       address: address,
       photoUrl: urlEndpoint + reference + '&key=' + apiKey,
     );
-    print('here');
+    queryCount++;
+    print(queryCount);
     return loc;
   }
 

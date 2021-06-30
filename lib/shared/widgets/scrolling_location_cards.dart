@@ -16,8 +16,6 @@ class ScrollingLocationCards extends StatefulWidget {
 }
 
 class _ScrollingLocationCardsState extends State<ScrollingLocationCards> {
-  final int _maxItems = 10;
-  final int toLoad = 5;
   final ScrollController _controller = ScrollController();
 
   @override
@@ -29,7 +27,7 @@ class _ScrollingLocationCardsState extends State<ScrollingLocationCards> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ScrollingLocationCardsViewModel>(
-      onModelReady: (model) => model.init(_controller, toLoad),
+      onModelReady: (model) => model.init(_controller),
       builder: (context, model, child) {
         if (model.isBusy()) {
           return ScrollingCardsLayout(
@@ -46,12 +44,18 @@ class _ScrollingLocationCardsState extends State<ScrollingLocationCards> {
             scrollDirection: Axis.horizontal,
             itemCount: model.locations.length + 1,
             itemBuilder: (context, index) {
-              if (index >= _maxItems) {
+              if (index >= model.maxItems()) {
                 return null;
               }
               if (index == model.locations.length) {
-                return CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                return Container(
+                  width: 180,
+                  height: 140,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  ),
                 );
               }
               return LocationCard(

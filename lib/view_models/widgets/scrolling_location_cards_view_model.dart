@@ -9,29 +9,36 @@ import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 
 class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
+  final int _maxPages = 5;
+  final int toLoad = 3;
   final GooglePlacesService _service = serviceLocator<GooglePlacesService>();
   final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
   List<MyLocation> locations = [];
   List<String> placeIds;
+  int page = 0;
 
-  Future init(ScrollController controller, int toLoad) async {
+  int maxItems() {
+    return _maxPages * toLoad;
+  }
+
+  Future init(ScrollController controller) async {
     controller.addListener(() {
       if (controller.offset >= controller.position.maxScrollExtent && !controller.position.outOfRange) {
-        getDetails(toLoad);
+        getDetails();
         this.notifyListeners();
       }
     });
-    await runBusyFuture(getDetailsAndPlaceId(toLoad));
+    await runBusyFuture(getDetailsAndPlaceId());
   }
 
-  Future getDetailsAndPlaceId(int toLoad) async {
+  Future getDetailsAndPlaceId() async {
     placeIds = await _service.getNearbyPlaceIds();
-    await getDetails(toLoad);
+    await getDetails();
     return;
   }
 
-  Future getDetails(int toLoad) async {
-    if (placeIds.length < toLoad) {
+  Future getDetails() async {
+    if (placeIds.length < toLoad || page >= _maxPages) {
       return;
     }
     List<String> toConvert = placeIds.sublist(0, toLoad);
@@ -39,6 +46,7 @@ class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
     locations.addAll(await Future.wait(toConvert.map((placeId) async {
       return await _service.placeIdToLocation(placeId);
     }).toList()));
+    page++;
   }
 
 
