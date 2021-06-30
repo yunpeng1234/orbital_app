@@ -24,7 +24,8 @@ class HomeView extends StatelessWidget {
     }
 
     return BaseView<HomeViewModel>(
-      builder: (context, model, child) => model.state == ViewState.busy
+      onModelReady: (model) => model.init(),
+      builder: (context, model, child) => model.isBusy()
         ? Center(child: Loading())
         : Scaffold(
             drawer: AppDrawer(),

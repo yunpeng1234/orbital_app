@@ -9,7 +9,7 @@ class OrderService {
 
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
-  static final GeolocationService _geolocationService = serviceLocator<GeolocationService>();
+  static final GeolocationService _geolocator = serviceLocator<GeolocationService>();
 
   String getUID() {
     return _auth.getUID();
@@ -113,17 +113,19 @@ class OrderService {
     }).toList();
   }
 
-  Stream<List<Order>> filteredByLocation(GeoFirePoint center) {
+  Stream<List<Order>> filteredByLocation() {
+    GeoFirePoint center = _geolocator.currentPosition();
     return geo.collection(collectionRef: orders)
-    .within(center: center, radius: 2.0, field: 'Restaurant')
+    .within(center: center, radius: 0.5, field: 'Restaurant')
     .map(_orderFromFilter)
     .map((list) => list.where((order) => order.to == '' && order.from != getUID()).toList()
     );
   }
 
-  Stream<List<Order>> filteredByLocationAndDestination(GeoFirePoint center, GeoFirePoint chosenLocation) {
+  Stream<List<Order>> filteredByLocationAndDestination(GeoFirePoint chosenLocation) {
+    GeoFirePoint center = _geolocator.currentPosition();
     return geo.collection(collectionRef: orders)
-        .within(center: center, radius: 2.0, field: 'Restaurant')
+        .within(center: center, radius: 0.5, field: 'Restaurant')
         .map(_orderFromFilter)
         .map((list) => list.where((order) => order.to == '' &&
           chosenLocation.distance(lat: order.deliverTo.latitude, lng: order.deliverTo.longitude) < 0.5) // distance in km

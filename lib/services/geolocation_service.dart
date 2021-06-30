@@ -6,40 +6,35 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 class GeolocationService {
   final String endpoint = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
   final String apiKey = dotenv.env['PLACES_KEY'];
+  static final Stream<Position> _positionStream = Geolocator.getPositionStream(distanceFilter: 500);
+  static Position position;
 
-  Future<GeoFirePoint> currentPosition() async {
-    Position position = await Geolocator.getCurrentPosition();
+  Future init() async {
+    _positionStream.listen((event) {
+      position = event;
+    });
+    await initPosition();
+  }
+
+  Future initPosition() async {
+    position = await _positionStream.first;
+  }
+
+  GeoFirePoint currentPosition()  {
     GeoFirePoint res = GeoFirePoint(position.latitude,position.longitude);
     return res;
   }
 
+  Future listenToPosition(void Function(Position) callback) {
+    _positionStream.listen(callback);
+  }
+
   Future<String> getAddress() async {
-    Position position = await Geolocator.getCurrentPosition();
-
-    // Uncomment to submit request to google directly
-
-    // var url = Uri.parse((endpoint + '${position.latitude}'+ ',' + '${position.longitude}'+ '&key=' + apiKey));
-    // var response = await http.post(url);
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
-
-
-    // Uncomment to use geocoder package
-
     final coordinates = new GeoC.Coordinates(
         position.latitude, position.longitude);
     var address = await GeoC.Geocoder.local.findAddressesFromCoordinates(
         coordinates);
     return address.first.addressLine;
-
-    // Uncomment to use geocoding package
-
-    // List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-    // Map<String, dynamic> placemarkMap = placemarks[0].toJson();
-    // print(placemarkMap);
-    // String address = placemarkMap['name'] + ', '+ placemarkMap['street'] + ', '+ placemarkMap['postalCode'];
-    // print(address);
-    // return address;
   }
 
 }

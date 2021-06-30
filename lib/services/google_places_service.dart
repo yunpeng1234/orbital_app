@@ -10,6 +10,7 @@ class GooglePlacesService {
   final GooglePlace _service = GooglePlace(dotenv.env['PLACES_KEY']);
   final GeolocationService _geolocator = serviceLocator<GeolocationService>();
   final String urlEndpoint = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+  int queryCount = 0;
 
   Future<List<MyLocation>> resultsListToLocation(List<SearchResult> results) async {
     List<MyLocation> locations = await Future.wait(results.map((result) async {
@@ -29,7 +30,6 @@ class GooglePlacesService {
     String fields = 'place_id,geometry,name,formatted_address,photo';
     DetailsResponse details = await _service.details.get(placeId, fields: fields);
     if (details == null || details.result == null) {
-      if (details != null) print(details.status);
       return null;
     }
     return details.result;
@@ -43,7 +43,6 @@ class GooglePlacesService {
     } else {
       reference = details.photos.first.photoReference;
     }
-    print(details.internationalPhoneNumber);
     MyLocation loc = MyLocation(
       placeId: details.placeId,
       lat: details.geometry.location.lat,
@@ -52,14 +51,16 @@ class GooglePlacesService {
       address: address,
       photoUrl: urlEndpoint + reference + '&key=' + apiKey,
     );
+    queryCount++;
+    print(queryCount);
     return loc;
   }
 
   Future<List<MyLocation>> getNearbyLocations() async {
-    GeoFirePoint position = await _geolocator.currentPosition();
-    List<SearchResult> results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 1000, type: 'restaurant')).results;
-    if (results.length > 10) {
-     results = results.sublist(0, 10);
+    GeoFirePoint position =  _geolocator.currentPosition();
+    List<SearchResult> results = (await _service.search.getNearBySearch(Location(lat: position.latitude, lng: position.longitude), 500, type: 'restaurant')).results;
+    if (results.length > 4) {
+     results = results.sublist(0, 4);
     }
     // List<MyLocation> locations = await Future.wait(results.map((result) async {
     //   DetailsResult details = await getDetails(result.placeId);
@@ -70,8 +71,16 @@ class GooglePlacesService {
     return resultsListToLocation(results);
   }
 
+  Future<List<String>> getNearbyPlaceIds() async {
+    GeoFirePoint position = _geolocator.currentPosition();
+    List<SearchResult> results = (await _service.search.getNearBySearch(
+        Location(lat: position.latitude, lng: position.longitude), 500,
+        type: 'restaurant')).results;
+    return results.map((result) => result.placeId).toList();
+  }
+
   Future<List<AutocompletePrediction>> placesAutocomplete(String input) async {
-    GeoFirePoint position = await _geolocator.currentPosition();
+    GeoFirePoint position = _geolocator.currentPosition();
     AutocompleteResponse result = await _service.autocomplete.get(input,
       location: LatLon(position.latitude, position.longitude),
       radius: 2000,

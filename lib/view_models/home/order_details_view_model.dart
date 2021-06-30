@@ -38,6 +38,7 @@ class OrderDetailsViewModel extends BaseViewModel {
   }
 
   Future navigateToHome() async {
-    navState.pushReplacementNamed('/');
+    navState.pop();
+    navState.pop();
   }
 }

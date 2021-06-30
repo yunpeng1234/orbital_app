@@ -30,7 +30,7 @@ abstract class BaseViewModel extends ChangeNotifier {
   Future<T> runBusyFuture<T>(Future<T> busyFunc) async {
     setState(ViewState.busy);
     try {
-      var value = await busyFunc;
+      T value = await busyFunc;
       setErrorAndState(ViewState.idle, false);
       return value;
     } catch (e) {

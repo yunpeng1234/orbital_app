@@ -21,16 +21,19 @@ class ScrollingAllOrders extends StatelessWidget {
         if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
           return ScrollingCardsLayout(
             isLoading: true,
-            title: 'All Orders',
+            title: 'Nearby Orders',
           );
         }
         return ScrollingCardsLayout(
           isLoading: false,
           isEmpty: snapshot.data.isEmpty,
-          title: 'All Orders',
+          title: 'Nearby Orders',
           sideButtonText: 'Filter Orders',
           noDataText: 'No orders in your area! :(',
-          widgetList: _buildCardList(snapshot, model),
+          widgetList: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _buildCardList(snapshot, model),
+          ),
           onSideButtonTapped: () => model.showPlacePicker(),
         );
         }

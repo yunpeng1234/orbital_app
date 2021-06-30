@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
+import 'package:orbital_app/view_models/home/location_view_model.dart';
 import 'package:orbital_app/models/my_location.dart';
 
 class LocationView extends StatelessWidget {
@@ -44,12 +44,12 @@ class LocationView extends StatelessWidget {
                       style: blackBodyText,
                     ),
                     verticalSpaceRegular,
-                    if (model.userLocationAddress != null) Row(
+                    if (model.deliveryLocationAddress != null) Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Flexible(
                           child: Text(
-                            'Your Address: \n${model.userLocationAddress}',
+                            'Your Address: \n${model.deliveryLocationAddress}',
                             style: blackBodyText,
                           ),
                         ),

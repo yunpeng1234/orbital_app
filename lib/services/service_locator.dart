@@ -7,12 +7,11 @@ import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
 import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
-import 'package:orbital_app/view_models/home/all_locations_view_model.dart';
 import 'package:orbital_app/view_models/home/my_order_view_model.dart';
 import 'package:orbital_app/view_models/home/order_details_view_model.dart';
 import 'package:orbital_app/view_models/home/search_results_view_model.dart';
 import 'package:orbital_app/view_models/home/taken_order_view_model.dart';
-import 'package:orbital_app/view_models/submit_order_flow/location_view_model.dart';
+import 'package:orbital_app/view_models/home/location_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_my_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_taken_orders_view_model.dart';
@@ -27,26 +26,57 @@ GetIt serviceLocator = GetIt.instance;
 
 void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => AuthService());
-  serviceLocator.registerLazySingleton(() => GeolocationService());
-  serviceLocator.registerLazySingleton(() => DatabaseService.init());
-  serviceLocator.registerLazySingleton(() => GooglePlacesService());
-  serviceLocator.registerLazySingleton(() => OrderService());
-  serviceLocator.registerLazySingleton(() => SignInViewModel());
-  serviceLocator.registerLazySingleton(() => RegisterViewModel());
-  serviceLocator.registerLazySingleton(() => PasswordResetViewModel());
-  serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
-  serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
-  serviceLocator.registerLazySingleton(() => AllLocationsViewModel());
-  serviceLocator.registerLazySingleton(() => ScrollingLocationCardsViewModel());
-  serviceLocator.registerLazySingleton(() => ScrollingAllOrdersViewModel());
-  serviceLocator.registerLazySingleton(() => ScrollingTakenOrdersViewModel());
-  serviceLocator.registerLazySingleton(() => ScrollingMyOrdersViewModel());
-  serviceLocator.registerLazySingleton(() => HomeViewModel());
-  serviceLocator.registerLazySingleton(() => LocationViewModel());
-  serviceLocator.registerLazySingleton(() => TakenOrderViewModel());
-  serviceLocator.registerLazySingleton(() => MyOrderViewModel());
-  serviceLocator.registerLazySingleton(() => MySearchBarViewModel());
-  serviceLocator.registerLazySingleton(() => SearchResultsViewModel());
-  serviceLocator.registerFactory(() => OrderDetailsViewModel());
 
+  serviceLocator.registerSingletonAsync(() async {
+    final geolocator = GeolocationService();
+    await geolocator.init();
+    return geolocator;
+  });
+
+  serviceLocator.registerLazySingleton(() => DatabaseService.init());
+
+  serviceLocator.registerSingletonWithDependencies(() => GooglePlacesService(),
+      dependsOn: [GeolocationService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => OrderService(),
+      dependsOn: [GeolocationService]);
+
+  serviceLocator.registerLazySingleton(() => SignInViewModel());
+
+  serviceLocator.registerLazySingleton(() => RegisterViewModel());
+
+  serviceLocator.registerLazySingleton(() => PasswordResetViewModel());
+
+  serviceLocator.registerLazySingleton(() => AppDrawerViewModel());
+
+  serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingLocationCardsViewModel(),
+      dependsOn: [GeolocationService, GooglePlacesService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingAllOrdersViewModel(),
+      dependsOn: [GeolocationService, OrderService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingTakenOrdersViewModel(),
+      dependsOn: [OrderService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingMyOrdersViewModel(),
+      dependsOn: [OrderService]);
+
+  serviceLocator.registerLazySingleton(() => HomeViewModel());
+
+  serviceLocator.registerSingletonWithDependencies(() => LocationViewModel(),
+      dependsOn: [GeolocationService, OrderService]);
+
+  serviceLocator.registerLazySingleton(() => TakenOrderViewModel());
+
+  serviceLocator.registerLazySingleton(() => MyOrderViewModel());
+
+  serviceLocator.registerSingletonWithDependencies(() => MySearchBarViewModel(),
+      dependsOn: [GooglePlacesService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => SearchResultsViewModel(),
+      dependsOn: [GooglePlacesService]);
+
+  serviceLocator.registerFactory(() => OrderDetailsViewModel());
 }

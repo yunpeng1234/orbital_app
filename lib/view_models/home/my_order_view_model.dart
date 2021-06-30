@@ -46,7 +46,8 @@ class MyOrderViewModel extends BaseViewModel {
   }
 
   Future navigateToHome() async {
-    navState.pushReplacementNamed('/');
+    navState.pop();
+    navState.pop();
   }
 
   Future popupDialog (BuildContext context, int orderId) async {
