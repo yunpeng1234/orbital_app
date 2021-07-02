@@ -4,6 +4,7 @@ import 'package:orbital_app/services/order_service.dart';
 import 'package:orbital_app/view_models/authenticate/signin_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/password_reset_view_model.dart';
 import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
+import 'package:orbital_app/view_models/chat/contact_page_view_model.dart';
 import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
@@ -17,10 +18,12 @@ import 'package:orbital_app/view_models/widgets/scrolling_my_orders_view_model.d
 import 'package:orbital_app/view_models/widgets/scrolling_taken_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/scrolling_all_orders_view_model.dart';
 import 'package:orbital_app/view_models/widgets/my_search_bar_view_model.dart';
+import 'package:orbital_app/view_models/chat/contact_tile_view_model.dart';
 import 'geolocation_service.dart';
 import 'database.dart';
 import 'auth_service.dart';
 import 'google_places_service.dart';
+import 'message_service.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -79,4 +82,11 @@ void setupServiceLocator() {
       dependsOn: [GooglePlacesService]);
 
   serviceLocator.registerFactory(() => OrderDetailsViewModel());
+  serviceLocator.registerLazySingleton(() => ContactPageViewModel());
+  
+  serviceLocator.registerLazySingleton(() => MessageService());
+
+  serviceLocator.registerLazySingleton(() => ContactTileViewModel());
+
+
 }

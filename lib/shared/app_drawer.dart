@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
+import 'package:orbital_app/screens/chat/contact_view.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 
 
@@ -70,6 +71,11 @@ class _AppDrawerState extends State<AppDrawer> {
             text: 'Logout',
             onTap: () async {model.signOut();}
             ),
+            _createDrawerItem(
+              icon: Icons.wallet_giftcard,
+              text: 'Chat',
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ContactPageView())
+            )),
           ]
         ),
       ),

@@ -49,4 +49,13 @@ class DatabaseService {
     return users.doc(uid).snapshots()
       .map(_dataFromSnapshot);
   }
+
+   Future<IndividualData> getSenderData(String senderUID) async {
+    DocumentSnapshot temp =  await users.doc(senderUID).get();
+    return IndividualData(
+      picUrl: (temp as Map)['PicUrl'],
+      name: (temp as Map)['Username'],
+      uid: senderUID,
+    );
+  }
 }

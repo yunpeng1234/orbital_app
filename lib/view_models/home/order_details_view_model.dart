@@ -1,3 +1,5 @@
+import 'package:orbital_app/services/message_service.dart';
+import 'package:orbital_app/models/order.dart';
 import '../base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
@@ -6,6 +8,12 @@ import 'package:orbital_app/services/order_service.dart';
 
 class OrderDetailsViewModel extends BaseViewModel {
   final OrderService _database = serviceLocator<OrderService>();
+  final MessageService _messageService = serviceLocator<MessageService>();
+  Order order;
+
+  Future init(Order details) {
+    order = details;
+  }
 
   Future _showSuccessDialog(BuildContext context, OrderDetailsViewModel model) {
     return showDialog(
@@ -33,6 +41,7 @@ class OrderDetailsViewModel extends BaseViewModel {
   }
 
   Future takeOrder(BuildContext context, int orderId) async {
+    await runBusyFuture(_messageService.startConversation(order.from));
     await runBusyFuture(_database.acceptOrderData(orderId));
     _showSuccessDialog(context, this);
   }

@@ -15,6 +15,7 @@ class OrderDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<OrderDetailsViewModel>(
+      onModelReady: (model) => model.init(order),
         builder: (context, model, child) => Scaffold(
           backgroundColor: primaryColor,
           resizeToAvoidBottomInset: false,
