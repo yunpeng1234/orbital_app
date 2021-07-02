@@ -4,6 +4,9 @@ import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/widgets/contact_tile.dart';
 import 'package:orbital_app/view_models/chat/contact_page_view_model.dart';
+import 'package:orbital_app/shared/app_drawer.dart';
+import 'package:orbital_app/shared/constants.dart';
+
 
 class ContactPageView extends StatelessWidget {
 
@@ -21,6 +24,10 @@ class ContactPageView extends StatelessWidget {
             );
           }
           return Scaffold(
+            drawer: AppDrawer(),
+            appBar: AppBar(),
+            backgroundColor: primaryColor,
+            resizeToAvoidBottomInset: false,
             body: ListView(
               children: _buildList(model, snapshot),
             )

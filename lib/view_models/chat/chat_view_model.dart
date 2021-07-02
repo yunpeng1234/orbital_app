@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:orbital_app/models/message.dart';
 import 'package:orbital_app/screens/chat/chat_view.dart';
 import 'package:orbital_app/services/auth_service.dart';
@@ -12,6 +13,7 @@ class ChatViewModel extends BaseViewModel {
 
   final MessageService _messageService = serviceLocator<MessageService>();
   final AuthService _auth = serviceLocator<AuthService>();
+  final TextEditingController controller = TextEditingController();
 
   Stream<List<Message>> chat;
 
@@ -19,7 +21,8 @@ class ChatViewModel extends BaseViewModel {
     chat = _messageService.message(uid);
   }
 
-  Future sendMessage(String uid, String message) async {
-    await _messageService.sendMessage(uid, message);
+  Future sendMessage(String uid) async {
+    String tosend = controller.text;
+    await _messageService.sendMessage(uid, tosend);
   }
 }

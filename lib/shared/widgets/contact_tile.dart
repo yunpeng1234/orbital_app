@@ -31,6 +31,9 @@ class ContactTile extends StatelessWidget {
             }));
           },
           child : Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black, width: 1.0))
+            ),
             padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
             child: Row (
               children: <Widget>[
