@@ -102,6 +102,10 @@ class MessageService {
     ).toList();
   } 
   
+  Future<String> get test async {
+    DocumentSnapshot temp = await contactLocal.doc('i3B55rMqsoP0P8Z4dUhdCPJd8Vu2').get();
+    return temp['Time'].toString();
+  }
   ///Get the list of messages for one person
   Stream<List<Message>> message(String uid) {
     return local.doc(uid).collection('Texts').orderBy('Time').snapshots().map(_messagesFromSnapshot);
@@ -119,29 +123,21 @@ class MessageService {
 
   List<Contact> _contactFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((x) {
-      return Contact(
+      Timestamp temp = (x.data() as Map)['Time'];
+      DateTime res = temp.toDate();
+      var two = Contact(
         sender: x.id,
         message: (x.data() as Map)['Message'] ?? '',
-        time: (x.data() as Map)['Time'] ?? null,
+        time: res ?? null,
       );
+      return two;
     }
     ).toList();
   }
 
   Stream<List<Contact>> get contacts {
-    print(contactLocal.snapshots().map((x) {
-      print(x);
-    }).toString());
-    return contactLocal.snapshots().map(_contactFromSnapshot);
-
+    Stream<List<Contact>> temp =  contactLocal.snapshots().map(_contactFromSnapshot);
+    return temp;
   }
 
-  // Future<Contact> mapToContact(String uid) async {
-  //   IndividualData user = await _databaseService.getSenderData(uid);
-  //   List<Message> list = await message(getUID()).first;
-  //   Message text = list[0];
-  //   DateTime time = DateTime.fromMillisecondsSinceEpoch(text.time * 1000);
-
-  //   return Contact(message: text.message, sender: user, time: time);
-  // }
 }

@@ -52,10 +52,12 @@ class DatabaseService {
 
    Future<IndividualData> getSenderData(String senderUID) async {
     DocumentSnapshot temp =  await users.doc(senderUID).get();
-    return IndividualData(
-      picUrl: (temp as Map)['PicUrl'],
-      name: (temp as Map)['Username'],
+    var res =  IndividualData(
+      picUrl: temp.get('PicUrl'),
+      name: temp.get('Username'),
       uid: senderUID,
     );
+    print(res.name);
+    return res;
   }
 }

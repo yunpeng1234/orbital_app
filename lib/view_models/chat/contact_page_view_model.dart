@@ -12,7 +12,6 @@ class ContactPageViewModel extends BaseViewModel {
   Stream<List<Contact>> contacts;
 
   Future init() async {
-    Stream<List<Contact>> contacts = _messageService.contacts;
-
+    contacts = _messageService.contacts;
   }
 }

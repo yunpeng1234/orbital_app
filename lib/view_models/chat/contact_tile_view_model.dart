@@ -15,7 +15,7 @@ class ContactTileViewModel extends BaseViewModel {
   Contact info;
   Future<IndividualData> details;
 
-  Future init(String senderUID) {
+  Future init(String senderUID) async{
     details = _databaseService.getSenderData(senderUID);
   }
    

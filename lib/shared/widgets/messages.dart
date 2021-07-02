@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Message extends StatelessWidget {
-  String message;
-  String sender;
-  bool thisUser;
+  final String message;
+  final String sender;
+  final bool thisUser;
 
   Message({this.message, this.sender, this.thisUser});
 

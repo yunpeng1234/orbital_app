@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/contact.dart';
+import 'package:orbital_app/screens/chat/chat_view.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/chat/contact_tile_view_model.dart';
-import 'package:orbital_app/shared/widgets/avatar.dart';
+import 'package:orbital_app/shared/widgets/chatavatar.dart';
 import 'package:orbital_app/models/user.dart';
-
+import 'package:intl/intl.dart';
 
 class ContactTile extends StatelessWidget {
-  Contact info;
+  final Contact info;
 
   ContactTile({
     this.info
@@ -21,18 +22,19 @@ class ContactTile extends StatelessWidget {
       builder: (context, model, child) => FutureBuilder(
         future: model.details,
         builder: (BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
-          if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) { return Loading();}
-            return GestureDetector(
+          String formatted = DateFormat.jm().format(info.time);
+          if (!snapshot.hasData) { return Loading();}
+          return GestureDetector(
               onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context){
-              return Loading();
+              return Chat(person: snapshot.data);
             }));
           },
           child : Container(
             padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
             child: Row (
               children: <Widget>[
-                Avatar(avatarUrl: snapshot.data.picUrl, onTap: () {}),
+                ChatAvatar(avatarUrl: snapshot.data.picUrl,size: 30.0),
                 SizedBox(width: 16),
                 Expanded(
                   child: Container(
@@ -47,12 +49,12 @@ class ContactTile extends StatelessWidget {
                           ),
                         ),
                 ),
-                Text(info.time.toString() ,style: TextStyle(fontSize: 12)),
+                Text(formatted ,style: TextStyle(fontSize: 12)),
               ],
             )
           )
         );
-      }
+        }
     )
     );
   }

@@ -48,6 +48,7 @@ dependencies:
   geoflutterfire: ^3.0.0-nullsafety.4
   firebase_storage: ^8.1.3
   image_picker: ^0.8.0+3
+  intl: ^0.17.0
 
 
 
