@@ -7,46 +7,44 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 
 class DatabaseService {
 
-  final String uid;
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
 
-  DatabaseService({this.uid});
   //Collection reference
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
 
-  static DatabaseService init() {
-    return DatabaseService(uid: _auth.getUID());
+  String getUID() {
+    return _auth.getUID();
   }
 
   Future<void> initialiseUserData(String name) async {
-    return await users.doc(uid).set({
+    return await users.doc(getUID()).set({
       'Username' : name,
       'PicUrl' : '',
     });
   } // things that are tied to the user themselves
   
   Future<void> updateUserData(String name) async {
-    return await users.doc(uid).update({
+    return await users.doc(getUID()).update({
       'Username' : name,
     });
   }
   Future<void> updateUserPic(String url) async {
-    return await users.doc(uid).update({
+    return await users.doc(getUID()).update({
       'PicUrl' : url,
     });
   }
 
   IndividualData _dataFromSnapshot(DocumentSnapshot snapshot) {
     return IndividualData(
-      uid: uid,
+      uid: getUID(),
       name: (snapshot.data() as Map)['Username'],
       picUrl: (snapshot.data() as Map)['PicUrl'],
     );
   }
 
   Stream<IndividualData> get userData {
-    return users.doc(uid).snapshots()
+    return users.doc(getUID()).snapshots()
       .map(_dataFromSnapshot);
   }
 
