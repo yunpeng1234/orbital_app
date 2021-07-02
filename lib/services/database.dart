@@ -6,7 +6,6 @@ import 'auth_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 
 class DatabaseService {
-
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
 
