@@ -37,7 +37,7 @@ void setupServiceLocator() {
     return geolocator;
   });
 
-  serviceLocator.registerLazySingleton(() => DatabaseService.init());
+  serviceLocator.registerLazySingleton(() => DatabaseService());
 
   serviceLocator.registerSingletonWithDependencies(() => GooglePlacesService(),
       dependsOn: [GeolocationService]);

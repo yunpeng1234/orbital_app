@@ -51,7 +51,7 @@ class AuthService {
       UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
       //new doc per new user registered.
-      await DatabaseService(uid: user.uid).initialiseUserData("");
+      await DatabaseService().initialiseUserData("");
 
       return _userFromFirebase(user);
     } catch(e) {
@@ -79,7 +79,7 @@ class AuthService {
       UserCredential res = await _auth.signInWithCredential(credential);
       User user = res.user;
       //new doc per new user registered.
-      await DatabaseService(uid: user.uid).initialiseUserData("");
+      await DatabaseService().initialiseUserData("");
       return user;
     } catch (e) {
       print(e.toString());

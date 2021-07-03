@@ -40,7 +40,7 @@ class ProfilePageViewModel extends BaseViewModel {
 
   void setName(String name) {
     _controller.text = name;
-    print(_service.uid);
+    print(_service.getUID());
   }
 
 }
