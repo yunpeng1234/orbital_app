@@ -46,7 +46,7 @@ class Chat extends StatelessWidget {
                                       message: snapshot.data[index].message, thisUser: false, sender: snapshot.data[index].from
                                       );
                                     }
-                                    return MessageBox(message: snapshot.data[index].message, thisUser: false, sender: snapshot.data[index].from);
+                                    return MessageBox(message: snapshot.data[index].message, thisUser: true, sender: snapshot.data[index].from);
                                   },
                                   ),
                                 ),
