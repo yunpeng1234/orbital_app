@@ -12,7 +12,7 @@ class MessageBox extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
       child: Align(
-        alignment: (thisUser ?Alignment.topLeft:Alignment.topRight),
+        alignment: (thisUser? Alignment.topLeft: Alignment.topRight),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
