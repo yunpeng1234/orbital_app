@@ -108,7 +108,7 @@ class MessageService {
   }
   ///Get the list of messages for one person
   Stream<List<Message>> message(String uid) {
-    return local.doc(uid).collection('Texts').orderBy('Time').snapshots().map(_messagesFromSnapshot);
+    return local.doc(uid).collection('Texts').orderBy('Time',descending: true).snapshots().map(_messagesFromSnapshot);
   }
 
   // List<Contact> _contactFromSnapshot(QuerySnapshot snapshot) {
