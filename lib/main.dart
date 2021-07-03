@@ -8,14 +8,23 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'routes/route_generator.dart';
 import 'routes/nav_key.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future main() async{
+
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupServiceLocator();
-  // serviceLocator<GooglePlacesService>().init();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  // await Firebase.initializeApp();
+  print("Handling a background message: ${message.messageId}");
 }
 
 class MyApp extends StatelessWidget {
