@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orbital_app/shared/widgets/send.dart';
 
 class ChatKeyboard extends StatelessWidget {
   final TextEditingController controller;
@@ -27,6 +28,7 @@ class ChatKeyboard extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: controller,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Type your message ...',
@@ -41,12 +43,8 @@ class ChatKeyboard extends StatelessWidget {
         SizedBox(
           width: 16,
         ),
-        CircleAvatar(
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.send,
-            color: Colors.white,
-          ),
+        SendButton(
+          onTap: onTap
         )
       ],
     ),

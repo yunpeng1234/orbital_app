@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Message extends StatelessWidget {
+class MessageBox extends StatelessWidget {
   final String message;
   final String sender;
   final bool thisUser;
 
-  Message({this.message, this.sender, this.thisUser});
+  MessageBox({this.message, this.sender, this.thisUser});
 
   @override
   Widget build(BuildContext context) {

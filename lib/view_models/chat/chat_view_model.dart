@@ -16,13 +16,16 @@ class ChatViewModel extends BaseViewModel {
   final TextEditingController controller = TextEditingController();
 
   Stream<List<Message>> chat;
+  String user;
 
   Future init(String uid) async {
     chat = _messageService.message(uid);
+    user = _auth.getUID();
   }
 
   Future sendMessage(String uid) async {
     String tosend = controller.text;
     await _messageService.sendMessage(uid, tosend);
+    controller.clear();
   }
 }

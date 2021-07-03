@@ -7,6 +7,8 @@ import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/widgets/chatavatar.dart';
 import 'package:orbital_app/shared/widgets/chatbar.dart';
+import 'package:orbital_app/shared/widgets/messages.dart';
+
 import 'package:orbital_app/shared/widgets/textkeyboard.dart';
 import 'package:orbital_app/view_models/chat/chat_view_model.dart';
 
@@ -25,8 +27,40 @@ class Chat extends StatelessWidget {
             if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) { return Loading();}
             return Scaffold(
                   appBar: ChatBar(info: person),
-                  body: Container(),
-                  bottomNavigationBar: ChatKeyboard(controller: model.controller, onTap: () {model.sendMessage(person.uid);}),
+                  body: LayoutBuilder(builder: (context, constraints) {
+                    return GestureDetector(
+                      onTap: () => FocusScope.of(context).unfocus(),
+                  
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  color: Colors.green,
+                                  child: ListView.builder(
+                                  itemCount: snapshot.data.length,
+                                  reverse: true,
+                                  itemBuilder: (context, index) {
+                                    if (snapshot.data[index].from == model.user){
+                                      return MessageBox(
+                                      message: snapshot.data[index].message, thisUser: false, sender: snapshot.data[index].from
+                                      );
+                                    }
+                                    return MessageBox(message: snapshot.data[index].message, thisUser: false, sender: snapshot.data[index].from);
+                                  },
+                                  ),
+                                ),
+                              ),
+                              ChatKeyboard(controller: model.controller, onTap: () {
+                                model.sendMessage(person.uid);
+                                }),
+                            ]
+                        
+                      
+                    )
+                    );
+
+                  })
                 );
           }
         )
