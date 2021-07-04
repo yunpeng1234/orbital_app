@@ -11,24 +11,23 @@ class ChatKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    padding: EdgeInsets.symmetric(horizontal: 20),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     color: Colors.white,
-    height: 100,
     child: Row(
       children: [
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 14),
-            height: 60,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Row(
-              children: [
-                Expanded(
+               child: Expanded(
                   child: TextField(
                     controller: controller,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 5,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Type your message ...',
@@ -36,8 +35,6 @@ class ChatKeyboard extends StatelessWidget {
                     ),
                   ),
                 ),
-              ],
-            ),
           ),
         ),
         SizedBox(
