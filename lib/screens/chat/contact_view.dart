@@ -18,6 +18,7 @@ class ContactPageView extends StatelessWidget {
         stream: model.contacts,
         builder:(BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
           print(snapshot.hasData);
+          print(snapshot.hasData);
           if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
             return Center(
               child: Loading(),

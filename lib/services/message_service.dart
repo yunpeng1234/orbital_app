@@ -65,12 +65,12 @@ class MessageService {
 
     await contactLocal.doc(to).set({
       'Time' : temp,
-      'Message' : '',
+      'Message' : greeting,
     });
 
     await contact.doc(to).collection('Latest').doc(from).set({
       'Time' : temp,
-      'Message' : '',
+      'Message' : greeting,
     });
 
     /// Adds to the other user's message collection
@@ -136,7 +136,7 @@ class MessageService {
   }
 
   Stream<List<Contact>> get contacts {
-    Stream<List<Contact>> temp =  contactLocal.snapshots().map(_contactFromSnapshot);
+    Stream<List<Contact>> temp =  contactLocal.orderBy('Time',descending: true).snapshots().map(_contactFromSnapshot);
     return temp;
   }
 

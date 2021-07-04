@@ -186,7 +186,6 @@ class OrderService {
     });
    }
 
-
   Stream<List<Order>> userOrder() {
     return orders.where('From', isEqualTo: getUID()).snapshots().map(_orderFromSnapshot);
   }
