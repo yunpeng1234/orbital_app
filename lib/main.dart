@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'routes/route_generator.dart';
 import 'routes/nav_key.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 Future main() async{
 
@@ -17,6 +18,16 @@ Future main() async{
   await Firebase.initializeApp();
   setupServiceLocator();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    toast('${message.notification.title} ${message.notification.body}', duration: Toast.LENGTH_LONG);
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
   runApp(MyApp());
 }
 
@@ -36,22 +47,24 @@ class MyApp extends StatelessWidget {
     return StreamProvider<Individual>.value(
       initialData: null,
       value: _auth.user,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              elevation: 0,
-              backgroundColor: primaryColor,
-              foregroundColor: Colors.black,
-              iconTheme: IconThemeData(color: Colors.black),
-              centerTitle: true,
+        child: OverlaySupport.global(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: AppBarTheme(
+                elevation: 0,
+                backgroundColor: primaryColor,
+                foregroundColor: Colors.black,
+                iconTheme: IconThemeData(color: Colors.black),
+                centerTitle: true,
+              ),
+              accentColor: greyButtonColor,
             ),
-            accentColor: greyButtonColor,
-          ),
-          navigatorKey: NavKey.navKey,
-          initialRoute: '/',
-          onGenerateRoute: RouteGenerator.generateRoute,
+            navigatorKey: NavKey.navKey,
+            initialRoute: '/',
+            onGenerateRoute: RouteGenerator.generateRoute,
       ),
+        ),
     );
   }
 }

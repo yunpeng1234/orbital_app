@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/user.dart';
-import 'package:orbital_app/services/geolocation_service.dart';
+import 'notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -8,12 +9,19 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 class DatabaseService {
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
+  static final NotificationService _notificationService = serviceLocator<NotificationService>();
 
   //Collection reference
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
 
   String getUID() {
     return _auth.getUID();
+  }
+
+  Future<void> addToken(String token) async {
+    return await users.doc(getUID()).update({
+      'Tokens': FieldValue.arrayUnion([token]),
+    });
   }
 
   Future<void> initialiseUserData(String name) async {

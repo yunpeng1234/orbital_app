@@ -51,6 +51,8 @@ dependencies:
   intl: ^0.17.0
   flutter_local_notifications: ^6.0.0
   firebase_messaging: ^10.0.3
+  firebase_analytics: ^7.0.1
+  overlay_support: ^1.2.1
 
 
 
