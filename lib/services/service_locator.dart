@@ -25,6 +25,7 @@ import 'database.dart';
 import 'auth_service.dart';
 import 'google_places_service.dart';
 import 'message_service.dart';
+import 'notification_service.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -91,5 +92,5 @@ void setupServiceLocator() {
 
   serviceLocator.registerLazySingleton(() => ChatViewModel());
 
-
+  serviceLocator.registerLazySingleton(() => NotificationService());
 }
