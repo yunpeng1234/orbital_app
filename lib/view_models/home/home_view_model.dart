@@ -1,16 +1,18 @@
 import 'package:orbital_app/services/geolocation_service.dart';
+import 'package:orbital_app/view_models/widgets/my_search_bar_view_model.dart';
+import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
 import '../base_view_model.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:orbital_app/services/database.dart';
+import 'package:orbital_app/services/google_places_service.dart';
 
 class HomeViewModel extends BaseViewModel {
   final DatabaseService _databaseService = serviceLocator<DatabaseService>();
 
   Future init() async {
     runBusyFuture(addToken());
-    runBusyFuture(serviceLocator.isReady<GeolocationService>());
   }
 
   Future addToken() async {

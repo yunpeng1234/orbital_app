@@ -23,6 +23,26 @@ class OrderService {
     return temp['Username'];
   }
 
+  Future<Order> getOrder(String orderId) async {
+    Map order = (await orders.doc(orderId).get()).data() as Map;
+    return Order(
+      from: order['From'] ?? '',
+      to: order['To'] ?? '',
+      done: order['Done'] ?? false,
+      orderId: order['Item']?? 0,
+      deliverTo: (order['DeliverTo'] as Map)['geopoint'] ?? null,
+      deliverToAddress: order['DeliverToAddress'] ?? '',
+      userAddressDetails: order['UserAddressDetails'] ?? '',
+      restaurantLocation: (order['Restaurant'] as Map)['geopoint']?? null,
+      order: order['Order'] ?? '',
+      comments: order['Comments'] ?? '',
+      restaurantAddress: order['RestaurantAddress'] ?? '',
+      restaurantName: order['RestaurantName'] ?? '',
+      toName: order['ToName'] ?? '',
+      fromName: order['FromName'] ?? '',
+    );
+  }
+
   Future<void> createOrderData(
       GeoFirePoint deliverTo,
       GeoFirePoint restaurant,

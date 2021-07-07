@@ -26,9 +26,7 @@ class ContactTile extends StatelessWidget {
           if (!snapshot.hasData) { return Loading();}
           return GestureDetector(
               onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return Chat(person: snapshot.data);
-            }));
+            Navigator.pushNamed(context, 'chat', arguments: snapshot.data);
           },
           child : Container(
             decoration: BoxDecoration(

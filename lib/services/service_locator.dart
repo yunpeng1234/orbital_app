@@ -46,6 +46,13 @@ void setupServiceLocator() {
   serviceLocator.registerSingletonWithDependencies(() => OrderService(),
       dependsOn: [GeolocationService]);
 
+  serviceLocator.registerSingletonAsync(() async {
+    await serviceLocator.isReady<OrderService>();
+    final notifications = NotificationService();
+    await notifications.init();
+    return notifications;
+  });
+
   serviceLocator.registerLazySingleton(() => SignInViewModel());
 
   serviceLocator.registerLazySingleton(() => RegisterViewModel());
@@ -84,6 +91,7 @@ void setupServiceLocator() {
       dependsOn: [GooglePlacesService]);
 
   serviceLocator.registerFactory(() => OrderDetailsViewModel());
+
   serviceLocator.registerLazySingleton(() => ContactPageViewModel());
   
   serviceLocator.registerLazySingleton(() => MessageService());
@@ -91,6 +99,4 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => ContactTileViewModel());
 
   serviceLocator.registerLazySingleton(() => ChatViewModel());
-
-  serviceLocator.registerLazySingleton(() => NotificationService());
 }

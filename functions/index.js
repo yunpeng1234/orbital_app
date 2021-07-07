@@ -55,6 +55,11 @@ exports.sendCompleteNotification =
               title: `Your order (Order no. ${orderId}) has arrived!`,
               body: "Tap to verify.",
             },
+            data: {
+              click_action: "FLUTTER_NOTIFICATION_CLICK",
+              screen: "myOrders",
+              args: orderId,
+            },
           };
           // Send notifications to all tokens.
           const response = await admin.messaging().sendToDevice(tokenList, payload);
@@ -121,6 +126,11 @@ exports.sendChatNotification =
               title: `A new message from ${contactName}!`,
               body: message,
               // icon: follower.photoURL
+            },
+            data: {
+              click_action: "FLUTTER_NOTIFICATION_CLICK",
+              screen: "chat",
+              args: contactId,
             },
           };
           // Send notifications to all tokens.
