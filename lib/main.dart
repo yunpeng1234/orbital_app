@@ -18,16 +18,16 @@ Future main() async{
   await Firebase.initializeApp();
   setupServiceLocator();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    toast('${message.notification.title} ${message.notification.body}', duration: Toast.LENGTH_LONG);
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-  });
+  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   print('Got a message whilst in the foreground!');
+  //   print('Message data: ${message.data}');
+  //
+  //   toast('${message.notification.title} ${message.notification.body}', duration: Toast.LENGTH_LONG);
+  //
+  //   if (message.notification != null) {
+  //     print('Message also contained a notification: ${message.notification}');
+  //   }
+  // });
   runApp(MyApp());
 }
 
