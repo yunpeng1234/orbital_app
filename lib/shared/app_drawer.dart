@@ -72,10 +72,10 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () async {model.signOut();}
             ),
             _createDrawerItem(
-              icon: Icons.wallet_giftcard,
+              icon: Icons.chat,
               text: 'Chat',
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ContactPageView())
-            )),
+              onTap: () => model.navigateAndReplace('contacts'),
+            ),
           ]
         ),
       ),

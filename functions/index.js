@@ -13,8 +13,6 @@ admin.initializeApp();
 exports.sendCompleteNotification =
     functions.firestore.document("/Orders/{orderId}")
         .onUpdate(async (change, context) => {
-          // const followerUid = context.params.followerUid;
-          // const followedUid = context.params.followedUid;
           const newValue = change.after.get("Done");
           const previousValue = change.before.get("Done");
 
@@ -24,15 +22,7 @@ exports.sendCompleteNotification =
           }
           const orderId = context.params.orderId;
           const fromId = change.after.get("From");
-          // If un-follow we exit the function.
-          // if (!change.after.val()) {
-          //     return functions.logger.log(
-          //         "User ",
-          //         followerUid,
-          //         "un-followed user",
-          //         followedUid
-          //     );
-          // }
+
           functions.logger.log(
               "We have a new completed order:",
               orderId,
@@ -42,14 +32,6 @@ exports.sendCompleteNotification =
 
           // Get the list of device notification tokens.
           const getUserPromise = admin.firestore().collection("User").doc(fromId).get();
-
-          // // Get the follower profile.
-          // const getFollowerProfilePromise = admin.auth()
-          // .getUser(followerUid);
-
-          // The snapshot to the user's tokens.
-
-          // The array containing all the user's tokens.
 
           const results = await Promise.all([getUserPromise]);
           const userSnapshot = results[0];
@@ -66,14 +48,17 @@ exports.sendCompleteNotification =
               tokenList.length,
               "tokens to send notifications to.",
           );
-          // functions.logger.log("Fetched follower profile", follower);
 
           // Notification details.
           const payload = {
             notification: {
               title: `Your order (Order no. ${orderId}) has arrived!`,
               body: "Tap to verify.",
-              // icon: follower.photoURL
+            },
+            data: {
+              click_action: "FLUTTER_NOTIFICATION_CLICK",
+              screen: "myOrders",
+              args: orderId,
             },
           };
           // Send notifications to all tokens.
@@ -96,7 +81,76 @@ exports.sendCompleteNotification =
             }
           });
           return Promise.all(tokensToRemove);
-        // const response = await admin.messaging()
-        //     .sendToDevice(token, payload);
-        // return functions.logger.log(response.results.toString());
+        });
+
+exports.sendChatNotification =
+    functions.firestore.document("/Messages/{recipientId}/Contacts/{contactId}/Texts/{messageId}")
+        .onCreate(async (change, context) => {
+          const message = change.get("Message");
+          const recipientId = context.params.recipientId;
+          const contactId = context.params.contactId;
+
+          functions.logger.log(
+              "New message sent from",
+              contactId,
+              "to",
+              recipientId,
+          );
+
+          // Get the list of device notification tokens.
+          const getContactPromise = admin.firestore().collection("User").doc(contactId).get();
+          const getRecipientPromise = admin.firestore().collection("User").doc(recipientId).get();
+
+          const results = await Promise.all([getContactPromise, getRecipientPromise]);
+          const contactSnapshot = results[0];
+          const recipientSnapshot = results[1];
+          const tokenList = recipientSnapshot.get("Tokens");
+          const contactName = contactSnapshot.get("Username");
+
+          // Check if there are any device tokens.
+          if (tokenList.isEmpty) {
+            return functions.logger.log(
+                "There are no notification tokens to send to.",
+            );
+          }
+
+          functions.logger.log(
+              "There are",
+              tokenList.length,
+              "tokens to send notifications to.",
+          );
+
+          // Notification details.
+          const payload = {
+            notification: {
+              title: `A new message from ${contactName}!`,
+              body: message,
+              // icon: follower.photoURL
+            },
+            data: {
+              click_action: "FLUTTER_NOTIFICATION_CLICK",
+              screen: "chat",
+              args: contactId,
+            },
+          };
+          // Send notifications to all tokens.
+          const response = await admin.messaging().sendToDevice(tokenList, payload);
+          // For each message check if there was an error.
+          const tokensToRemove = [];
+          response.results.forEach((result, index) => {
+            const error = result.error;
+            if (error) {
+              functions.logger.error(
+                  "Failure sending notification to",
+                  tokenList[index],
+                  error,
+              );
+              // Cleanup the tokens who are not registered anymore.
+              if (error.code === "messaging/invalid-registration-token" ||
+                  error.code === "messaging/registration-token-not-registered") {
+                tokensToRemove.push(recipientSnapshot.ref.update("Tokens", tokenList.splice(index, 1)));
+              }
+            }
+          });
+          return Promise.all(tokensToRemove);
         });

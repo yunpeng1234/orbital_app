@@ -53,11 +53,4 @@ class ScrollingLocationCardsViewModel<T> extends BaseViewModel {
     }).toList()));
     page++;
   }
-
-
-
-  Future _getNearbyLocations() async {
-    // locations = await runBusyFuture(_service.getNearbyLocations());
-    locations = await runBusyFuture(_service.getNearbyLocations());
-  }
 }
