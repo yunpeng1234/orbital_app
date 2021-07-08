@@ -28,15 +28,21 @@ class RegisterView extends StatelessWidget {
                 verticalSpaceRegular,
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Email"),
-                    validator: (val) => val.isEmpty ? "Enter your email" : null,
-                    onChanged: (val) => model.setEmail(val)
+                    validator: (val) => val.isEmpty ? "Please enter your email" : null,
+                    onSaved: (val) => model.setEmail(val)
                 ),
                 verticalSpaceRegular,
                 TextFormField(
                     decoration: textBoxDeco.copyWith(hintText: "Password"),
                     validator: (val) => val.length < 6 ? "Please enter a password of at least 6 characters" : null,
                     obscureText: true,
-                    onChanged: (val) => model.setPassword(val)
+                    onSaved: (val) => model.setPassword(val)
+                ),
+                verticalSpaceRegular,
+                TextFormField(
+                    decoration: textBoxDeco.copyWith(hintText: "Username"),
+                    validator: (val) => val.isEmpty ? "Please enter a username" : null,
+                    onSaved: (val) => model.setUsername(val)
                 ),
               ],
             ),

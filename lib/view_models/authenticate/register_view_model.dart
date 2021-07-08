@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class RegisterViewModel extends BaseViewModel {
   static final String _errorMessage = "Invalid email.";
-  final TextEditingController _emailController = new TextEditingController();
-  final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
 
   String get errorMessage => _errorMessage;
@@ -19,13 +20,20 @@ class RegisterViewModel extends BaseViewModel {
     _passwordController.text = password;
   }
 
+  void setUsername(String username) {
+    _usernameController.text = username;
+  }
+
   Future register(GlobalKey<FormState> formKey) async {
     if (! processForm(formKey)) {
       return;
     }
     var user = await runBusyFuture(
         _auth.registerNative(
-            _emailController.text, _passwordController.text));
+            _emailController.text,
+            _passwordController.text,
+            _usernameController.text,
+        ));
     if (user == null) {
       setError(true);
       return;
