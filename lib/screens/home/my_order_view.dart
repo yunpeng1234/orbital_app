@@ -74,6 +74,11 @@ class MyOrderView extends StatelessWidget {
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
+                Text(
+                  'Fee: \$${order.fee}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
                 if (order.done)  GestureDetector(
                   onTap: () => model.completeOrder(context, order.orderId),
                   child: Container(

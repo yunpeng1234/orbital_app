@@ -3,6 +3,7 @@ import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/view_models/home/location_view_model.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:flutter/services.dart';
 
 class LocationView extends StatelessWidget {
   final MyLocation location;
@@ -73,6 +74,23 @@ class LocationView extends StatelessWidget {
                           ),
                           verticalSpaceRegular,
                           TextFormField(
+                            minLines: 1,
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^$|^(0|([1-9]{0,2}))(\.[0-9]{0,2})?$')),
+                              // FilteringTextInputFormatter.allow(r'^?:\.\d{1,2}$'),
+                            ],
+                            decoration: textBoxDeco.copyWith(
+                                hintText: 'Enter the delivery fee for your order.'
+                            ),
+                            onSaved: (val) {
+                              model.setFee(val);
+                            },
+                            validator: (val) => val.isEmpty || int.parse(val) <= 0 ? 'Please enter a value that\'s more than 0.' : null,
+                          ),
+                          verticalSpaceRegular,
+                          TextFormField(
                               minLines: 1,
                               maxLines: null,
                               decoration: textBoxDeco.copyWith(
@@ -117,7 +135,7 @@ class LocationView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    verticalSpaceLarge,
+                    verticalSpaceRegular,
                     GestureDetector(
                       onTap: () => model.submitOrder(_formKey, context, location),
                       child: Container(

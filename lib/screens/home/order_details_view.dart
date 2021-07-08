@@ -67,7 +67,12 @@ class OrderDetailsView extends StatelessWidget {
                 ),
                 verticalSpaceRegular,
                 Text(
-                    'Comments: ${order.newComment()}',
+                  'Comments: ${order.newComment()}',
+                  style: blackBodyText,
+                ),
+                verticalSpaceRegular,
+                Text(
+                  'Fee: \$${order.fee}',
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,

@@ -47,7 +47,7 @@ class OrderDetailsViewModel extends BaseViewModel {
   }
 
   Future navigateToHome() async {
-    navState.pop();
-    navState.pop();
+    navKey.currentState.pop();
+    navKey.currentState.pop();
   }
 }

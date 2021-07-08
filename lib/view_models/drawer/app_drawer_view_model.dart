@@ -12,6 +12,6 @@ class AppDrawerViewModel extends BaseViewModel {
   }
 
   Future navigateToOrderTesting() async {
-    navState.pushReplacementNamed('orderTest');
+    navKey.currentState.pushReplacementNamed('orderTest');
   }
 }

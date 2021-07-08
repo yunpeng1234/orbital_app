@@ -40,6 +40,7 @@ class OrderService {
       restaurantName: order['RestaurantName'] ?? '',
       toName: order['ToName'] ?? '',
       fromName: order['FromName'] ?? '',
+      fee: order['Fee'] ?? '',
     );
   }
 
@@ -52,6 +53,7 @@ class OrderService {
       String restaurantAddress,
       String deliverToAddress,
       String userAddressDetails,
+      String fee,
       ) async {
     CollectionReference temp  = FirebaseFirestore.instance.collection('OrderId');
 
@@ -82,6 +84,7 @@ class OrderService {
       'Comments': comments,
       'RestaurantName' : restaurantName,
       'RestaurantAddress' : restaurantAddress,
+      'Fee' : fee,
     });
   }
 
@@ -102,6 +105,7 @@ class OrderService {
         restaurantName: (x.data() as Map)['RestaurantName'] ?? '',
         toName: (x.data() as Map)['ToName'] ?? '',
         fromName: (x.data() as Map)['FromName'] ?? '',
+        fee: (x.data() as Map)['Fee'] ?? '',
       );
       return two;
     }).toList();
@@ -128,6 +132,7 @@ class OrderService {
         userAddressDetails: (x.data() as Map)['UserAddressDetails'] ?? '',
         toName: (x.data() as Map)['ToName'] ?? '',
         fromName: (x.data() as Map)['FromName'] ?? '',
+        fee: (x.data() as Map)['Fee'] ?? '',
       );
       return two;
     }).toList();

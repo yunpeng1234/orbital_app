@@ -12,6 +12,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LocationViewModel extends BaseViewModel {
   final TextEditingController _orderController = TextEditingController();
+  final TextEditingController _feeController = TextEditingController();
   final TextEditingController _commentsController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
   final OrderService _database = serviceLocator<OrderService>();
@@ -21,6 +22,10 @@ class LocationViewModel extends BaseViewModel {
 
   void setOrder(String order) {
     _orderController.text = order;
+  }
+
+  void setFee(String fee) {
+    _feeController.text = fee;
   }
 
   void setComments(String comments) {
@@ -69,7 +74,7 @@ class LocationViewModel extends BaseViewModel {
       var order = await runBusyFuture(
           _database.createOrderData(deliveryLocation, GeoFirePoint(restaurant.lat, restaurant.long),
           _orderController.text, _commentsController.text, restaurant.name, restaurant.address,
-          deliveryLocationAddress, _detailsController.text));
+          deliveryLocationAddress, _detailsController.text, _feeController.text));
       _showSuccessDialog(context, this);
       return order;
     } catch (e) {
@@ -79,8 +84,8 @@ class LocationViewModel extends BaseViewModel {
   }
 
   Future navigateToHome() async {
-    navState.pop();
-    navState.pop();
+    navKey.currentState.pop();
+    navKey.currentState.pop();
   }
 
   GeoFirePoint _converter(LocationResult result) {
@@ -89,7 +94,7 @@ class LocationViewModel extends BaseViewModel {
 
   void showPlacePicker() async {
     // LocationResult result = await navState.pushNamed('placePicker');
-    LocationResult result = await navState.push(MaterialPageRoute(
+    LocationResult result = await navKey.currentState.push(MaterialPageRoute(
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
     deliveryLocation = _converter(result);

@@ -39,8 +39,8 @@ class ScrollingAllOrdersViewModel extends BaseViewModel {
   }
 
   Future<void> showPlacePicker() async {
-    // LocationResult result = await navState.pushNamed('placePicker');
-    LocationResult result = await navState.push(MaterialPageRoute(
+    // LocationResult result = await navKey.currentState.pushNamed('placePicker');
+    LocationResult result = await navKey.currentState.push(MaterialPageRoute(
         builder: (context) =>
             PlacePicker(dotenv.env['PLACES_KEY'])));
     chosenLocation = _converter(result);

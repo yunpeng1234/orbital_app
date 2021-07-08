@@ -16,6 +16,7 @@ class Order {
   final String comments; 
   final String restaurantName;
   final String restaurantAddress;
+  final String fee;
 
   Order({
     this.from,
@@ -31,7 +32,9 @@ class Order {
     this.order,
     this.comments,
     this.restaurantAddress,
-    this.restaurantName});
+    this.restaurantName,
+    this.fee,
+  });
 
   String newComment() {
     return comments == "" ? "NIL" : comments;

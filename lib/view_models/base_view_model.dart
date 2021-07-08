@@ -4,7 +4,7 @@ import 'package:orbital_app/routes/nav_key.dart';
 enum ViewState{idle, busy}
 
 abstract class BaseViewModel extends ChangeNotifier {
-  NavigatorState navState = NavKey.navKey.currentState;
+  final GlobalKey<NavigatorState> navKey = NavKey.navKey;
   ViewState state = ViewState.idle;
   bool error = false;
 
@@ -14,17 +14,17 @@ abstract class BaseViewModel extends ChangeNotifier {
 
   void navigate(String routeName, {Object arguments}) {
     setError(false);
-    navState.pushNamed(routeName, arguments: arguments);
+    navKey.currentState.pushNamed(routeName, arguments: arguments);
   }
 
   void navigateAndReplace(String routeName, {Object arguments}) {
     setError(false);
-    navState.pushReplacementNamed(routeName, arguments: arguments);
+    navKey.currentState.pushReplacementNamed(routeName, arguments: arguments);
   }
 
   void pop() {
     setError(false);
-    navState.pop();
+    navKey.currentState.pop();
   }
 
   Future<T> runBusyFuture<T>(Future<T> busyFunc) async {
