@@ -46,12 +46,12 @@ class AuthService {
     }
   }
   //Register with email and pw
-  Future<Individual> registerNative(String email, String password) async {
+  Future<Individual> registerNative(String email, String password, String username) async {
     try {
       UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
       //new doc per new user registered.
-      await DatabaseService().initialiseUserData("");
+      await DatabaseService().initialiseUserData(username);
 
       return _userFromFirebase(user);
     } catch(e) {
