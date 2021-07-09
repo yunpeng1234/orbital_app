@@ -43,6 +43,7 @@ class OrderCard extends StatelessWidget {
                 verticalSpaceTiny,
                 IconText(icon: Icons.dinner_dining, text: order.order),
                 verticalSpaceTiny,
+                IconText(icon: Icons.paid, text: '\$${order.fee}'),
               ],
             ),
           ),
