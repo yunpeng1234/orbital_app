@@ -16,7 +16,17 @@ class LocationSearchResult extends StatelessWidget {
 
     return Row(
       children: [
-        Expanded(
+        Container(
+          width: 100,
+          height: 100,
+          child: Image(
+            fit: BoxFit.fill,
+            image: NetworkImage(location.photoUrl),
+          ),
+        ),
+        Container(
+          width: 300,
+          height: 100,
           child: GestureDetector(
             onTap: onCardTapped,
             child: Card(

@@ -56,13 +56,13 @@ class _AppDrawerState extends State<AppDrawer> {
           children: <Widget>[
             _createHeader(),
             _createDrawerItem(
-              icon: Icons.person,
+              icon: Icons.home,
               text: 'Home',
               onTap: () => model.navigateAndReplace('/')
             ),
             _createDrawerItem(
             icon:
-            Icons.home,
+            Icons.person,
               text: 'Profile Page',
               onTap: () => model.navigateAndReplace('profilePage')
             ),
@@ -75,6 +75,11 @@ class _AppDrawerState extends State<AppDrawer> {
               icon: Icons.chat,
               text: 'Chat',
               onTap: () => model.navigateAndReplace('contacts'),
+            ),
+            _createDrawerItem(
+              icon: Icons.lock_clock,
+              text: 'Chat',
+              onTap: () => model.navigateAndReplace('orderHistory'),
             ),
           ]
         ),
