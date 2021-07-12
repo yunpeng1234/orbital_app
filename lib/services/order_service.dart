@@ -138,13 +138,17 @@ class OrderService {
     }).toList();
   }
 
-  Stream<List<Order>> filteredByLocation() {
+  Stream<List<Order>> defaultFilter() {
     GeoFirePoint center = _geolocator.currentPosition();
     return geo.collection(collectionRef: orders)
     .within(center: center, radius: 0.5, field: 'Restaurant')
     .map(_orderFromFilter)
-    .map((list) => list.where((order) => order.to == '' && order.from != getUID()).toList()
-    );
+    .map((list) => list.where((order) => order.to == '' && order.from != getUID()).toList())
+    .map((list) {
+      List<Order> temp = list;
+      temp.sort((a,b) {return a.compareTo(b);});
+      return temp;
+}  );
   }
 
   Stream<List<Order>> filteredByLocationAndDestination(GeoFirePoint chosenLocation) {

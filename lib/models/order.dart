@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-class Order {
+class Order implements Comparable<Order> {
   final String from;
   final String to;
   final String fromName;
@@ -42,5 +42,19 @@ class Order {
 
   String newAddressDetails() {
     return userAddressDetails == "" ? "NIL" : userAddressDetails;
+  }
+
+  @override
+  int compareTo(Order other) {
+    // TODO: implement compareTo
+    int thisFee = int.parse(this.fee);
+    int otherFee = int.parse(other.fee);
+    if (thisFee > otherFee) {
+      return -1;
+    } else if (thisFee < otherFee) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

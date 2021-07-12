@@ -26,7 +26,7 @@ class ScrollingAllOrdersViewModel extends BaseViewModel {
   }
 
   void _getNearbyOrders()  {
-    orders = _database.filteredByLocation();
+    orders = _database.defaultFilter();
   }
 
   void _getNearbyOrdersFiltered() {

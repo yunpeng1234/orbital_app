@@ -70,7 +70,7 @@ class TakenOrderView extends StatelessWidget {
                   style: blackBodyText,
                 ),
                 verticalSpaceRegular,
-                GestureDetector(
+                if (order.done == false) GestureDetector(
                   onTap: () => model.completeOrder(context, order.orderId),
                   child: Container(
                     width: double.infinity,
@@ -95,7 +95,7 @@ class TakenOrderView extends StatelessWidget {
                   ),
                 ),
                 verticalSpaceRegular,
-                GestureDetector(
+                if (order.done == false) GestureDetector(
                   onTap: () => model.cancelOrder(context, order.orderId),
                   child: Container(
                     width: double.infinity,
