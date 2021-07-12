@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:orbital_app/shared/constants.dart';
 
 class LocationSearchResult extends StatelessWidget {
   final MyLocation location;
@@ -16,29 +17,41 @@ class LocationSearchResult extends StatelessWidget {
 
     return Row(
       children: [
-        Container(
-          width: 100,
-          height: 100,
-          child: Image(
-            fit: BoxFit.fill,
-            image: NetworkImage(location.photoUrl),
-          ),
+        Column(
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              child: Image(
+                fit: BoxFit.fill,
+                image: NetworkImage(location.photoUrl),
+              ),
+            ),
+          ],
         ),
-        Container(
-          width: 300,
-          height: 100,
+        Expanded(
           child: GestureDetector(
             onTap: onCardTapped,
-            child: Card(
-              margin: EdgeInsets.all(10),
-              color: Colors.white,
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
+            child: Container(
+              height: 100,
+              child: Card(
+                margin: EdgeInsets.all(10),
+                color: Colors.white,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    location.name,
+                    textAlign: TextAlign.center,
+                    style: blackBodyText,
+                  ),
                 ),
               ),
-              child: Text(location.name),
             ),
           ),
         ),
