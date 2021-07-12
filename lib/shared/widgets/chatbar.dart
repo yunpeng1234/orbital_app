@@ -32,16 +32,13 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget{
                       SizedBox(width: 2,),
                       ChatAvatar(avatarUrl: info.picUrl, size:20.0),
                       SizedBox(width: 12,),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(info.name,style: TextStyle( fontSize: 16 ,fontWeight: FontWeight.w600),),
-                          ],
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(info.name,style: TextStyle( fontSize: 16 ,fontWeight: FontWeight.w600),),
+                        ],
                       ),
-                      Icon(Icons.settings,color: Colors.black54,),
                     ],
                   ),
                 ),

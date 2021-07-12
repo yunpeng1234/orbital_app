@@ -8,7 +8,7 @@ class ChatAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (avatarUrl == null) {
+    if (avatarUrl == '') {
       return CircleAvatar(
         radius: size,
         child: Icon(Icons.person)

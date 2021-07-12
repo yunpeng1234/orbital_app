@@ -17,8 +17,6 @@ class ContactPageView extends StatelessWidget {
       builder: (context, model, child) => StreamBuilder(
         stream: model.contacts,
         builder:(BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-          print(snapshot.hasData);
-          print(snapshot.hasData);
           if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) {
             return Center(
               child: Loading(),
@@ -26,7 +24,7 @@ class ContactPageView extends StatelessWidget {
           }
           return Scaffold(
             drawer: AppDrawer(),
-            appBar: AppBar(),
+            appBar: AppBar(title: Text('Contacts', style: titleText,)),
             backgroundColor: primaryColor,
             resizeToAvoidBottomInset: false,
             body: ListView(

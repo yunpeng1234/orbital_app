@@ -22,19 +22,17 @@ class ChatKeyboard extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(30),
             ),
-               child: Expanded(
-                  child: TextField(
-                    controller: controller,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 1,
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Type your message ...',
-                      hintStyle: TextStyle(color: Colors.grey[500]),
-                    ),
-                  ),
-                ),
+               child: TextField(
+                 controller: controller,
+                 keyboardType: TextInputType.multiline,
+                 minLines: 1,
+                 maxLines: 5,
+                 decoration: InputDecoration(
+                   border: InputBorder.none,
+                   hintText: 'Type your message ...',
+                   hintStyle: TextStyle(color: Colors.grey[500]),
+                 ),
+               ),
           ),
         ),
         SizedBox(

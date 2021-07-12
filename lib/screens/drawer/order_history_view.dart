@@ -25,7 +25,7 @@ class OrderHistoryView extends StatelessWidget {
           if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) { return Loading();}
           return Scaffold(
             backgroundColor: primaryColor,
-            appBar: AppBar(),
+            appBar: AppBar(title: Text('Order History', style: titleText)),
             drawer: AppDrawer(),
             body: Column(
               children: [
