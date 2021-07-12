@@ -7,6 +7,7 @@ import 'package:orbital_app/view_models/authenticate/register_view_model.dart';
 import 'package:orbital_app/view_models/chat/chat_view_model.dart';
 import 'package:orbital_app/view_models/chat/contact_page_view_model.dart';
 import 'package:orbital_app/view_models/drawer/profile_page_view_model.dart';
+import 'package:orbital_app/view_models/drawer/order_history_view_model.dart';
 import 'package:orbital_app/view_models/home/home_view_model.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 import 'package:orbital_app/view_models/home/my_order_view_model.dart';
@@ -99,4 +100,6 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton(() => ContactTileViewModel());
 
   serviceLocator.registerLazySingleton(() => ChatViewModel());
+
+  serviceLocator.registerLazySingleton(() => OrderHistoryViewModel());
 }
