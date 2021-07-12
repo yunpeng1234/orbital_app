@@ -11,6 +11,7 @@ import 'package:orbital_app/screens/home/taken_order_view.dart';
 import 'package:orbital_app/screens/home/my_order_view.dart';
 import 'package:orbital_app/screens/home/order_details_view.dart';
 import 'package:orbital_app/screens/home/location_view.dart';
+import 'package:orbital_app/screens/drawer/order_history_view.dart';
 import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
@@ -64,6 +65,9 @@ class RouteGenerator {
       case 'chat':
         final args = settings.arguments as IndividualData;
         page = Chat(person: args);
+        break;
+      case 'orderHistory':
+        page = OrderHistoryView();
         break;
       default:
         page = Scaffold(
