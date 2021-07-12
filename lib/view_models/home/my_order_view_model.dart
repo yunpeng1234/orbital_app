@@ -41,7 +41,7 @@ class MyOrderViewModel extends BaseViewModel {
   }
 
   Future completeOrder(BuildContext context, int orderId) async {
-    await runBusyFuture(_database.deleteOrderData(orderId));
+    await runBusyFuture(_database.moveOrder(orderId));
     _showSuccessDialog(context, this, 'Order completed!');
   }
 

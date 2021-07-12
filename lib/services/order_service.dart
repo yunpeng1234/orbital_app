@@ -224,7 +224,7 @@ class OrderService {
 
   Future moveOrder(int orderid) async {
     DocumentSnapshot temp = await orders.doc(orderid.toString()).get();
-    String deliveree = temp['From'];
+    String deliveree = temp['To'];
 
     local_history.add(temp.data());
     history.doc(deliveree).collection('My History').add(temp.data());
