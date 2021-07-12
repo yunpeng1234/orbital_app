@@ -24,13 +24,13 @@ class Chat extends StatelessWidget {
         builder: (context, model, child) => StreamBuilder(
           stream: model.chat,
           builder:(BuildContext context, AsyncSnapshot<List<Message>> snapshot) {
+            print(snapshot.hasError);
             if (snapshot.connectionState != ConnectionState.active || ! snapshot.hasData) { return Loading();}
             return Scaffold(
                   appBar: ChatBar(info: person),
                   body: LayoutBuilder(builder: (context, constraints) {
                     return GestureDetector(
                       onTap: () => FocusScope.of(context).unfocus(),
-                  
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -55,8 +55,6 @@ class Chat extends StatelessWidget {
                                 model.sendMessage(person.uid);
                                 }),
                             ]
-                        
-                      
                     )
                     );
 

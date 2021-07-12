@@ -56,7 +56,7 @@ class NotificationService {
               arguments: order);
         } else {
           print(message.data['args']);
-          IndividualData data = await _databaseService.getSenderData(message.data['args']);
+          IndividualData data = await _databaseService.getSenderData(message.data['args']).first;
           NavKey.navKey.currentState.pushNamed(message.data['screen'],
               arguments: data);
         }

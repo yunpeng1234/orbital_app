@@ -17,15 +17,17 @@ class ContactTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(info.sender);
     return BaseView<ContactTileViewModel>(
       onModelReady: (model) => model.init(info.sender),
-      builder: (context, model, child) => FutureBuilder(
-        future: model.details,
+      builder: (context, model, child) => StreamBuilder(
+        stream: model.details,
         builder: (BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
           String formatted = DateFormat.jm().format(info.time);
           if (!snapshot.hasData) { return Loading();}
           return GestureDetector(
               onTap: () {
+                print(snapshot.data.uid);
             Navigator.pushNamed(context, 'chat', arguments: snapshot.data);
           },
           child : Container(

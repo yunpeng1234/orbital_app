@@ -25,7 +25,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget{
                     children: <Widget>[
                       IconButton(
                         onPressed: (){
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, 'contacts');
                         },
                         icon: Icon(Icons.arrow_back,color: Colors.black,),
                       ),

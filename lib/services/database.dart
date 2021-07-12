@@ -55,14 +55,14 @@ class DatabaseService {
       .map(_dataFromSnapshot);
   }
 
-   Future<IndividualData> getSenderData(String senderUID) async {
-    DocumentSnapshot temp =  await users.doc(senderUID).get();
-    var res =  IndividualData(
-      picUrl: temp.get('PicUrl'),
-      name: temp.get('Username'),
+  Stream<IndividualData> getSenderData(String senderUID)  {
+    Stream<IndividualData> temp = users.doc(senderUID).snapshots().map((doc) {
+      return IndividualData(
       uid: senderUID,
+      name: (doc.data() as Map)['Username'],
+      picUrl: (doc.data() as Map)['PicUrl'],
     );
-    print(res.name);
-    return res;
+    });
+    return temp;
   }
 }

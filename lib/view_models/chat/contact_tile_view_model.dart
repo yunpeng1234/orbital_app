@@ -13,7 +13,7 @@ import 'package:orbital_app/view_models/base_view_model.dart';
 class ContactTileViewModel extends BaseViewModel {
   final DatabaseService _databaseService = serviceLocator<DatabaseService>();
   Contact info;
-  Future<IndividualData> details;
+  Stream<IndividualData> details;
 
   Future init(String senderUID) async{
     details = _databaseService.getSenderData(senderUID);

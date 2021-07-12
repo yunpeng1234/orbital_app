@@ -97,7 +97,7 @@ void setupServiceLocator() {
   
   serviceLocator.registerLazySingleton(() => MessageService());
 
-  serviceLocator.registerLazySingleton(() => ContactTileViewModel());
+  serviceLocator.registerFactory(() => ContactTileViewModel());
 
   serviceLocator.registerLazySingleton(() => ChatViewModel());
 
