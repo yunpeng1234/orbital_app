@@ -11,7 +11,7 @@ class Avatar extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Center(
-        child: avatarUrl == null
+        child: avatarUrl == ''
             ? CircleAvatar(
                 radius: 50.0,
                 child: Icon(Icons.photo_camera),

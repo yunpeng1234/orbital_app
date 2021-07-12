@@ -153,7 +153,8 @@ class OrderService {
         .within(center: center, radius: 0.5, field: 'Restaurant')
         .map(_orderFromFilter)
         .map((list) => list.where((order) => order.to == '' &&
-          chosenLocation.distance(lat: order.deliverTo.latitude, lng: order.deliverTo.longitude) < 0.5) // distance in km
+          chosenLocation.distance(lat: order.deliverTo.latitude, lng: order.deliverTo.longitude) < 0.5))
+        .map((list) => list.where((order) => order.to == '' && order.from != getUID()) // distance in km
         .toList()
     );
   }
