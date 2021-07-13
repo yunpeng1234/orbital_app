@@ -30,6 +30,7 @@ class MyOrderView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                verticalSpaceRegular,
                 if (order.to != '') Text(
                   'Order taken by: ${order.toName}',
                   style: blackBodyText,
