@@ -10,6 +10,7 @@ class OrderService {
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
   static final GeolocationService _geolocator = serviceLocator<GeolocationService>();
+  String uid;
 
   String getUID() {
     return _auth.getUID();
@@ -17,7 +18,6 @@ class OrderService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
-  final CollectionReference localhistory = FirebaseFirestore.instance.collection('History').doc(_auth.getUID()).collection('My History');
   final CollectionReference history = FirebaseFirestore.instance.collection('History');
 
   Future<String> uidToName(String id) async {
@@ -223,16 +223,18 @@ class OrderService {
   }
 
   Future moveOrder(int orderid) async {
+    CollectionReference localHistory = FirebaseFirestore.instance.collection('History').doc(_auth.getUID()).collection('My History');
     DocumentSnapshot temp = await orders.doc(orderid.toString()).get();
     String deliveree = temp['To'];
 
-    localhistory.add(temp.data());
+    localHistory.add(temp.data());
     history.doc(deliveree).collection('My History').add(temp.data());
 
     return await orders.doc(orderid.toString()).delete();
   }
 
   Stream<List<Order>> userHistory() {
-    return localhistory.snapshots().map(_orderFromSnapshot);
+    CollectionReference localHistory = FirebaseFirestore.instance.collection('History').doc(_auth.getUID()).collection('My History');
+    return localHistory.snapshots().map(_orderFromSnapshot);
   }
 }

@@ -1,3 +1,7 @@
+import 'package:orbital_app/services/geolocation_service.dart';
+import 'package:orbital_app/view_models/widgets/scrolling_all_orders_view_model.dart';
+import 'package:orbital_app/view_models/widgets/scrolling_location_cards_view_model.dart';
+import 'package:orbital_app/view_models/widgets/scrolling_my_orders_view_model.dart';
 
 import '../base_view_model.dart';
 import 'package:orbital_app/services/service_locator.dart';
@@ -10,6 +14,7 @@ class HomeViewModel extends BaseViewModel {
 
   Future init() async {
     runBusyFuture(addToken());
+    // runBusyFuture(awaitServices());
   }
 
   Future addToken() async {
@@ -21,5 +26,13 @@ class HomeViewModel extends BaseViewModel {
 
     // Any time the token refreshes, store this in the database too.
     FirebaseMessaging.instance.onTokenRefresh.listen(_databaseService.addToken);
+  }
+
+  Future awaitServices() async {
+    Future a = serviceLocator.isReady<GeolocationService>();
+    Future b = serviceLocator.isReady<ScrollingLocationCardsViewModel>();
+    Future c = serviceLocator.isReady<ScrollingAllOrdersViewModel>();
+    Future d = serviceLocator.isReady<ScrollingMyOrdersViewModel>();
+    return await Future.wait([a, b, c ,d]);
   }
 }

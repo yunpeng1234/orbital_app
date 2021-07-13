@@ -31,7 +31,11 @@ import 'notification_service.dart';
 GetIt serviceLocator = GetIt.instance;
 
 void setupServiceLocator() {
-  serviceLocator.registerLazySingleton(() => AuthService());
+  serviceLocator.registerSingletonAsync(() async {
+    final auth = AuthService();
+    await auth.init();
+    return auth;
+  });
 
   serviceLocator.registerSingletonAsync(() async {
     final geolocator = GeolocationService();
@@ -45,7 +49,7 @@ void setupServiceLocator() {
       dependsOn: [GeolocationService]);
 
   serviceLocator.registerSingletonWithDependencies(() => OrderService(),
-      dependsOn: [GeolocationService]);
+      dependsOn: [GeolocationService, AuthService]);
 
   serviceLocator.registerSingletonAsync(() async {
     await serviceLocator.isReady<OrderService>();
