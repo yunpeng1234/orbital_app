@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/contact.dart';
-import 'package:orbital_app/services/database.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
 import 'package:orbital_app/models/message.dart'; 
-import 'package:orbital_app/models/user.dart';
-import 'package:material/material.dart';
 
 class MessageService {
   final String first = 'Messages';
@@ -15,7 +12,7 @@ class MessageService {
 
   
   static final AuthService _auth = serviceLocator<AuthService>();
-  static final DatabaseService _databaseService = serviceLocator<DatabaseService>();
+  //static final DatabaseService _databaseService = serviceLocator<DatabaseService>();
 
   String getUID() {
     return _auth.getUID();
