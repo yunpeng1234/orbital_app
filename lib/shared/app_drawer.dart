@@ -66,11 +66,6 @@ class _AppDrawerState extends State<AppDrawer> {
               onTap: () => model.navigate('profilePage')
             ),
             _createDrawerItem(
-            icon: Icons.logout,
-            text: 'Logout',
-            onTap: () async {model.signOut();}
-            ),
-            _createDrawerItem(
               icon: Icons.chat,
               text: 'Chat',
               onTap: () => model.navigate('contacts'),
@@ -79,6 +74,11 @@ class _AppDrawerState extends State<AppDrawer> {
               icon: Icons.history,
               text: 'Order History',
               onTap: () => model.navigate('orderHistory'),
+            ),
+            _createDrawerItem(
+                icon: Icons.logout,
+                text: 'Logout',
+                onTap: () async {model.signOut();}
             ),
           ]
         ),

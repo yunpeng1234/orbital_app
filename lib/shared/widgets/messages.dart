@@ -15,8 +15,16 @@ class MessageBox extends StatelessWidget {
         alignment: (thisUser? Alignment.topLeft: Alignment.topRight),
         child: Container(
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: this.thisUser ? Colors.grey[400] : Colors.grey[700],
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+                offset: this.thisUser ? Offset(-2, 2.5) : Offset(2, 2.5), // shadow direction: bottom right
+              )
+            ],
             borderRadius: BorderRadius.circular(20),
-            color: (this.thisUser ? Colors.grey.shade200:Colors.blue[200]),
+            color: (this.thisUser ? Colors.grey.shade100 : Color(0xff8681eb)),
           ),
           padding: EdgeInsets.all(16),
           child: Text(message, style: TextStyle(fontSize: 15),),
