@@ -47,7 +47,7 @@ class RegisterView extends StatelessWidget {
               ],
             ),
           ),
-          onMainButtonTapped: () => model.register(_formkey),
+          onMainButtonTapped: () => model.registerTest(_formkey, context),
           onSignInTapped: () => model.pop(),
         ),
       ),

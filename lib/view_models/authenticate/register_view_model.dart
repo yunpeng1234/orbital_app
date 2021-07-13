@@ -1,3 +1,4 @@
+import 'package:orbital_app/screens/authenticate/verify_email_view.dart';
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import '../base_view_model.dart';
@@ -39,5 +40,18 @@ class RegisterViewModel extends BaseViewModel {
       return;
     }
     navigateAndReplace('/');
+  }
+
+  Future registerTest(GlobalKey<FormState> formKey, BuildContext context) async {
+    if (! processForm(formKey)) {
+      return;
+    }
+    var user = await runBusyFuture(
+        _auth.registerTest(
+            _emailController.text,
+            _passwordController.text,
+            _usernameController.text,
+        ));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyScreen(name: _usernameController.text)));
   }
 }

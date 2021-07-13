@@ -56,6 +56,7 @@ class AuthService {
       return null;
     }
   }
+  
   //Register with email and pw
   Future<Individual> registerNative(String email, String password, String username) async {
     try {
@@ -97,6 +98,21 @@ class AuthService {
       return null;
     }
   }
+
+  Future registerTest(String email, String password, String username) async {
+    try {
+      UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
+      User user = res.user;
+      user.sendEmailVerification();
+    } catch(e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> createuser(String user) async {
+    await DatabaseService().initialiseUserData(user);
+  }  
 
   //Sign out
   Future signOut() async {
