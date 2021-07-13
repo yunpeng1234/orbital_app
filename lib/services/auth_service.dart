@@ -7,6 +7,17 @@ class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  String uid;
+
+  Future init() async {
+    _auth.authStateChanges().listen((event) {
+      if (event == null) {
+        uid = '';
+      } else {
+        uid = event.uid;
+      }
+    });
+  }
 
   //create local user object
   Individual _userFromFirebase(User user) {
@@ -14,7 +25,7 @@ class AuthService {
   }
 
   String getUID() {
-    return _auth.currentUser.uid;
+    return uid;
   }
 
   //Sign in anon
