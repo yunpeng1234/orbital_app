@@ -4,9 +4,7 @@ import 'package:orbital_app/services/service_locator.dart';
 import 'order_service.dart';
 import 'database.dart';
 import 'package:orbital_app/routes/nav_key.dart';
-import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
-import 'package:overlay_support/overlay_support.dart';
 
 class NotificationService {
 

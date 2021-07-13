@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-
 import '../base_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:orbital_app/services/storage.dart';
 import 'package:orbital_app/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:orbital_app/services/database.dart';
 import 'package:orbital_app/services/service_locator.dart';
 

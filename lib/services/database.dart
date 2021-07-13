@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:orbital_app/models/user.dart';
-import 'notification_service.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'service_locator.dart';
 import 'auth_service.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -9,7 +7,7 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 class DatabaseService {
   final geo = Geoflutterfire();
   static final AuthService _auth = serviceLocator<AuthService>();
-  static final NotificationService _notificationService = serviceLocator<NotificationService>();
+  //static final NotificationService _notificationService = serviceLocator<NotificationService>();
 
   //Collection reference
   final CollectionReference users = FirebaseFirestore.instance.collection('User');

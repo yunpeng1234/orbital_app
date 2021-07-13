@@ -16,7 +16,6 @@ import 'package:orbital_app/models/my_location.dart';
 import 'package:orbital_app/models/order.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/screens/chat/chat_view.dart';
-import 'package:orbital_app/screens/drawer/order_history_view.dart';
 
 
 class RouteGenerator {

@@ -4,7 +4,6 @@ import 'package:orbital_app/shared/app_drawer.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/shared/widgets/scrolling_my_order.dart';
-import 'package:orbital_app/view_models/base_view_model.dart';
 import "package:provider/provider.dart";
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/widgets/my_search_bar.dart';

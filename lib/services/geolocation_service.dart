@@ -25,7 +25,7 @@ class GeolocationService {
     return res;
   }
 
-  Future listenToPosition(void Function(Position) callback) {
+  void listenToPosition(void Function(Position) callback) {
     _positionStream.listen(callback);
   }
 

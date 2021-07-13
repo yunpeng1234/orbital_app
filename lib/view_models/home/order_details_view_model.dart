@@ -11,7 +11,7 @@ class OrderDetailsViewModel extends BaseViewModel {
   final MessageService _messageService = serviceLocator<MessageService>();
   Order order;
 
-  Future init(Order details) {
+  void init(Order details) {
     order = details;
   }
 

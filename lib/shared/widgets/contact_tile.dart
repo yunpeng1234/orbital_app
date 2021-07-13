@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/contact.dart';
-import 'package:orbital_app/screens/chat/chat_view.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/view_models/chat/contact_tile_view_model.dart';
@@ -15,6 +14,17 @@ class ContactTile extends StatelessWidget {
     this.info
   });
 
+  String formattedTime() {
+    DateTime toFormat = info.time;
+    var now = DateTime.now();
+    DateTime lastMidnight = DateTime(now.year, now.month, now.day);
+
+    if (toFormat.isAfter(lastMidnight)) {
+      return DateFormat.jm().format(info.time);
+    }
+    return DateFormat.MMMd().format(info.time);
+  }
+
   @override
   Widget build(BuildContext context) {
     print(info.sender);
@@ -23,7 +33,7 @@ class ContactTile extends StatelessWidget {
       builder: (context, model, child) => StreamBuilder(
         stream: model.details,
         builder: (BuildContext context, AsyncSnapshot<IndividualData> snapshot) {
-          String formatted = DateFormat.jm().format(info.time);
+          String formatted = formattedTime();
           if (!snapshot.hasData) { return Loading();}
           return GestureDetector(
               onTap: () {

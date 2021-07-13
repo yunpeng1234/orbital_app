@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:orbital_app/models/contact.dart';
 import 'package:orbital_app/models/message.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/shared/widgets/chatavatar.dart';
 import 'package:orbital_app/shared/widgets/chatbar.dart';
 import 'package:orbital_app/shared/widgets/messages.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/screens/base_view.dart';
-import 'package:orbital_app/screens/chat/contact_view.dart';
 import 'package:orbital_app/view_models/drawer/app_drawer_view_model.dart';
 
 

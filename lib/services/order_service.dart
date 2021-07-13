@@ -17,7 +17,7 @@ class OrderService {
 
   final CollectionReference orders = FirebaseFirestore.instance.collection('Orders');
   final CollectionReference users = FirebaseFirestore.instance.collection('User');
-  final CollectionReference local_history = FirebaseFirestore.instance.collection('History').doc(_auth.getUID()).collection('My History');
+  final CollectionReference localhistory = FirebaseFirestore.instance.collection('History').doc(_auth.getUID()).collection('My History');
   final CollectionReference history = FirebaseFirestore.instance.collection('History');
 
   Future<String> uidToName(String id) async {
@@ -226,13 +226,13 @@ class OrderService {
     DocumentSnapshot temp = await orders.doc(orderid.toString()).get();
     String deliveree = temp['To'];
 
-    local_history.add(temp.data());
+    localhistory.add(temp.data());
     history.doc(deliveree).collection('My History').add(temp.data());
 
     return await orders.doc(orderid.toString()).delete();
   }
 
   Stream<List<Order>> userHistory() {
-    return local_history.snapshots().map(_orderFromSnapshot);
+    return localhistory.snapshots().map(_orderFromSnapshot);
   }
 }

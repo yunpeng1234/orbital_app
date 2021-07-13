@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/order.dart';
-import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/constants.dart';
-import 'package:orbital_app/view_models/home/my_order_view_model.dart';
 
 class OrderHistoryPopUp extends StatelessWidget {
   final Order order;

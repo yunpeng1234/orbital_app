@@ -1,4 +1,3 @@
-import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/services/order_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:orbital_app/view_models/base_view_model.dart';

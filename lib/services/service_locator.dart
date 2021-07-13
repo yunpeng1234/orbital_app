@@ -50,7 +50,7 @@ void setupServiceLocator() {
   serviceLocator.registerSingletonAsync(() async {
     await serviceLocator.isReady<OrderService>();
     final notifications = NotificationService();
-    await notifications.init();
+    notifications.init();
     return notifications;
   });
 
