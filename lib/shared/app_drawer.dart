@@ -63,22 +63,22 @@ class _AppDrawerState extends State<AppDrawer> {
             icon:
             Icons.person,
               text: 'Profile Page',
-              onTap: () => model.navigateAndReplace('profilePage')
-            ),
-            _createDrawerItem(
-            icon: Icons.logout,
-            text: 'Logout',
-            onTap: () async {model.signOut();}
+              onTap: () => model.navigate('profilePage')
             ),
             _createDrawerItem(
               icon: Icons.chat,
               text: 'Chat',
-              onTap: () => model.navigateAndReplace('contacts'),
+              onTap: () => model.navigate('contacts'),
             ),
             _createDrawerItem(
-              icon: Icons.lock_clock,
-              text: 'Chat',
-              onTap: () => model.navigateAndReplace('orderHistory'),
+              icon: Icons.history,
+              text: 'Order History',
+              onTap: () => model.navigate('orderHistory'),
+            ),
+            _createDrawerItem(
+                icon: Icons.logout,
+                text: 'Logout',
+                onTap: () async {model.signOut();}
             ),
           ]
         ),

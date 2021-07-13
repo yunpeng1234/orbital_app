@@ -24,7 +24,12 @@ class ContactPageView extends StatelessWidget {
           }
           return Scaffold(
             drawer: AppDrawer(),
-            appBar: AppBar(title: Text('Contacts', style: titleText,)),
+            appBar: AppBar(
+              title: Text(
+                'Contacts', style: titleText,
+              ),
+              elevation: 2,
+            ),
             backgroundColor: primaryColor,
             resizeToAvoidBottomInset: false,
             body: ListView(

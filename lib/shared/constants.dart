@@ -29,6 +29,7 @@ const Widget verticalSpaceMassive = SizedBox(height: 120.0);
 
 // colors
 const Color primaryColor = Color(0xffFCE5CD);
+const Color appBarColor = Color(0xffd69245); // TBC
 const Color orangeAppBarColor = Color(0xffFFAA66);
 const Color greyButtonColor = Color(0xff4E4A40);
 const Color greyTextColor = Color(0xff868686);

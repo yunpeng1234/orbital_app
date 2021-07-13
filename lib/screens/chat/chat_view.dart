@@ -5,7 +5,7 @@ import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
 import 'package:orbital_app/shared/widgets/chatbar.dart';
 import 'package:orbital_app/shared/widgets/messages.dart';
-
+import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/shared/widgets/textkeyboard.dart';
 import 'package:orbital_app/view_models/chat/chat_view_model.dart';
 
@@ -33,7 +33,7 @@ class Chat extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Container(
-                                  color: Colors.green,
+                                  color: primaryColor,
                                   child: ListView.builder(
                                   itemCount: snapshot.data.length,
                                   reverse: true,

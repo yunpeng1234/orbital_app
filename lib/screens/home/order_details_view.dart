@@ -31,6 +31,7 @@ class OrderDetailsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                verticalSpaceRegular,
                 Text(
                   'From: ${order.fromName}',
                   style: blackBodyText,

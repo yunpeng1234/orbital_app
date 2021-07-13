@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/models/my_location.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LocationCard extends StatelessWidget {
   final MyLocation location;
@@ -33,12 +34,17 @@ class LocationCard extends StatelessWidget {
               SizedBox(
                 width: 200,
                 height: 140,
-                child: Image(
+                child: CachedNetworkImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                    location.photoUrl,
-                        // : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mcdonalds.com.sg%2F&psig=AOvVaw1IKce6KrFXgY0v8RHaUjoG&ust=1623433478667000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCC45DPjfECFQAAAAAdAAAAABAD'
-                  ),
+                  imageUrl: location.photoUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                        child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ),
+                      ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               SizedBox(

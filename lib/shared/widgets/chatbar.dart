@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/widgets/chatavatar.dart';
+import 'package:orbital_app/shared/constants.dart';
 
 class ChatBar extends StatelessWidget implements PreferredSizeWidget{
   final IndividualData info;
@@ -17,7 +18,6 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(
               elevation: 0,
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
               flexibleSpace: SafeArea(
                 child: Container(
                   padding: EdgeInsets.only(right: 16),

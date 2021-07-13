@@ -28,7 +28,10 @@ class LocationSearchResult extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: location.photoUrl,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(value: downloadProgress.progress),
+                      CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
