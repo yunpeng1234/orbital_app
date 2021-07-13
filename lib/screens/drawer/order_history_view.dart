@@ -2,6 +2,7 @@ import 'package:orbital_app/screens/drawer/order_view_history.dart';
 import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/screens/base_view.dart';
+import 'package:orbital_app/shared/widgets/order_history.dart';
 import 'package:orbital_app/view_models/drawer/order_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/app_drawer.dart';
@@ -38,13 +39,7 @@ class OrderHistoryView extends StatelessWidget {
 
   List<Widget> _buildCardList(AsyncSnapshot<List<Order>> snapshot, BuildContext context) {
     return snapshot.data
-        .map((order) => Container(
-          width: 300,
-          height: 50,
-          child: ListTile(
-            title: Text(order.orderId.toString()),
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryPopUp(order: order)))),
-        ))
+        .map((order) => OrderTile(info : order))
         .toList();
   }
 }
