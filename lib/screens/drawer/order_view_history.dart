@@ -26,10 +26,12 @@ class OrderHistoryPopUp extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                verticalSpaceRegular,
                 Text(
                   'Order taken by: ${order.toName}',
                   style: blackBodyText,
                 ),
+                verticalSpaceRegular,
                 Text(
                 'From: ${order.fromName}',
                   style: blackBodyText,
