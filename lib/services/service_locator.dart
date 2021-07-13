@@ -64,17 +64,7 @@ void setupServiceLocator() {
 
   serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
 
-  serviceLocator.registerSingletonWithDependencies(() => ScrollingLocationCardsViewModel(),
-      dependsOn: [GeolocationService, GooglePlacesService]);
-
-  serviceLocator.registerSingletonWithDependencies(() => ScrollingAllOrdersViewModel(),
-      dependsOn: [GeolocationService, OrderService]);
-
-  serviceLocator.registerSingletonWithDependencies(() => ScrollingTakenOrdersViewModel(),
-      dependsOn: [OrderService]);
-
-  serviceLocator.registerSingletonWithDependencies(() => ScrollingMyOrdersViewModel(),
-      dependsOn: [OrderService]);
+  
 
   serviceLocator.registerLazySingleton(() => HomeViewModel());
 
@@ -87,6 +77,18 @@ void setupServiceLocator() {
 
   serviceLocator.registerSingletonWithDependencies(() => MySearchBarViewModel(),
       dependsOn: [GooglePlacesService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingLocationCardsViewModel(),
+      dependsOn: [GeolocationService, GooglePlacesService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingAllOrdersViewModel(),
+      dependsOn: [GeolocationService, OrderService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingTakenOrdersViewModel(),
+      dependsOn: [OrderService]);
+
+  serviceLocator.registerSingletonWithDependencies(() => ScrollingMyOrdersViewModel(),
+      dependsOn: [OrderService]);
 
   serviceLocator.registerSingletonWithDependencies(() => SearchResultsViewModel(),
       dependsOn: [GooglePlacesService]);
