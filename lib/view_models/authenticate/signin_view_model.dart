@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../base_view_model.dart';
 
 class SignInViewModel extends BaseViewModel {
-  static final String _errorMessage = 'Invalid email/password.';
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
+  String _errorMessage;
 
   String get errorMessage => _errorMessage;
 
@@ -23,13 +23,12 @@ class SignInViewModel extends BaseViewModel {
     if (! processForm(formKey)) {
       return;
     }
-    var user = await runBusyFuture(
-        _auth.signInNative(_emailController.text, _passwordController.text));
-    if (user == null) {
-      print(user);
-      setError(true);
-      return;
-    }
-    navigateAndReplace('/');
+    await runBusyFuture(_auth.signInNative(_emailController.text, _passwordController.text))
+        .then((_) => navigateAndReplace('/'), onError: (e) {
+      _errorMessage = e.code.splitMapJoin((RegExp(r'-')),
+        onMatch: (m) => ' ',
+      );
+      _errorMessage = 'Error: ${_errorMessage[0].toUpperCase()}${_errorMessage.substring(1)}.';
+    });
   }
 }

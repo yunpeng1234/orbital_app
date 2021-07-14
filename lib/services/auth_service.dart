@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/services/database.dart';
+import 'package:orbital_app/services/geolocation_service.dart';
 
 class AuthService {
 
@@ -53,7 +54,7 @@ class AuthService {
       return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
-      return null;
+      rethrow;
     }
   }
   
@@ -72,8 +73,8 @@ class AuthService {
     }
   }  
 
-  Future<void> sendPasswordReset(String email) {
-    return _auth.sendPasswordResetEmail(email: email);
+  Future<void> sendPasswordReset(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
   //Sign in with Google
 
@@ -107,7 +108,7 @@ class AuthService {
       return user;
     } catch(e) {
       print(e.toString());
-      return null;
+      rethrow;
     }
   }
 

@@ -7,11 +7,11 @@ import 'package:orbital_app/shared/constants.dart';
 import 'dart:async';
 
 class RegisterViewModel extends BaseViewModel {
-  static final String _errorMessage = "Invalid email/Email already in use.";
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
+  String _errorMessage;
 
   String get errorMessage => _errorMessage;
 
@@ -48,17 +48,13 @@ class RegisterViewModel extends BaseViewModel {
     if (! processForm(formKey)) {
       return;
     }
-    var user = await runBusyFuture(
-        _auth.registerWithVerification(
-            _emailController.text,
-            _passwordController.text,
-            _usernameController.text,
-        ));
-    if (user == null) {
-      setError(true);
-      return;
-    }
-    _showVerificationDialog(context);
+    await runBusyFuture(_auth.registerWithVerification(_emailController.text, _passwordController.text, _usernameController.text))
+        .then((_) => _showVerificationDialog(context), onError: (e) {
+      _errorMessage = e.code.splitMapJoin((RegExp(r'-')),
+        onMatch: (m) => ' ',
+      );
+      _errorMessage = 'Error: ${_errorMessage[0].toUpperCase()}${_errorMessage.substring(1)}.';
+    });
   }
 
   Future _showVerificationDialog(BuildContext context) {

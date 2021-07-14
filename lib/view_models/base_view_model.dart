@@ -34,6 +34,7 @@ abstract class BaseViewModel extends ChangeNotifier {
       setErrorAndState(ViewState.idle, false);
       return value;
     } catch (e) {
+      print('here');
       print(e.toString());
       setErrorAndState(ViewState.idle, true);
       rethrow;

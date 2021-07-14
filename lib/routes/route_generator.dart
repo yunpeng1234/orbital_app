@@ -31,6 +31,9 @@ class RouteGenerator {
       case 'signIn':
         page = SignInView();
         break;
+      case 'createAccount':
+        page = RegisterView();
+        break;
       case 'forgotPassword':
         page = PasswordResetView();
         break;
@@ -49,7 +52,6 @@ class RouteGenerator {
         final args = settings.arguments as Order;
         page = MyOrderView(order: args);
         break;
-
       case 'location':
         final args = settings.arguments as MyLocation;
         page = LocationView(location: args);
