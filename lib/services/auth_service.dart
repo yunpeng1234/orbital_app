@@ -99,7 +99,7 @@ class AuthService {
     }
   }
 
-  Future registerTest(String email, String password, String username) async {
+  Future registerWithVerification(String email, String password, String username) async {
     try {
       UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
@@ -111,7 +111,16 @@ class AuthService {
     }
   }
 
-  Future<void> createuser(String user) async {
+  Future<bool> isEmailVerified() async {
+    User user = _auth.currentUser;
+    if (user == null) {
+      return false;
+    }
+    await user.reload();
+    return user.emailVerified;
+  }
+
+  Future<void> createUser(String user) async {
     await DatabaseService().initialiseUserData(user);
   }  
 
@@ -121,6 +130,15 @@ class AuthService {
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  Future deleteUser() async {
+    print('here');
+    User user = _auth.currentUser;
+    await user.reload();
+    if (! _auth.currentUser.emailVerified) {
+      user.delete();
     }
   }
 }

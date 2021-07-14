@@ -53,7 +53,7 @@ class SignInView extends StatelessWidget {
             model.navigate('forgotPassword');
           },
           onCreateAccountTapped: () async {
-            model.navigate('createAccount');
+            model.navigateAndReplace('createAccount');
           },
         ),
       ),

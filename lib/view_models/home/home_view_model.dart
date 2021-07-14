@@ -25,7 +25,10 @@ class HomeViewModel extends BaseViewModel {
     await _databaseService.addToken(token);
 
     // Any time the token refreshes, store this in the database too.
-    FirebaseMessaging.instance.onTokenRefresh.listen(_databaseService.addToken);
+    FirebaseMessaging.instance.onTokenRefresh.listen((event) {
+      print(event);
+      _databaseService.addToken(event);
+    });
   }
 
   Future awaitServices() async {
