@@ -68,8 +68,6 @@ void setupServiceLocator() {
 
   serviceLocator.registerLazySingleton(() => ProfilePageViewModel());
 
-  
-
   serviceLocator.registerLazySingleton(() => HomeViewModel());
 
   serviceLocator.registerSingletonWithDependencies(() => LocationViewModel(),

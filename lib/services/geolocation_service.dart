@@ -10,6 +10,10 @@ class GeolocationService {
   static Position position;
 
   Future init() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
     _positionStream.listen((event) {
       position = event;
     });

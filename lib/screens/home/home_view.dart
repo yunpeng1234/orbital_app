@@ -5,6 +5,7 @@ import 'package:orbital_app/shared/constants.dart';
 import 'package:orbital_app/shared/loading.dart';
 import 'package:orbital_app/shared/widgets/scrolling_my_order.dart';
 import "package:provider/provider.dart";
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:orbital_app/models/user.dart';
 import 'package:orbital_app/shared/widgets/my_search_bar.dart';
 import 'package:orbital_app/shared/widgets/scrolling_location_cards.dart';

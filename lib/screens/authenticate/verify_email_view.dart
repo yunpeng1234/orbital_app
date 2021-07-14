@@ -67,7 +67,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     if (user.emailVerified) {
       timer.cancel();
       kicker.cancel();
-      await auth.createuser(widget.name);
+      await auth.createUser(widget.name);
       navKey.currentState.pushReplacementNamed('/');
     }
   }

@@ -3,9 +3,11 @@ import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import '../base_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:orbital_app/shared/constants.dart';
+import 'dart:async';
 
 class RegisterViewModel extends BaseViewModel {
-  static final String _errorMessage = "Invalid email.";
+  static final String _errorMessage = "Invalid email/Email already in use.";
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -42,12 +44,12 @@ class RegisterViewModel extends BaseViewModel {
     navigateAndReplace('/');
   }
 
-  Future registerTest(GlobalKey<FormState> formKey, BuildContext context) async {
+  Future registerWithVerification(GlobalKey<FormState> formKey, BuildContext context) async {
     if (! processForm(formKey)) {
       return;
     }
     var user = await runBusyFuture(
-        _auth.registerTest(
+        _auth.registerWithVerification(
             _emailController.text,
             _passwordController.text,
             _usernameController.text,
@@ -56,6 +58,69 @@ class RegisterViewModel extends BaseViewModel {
       setError(true);
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyScreen(name: _usernameController.text)));
+    _showVerificationDialog(context);
   }
+
+  Future _showVerificationDialog(BuildContext context) {
+    Timer verificationChecker;
+    Timer kicker;
+
+    kicker = Timer(Duration(seconds:60), () async {
+      await _auth.deleteUser();
+      navKey.currentState.pop();
+      _showResubmitDialog(context);
+      verificationChecker.cancel();
+    });
+
+    verificationChecker = Timer.periodic(Duration(seconds:2), (timer) async {
+      bool isVerified = await _auth.isEmailVerified();
+      if (isVerified) {
+        timer.cancel();
+        kicker.cancel();
+        await _auth.createUser(_usernameController.text);
+        navKey.currentState.pop();
+        navKey.currentState.pushReplacementNamed('/');
+      }
+    });
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) =>  AlertDialog(
+          title: Center(child: Text('A verification email has been sent to ${_emailController.text}.\n\nPlease verify within the next minute to proceed.')),
+          titleTextStyle: blackBodyTextLarge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        )
+    );
+  }
+
+  Future _showResubmitDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) =>  AlertDialog(
+          title: Center(child: Text('Timed out')),
+          titleTextStyle: blackBodyTextLarge,
+          content: Text(
+            'Please register again',
+            textAlign: TextAlign.center,
+          ),
+          contentTextStyle: greyBodyText,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        )
+    );
+  }
+
+  // Future<void> checkEmailVerified() async {
+  //
+  //   await user.reload();
+  //   if (user.emailVerified) {
+  //     timer.cancel();
+  //     kicker.cancel();
+  //     await auth.createUser(widget.name);
+  //     navKey.currentState.pushReplacementNamed('/');
+  //   }
+  // }
 }
