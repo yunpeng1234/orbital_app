@@ -34,9 +34,6 @@ class RouteGenerator {
       case 'forgotPassword':
         page = PasswordResetView();
         break;
-      case 'createAccount':
-        page = RegisterView();
-        break;
       case 'profilePage':
         page = ProfilePageView();
         break;

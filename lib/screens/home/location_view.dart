@@ -87,7 +87,7 @@ class LocationView extends StatelessWidget {
                             onSaved: (val) {
                               model.setFee(val);
                             },
-                            validator: (val) => val.isEmpty || int.parse(val) <= 0 ? 'Please enter a value that\'s more than 0.' : null,
+                            validator: (val) => val.isEmpty || (int.tryParse(val) ?? double.parse(val)) <= 0 ? 'Please enter a value that\'s more than 0.' : null,
                           ),
                           verticalSpaceRegular,
                           TextFormField(
