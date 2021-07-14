@@ -104,6 +104,7 @@ class AuthService {
       UserCredential res = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
       User user = res.user;
       user.sendEmailVerification();
+      return user;
     } catch(e) {
       print(e.toString());
       return null;

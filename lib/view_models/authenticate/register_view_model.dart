@@ -52,6 +52,10 @@ class RegisterViewModel extends BaseViewModel {
             _passwordController.text,
             _usernameController.text,
         ));
+    if (user == null) {
+      setError(true);
+      return;
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyScreen(name: _usernameController.text)));
   }
 }

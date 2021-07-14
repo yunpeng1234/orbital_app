@@ -24,6 +24,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
   final service = FirebaseAuth.instance;
   User user;
   Timer timer;
+  Timer kicker;
 
   @override
   void initState() {
@@ -32,23 +33,26 @@ class _VerifyScreenState extends State<VerifyScreen> {
     timer = Timer.periodic(Duration(seconds:3), (timer) {
       checkEmailVerified();
     });
+
+
+    kicker = new Timer(Duration(seconds :20), () async {
+      auth.signOut();
+      await user.delete();
+      navKey.currentState.pushReplacementNamed('/');
+     });
+    
     super.initState();
   }
 
   @override
   void dispose() {
     timer.cancel();
+    kicker.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Timer kicker = new Timer(Duration(seconds :10), () async {
-      auth.signOut();
-      await user.delete();
-      navKey.currentState.pushReplacementNamed('/');
-      });
-
     return Scaffold(
       body: Center(
         child: Text(
@@ -62,6 +66,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
+      kicker.cancel();
       await auth.createuser(widget.name);
       navKey.currentState.pushReplacementNamed('/');
     }
