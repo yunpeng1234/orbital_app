@@ -46,8 +46,8 @@ class Order implements Comparable<Order> {
 
   @override
   int compareTo(Order other) {
-    int thisFee = int.parse(this.fee);
-    int otherFee = int.parse(other.fee);
+    double thisFee = double.parse(this.fee);
+    double otherFee = double.parse(other.fee);
     if (thisFee > otherFee) {
       return -1;
     } else if (thisFee < otherFee) {
