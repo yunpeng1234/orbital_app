@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:orbital_app/shared/constants.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AuthenticationLayout extends StatelessWidget {
 
+  final String iconPath = 'assets/images/dapal_icon.svg';
   final String title; // Text to show at the top
   final String subtitle; // Text to show below title
   final String mainButtonTitle; // Text to show on the main button
@@ -36,7 +38,12 @@ class AuthenticationLayout extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: <Widget>[
-          verticalSpaceMassive,
+          verticalSpaceRegular,
+          Container(
+            height: 200,
+            width: 200,
+            child: SvgPicture.asset(iconPath)
+          ),
           Center(
             child: Text(
             title,
@@ -52,7 +59,6 @@ class AuthenticationLayout extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          verticalSpaceRegular,
           form,
           verticalSpaceRegular,
           if (onForgotPasswordTapped != null)
