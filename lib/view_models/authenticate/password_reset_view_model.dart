@@ -1,12 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import 'package:flutter/material.dart';
 import '../base_view_model.dart';
 
 class PasswordResetViewModel extends BaseViewModel {
-  static final String _errorMessage = 'Invalid email.';
   final TextEditingController _emailController = new TextEditingController();
   final AuthService _auth = serviceLocator<AuthService>();
+  String _errorMessage;
 
   String get errorMessage => _errorMessage;
 
@@ -16,13 +18,13 @@ class PasswordResetViewModel extends BaseViewModel {
 
   Future passwordReset(GlobalKey<FormState> formKey) async {
     if (processForm(formKey)) {
-      try {
-        await runBusyFuture(_auth.sendPasswordReset(_emailController.text));
-        pop();
-      } catch (e) {
-        print(e.toString());
-        return;
-      }
+      runBusyFuture(_auth.sendPasswordReset(_emailController.text))
+        .then((_) => pop(), onError: (e) {
+          _errorMessage = e.code.splitMapJoin((RegExp(r'-')),
+            onMatch: (m) => ' ',
+            );
+          _errorMessage = 'Error: ${_errorMessage[0].toUpperCase()}${_errorMessage.substring(1)}.';
+        });
     }
   }
 }
