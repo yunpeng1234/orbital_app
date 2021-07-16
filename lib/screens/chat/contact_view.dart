@@ -32,9 +32,17 @@ class ContactPageView extends StatelessWidget {
             ),
             backgroundColor: primaryColor,
             resizeToAvoidBottomInset: false,
-            body: ListView(
-              children: _buildList(model, snapshot),
-            )
+            body: snapshot.data.isEmpty
+                ? Center(
+                  child: Text(
+                    'You have no contacts.',
+                    style: subtitleText,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+                : ListView(
+                  children: _buildList(model, snapshot),
+                )
           );
         }
       )
