@@ -5,6 +5,7 @@ import 'order_service.dart';
 import 'database.dart';
 import 'package:orbital_app/routes/nav_key.dart';
 import 'package:orbital_app/models/user.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class NotificationService {
 
@@ -31,19 +32,19 @@ class NotificationService {
       }
     });
 
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('Got a message whilst in the foreground!');
-    //   print('Message data: ${message.data}');
-    //
-    //   if(message.data != null) {
-    //     NavKey.navKey.currentState.pushNamed(message.data['screen']);
-    //   }
-    //   // toast('${message.notification.title} ${message.notification.body}', duration: Toast.LENGTH_LONG);
-    //
-    //   if (message.notification != null) {
-    //     print('Message also contained a notification: ${message.notification}');
-    //   }
-    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      // if(message.data != null) {
+      //   NavKey.navKey.currentState.pushNamed(message.data['screen']);
+      // }
+      toast('${message.notification.title} ${message.notification.body}', duration: Toast.LENGTH_LONG);
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       if (message != null) {
