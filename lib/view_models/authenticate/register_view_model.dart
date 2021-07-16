@@ -1,4 +1,3 @@
-import 'package:orbital_app/screens/authenticate/verify_email_view.dart';
 import 'package:orbital_app/services/auth_service.dart';
 import 'package:orbital_app/services/service_locator.dart';
 import '../base_view_model.dart';
