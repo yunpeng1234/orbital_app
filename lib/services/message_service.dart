@@ -28,12 +28,12 @@ class MessageService {
     String to = uid;
     Timestamp temp = Timestamp.now();
 
-    await contactLocal.doc(to).update({
+    await contactLocal.doc(to).set({
       'Time' : temp,
       'Message' : message,
     });
 
-    await contact.doc(to).collection('Latest').doc(from).update({
+    await contact.doc(to).collection('Latest').doc(from).set({
       'Time' : temp,
       'Message' : message,
     });

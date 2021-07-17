@@ -21,15 +21,23 @@ class OrderHistoryView extends StatelessWidget {
             backgroundColor: primaryColor,
             appBar: AppBar(title: Text('Order History', style: titleText)),
             drawer: AppDrawer(),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView(
-                    children: _buildCardList(snapshot, context),
+            body: snapshot.data.isEmpty
+                ? Center(
+                  child: Text(
+                  'You have no orders yet.',
+                  style: subtitleText,
+                  textAlign: TextAlign.center,
                   ),
+                )
+                : Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        children: _buildCardList(snapshot, context),
+                      ),
+                    ),
+                  ]
                 ),
-              ]
-            ),
           );
         } 
       )

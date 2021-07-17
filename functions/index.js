@@ -53,7 +53,7 @@ exports.sendCompleteNotification =
           const payload = {
             notification: {
               title: `Your order (Order no. ${orderId}) has arrived!`,
-              body: "Tap to verify.",
+              body: "Please verify your order.",
             },
             data: {
               click_action: "FLUTTER_NOTIFICATION_CLICK",
