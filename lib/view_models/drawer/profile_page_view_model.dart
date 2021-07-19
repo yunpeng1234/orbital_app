@@ -27,12 +27,18 @@ class ProfilePageViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> uploadPicture() async {
+  Future<void> uploadPicture(bool check) async {
     PickedFile image = await ImagePicker().getImage(
         source: ImageSource.gallery);
     print(image.path);
-    String dlUrl = await StorageService().uploadFile(image);
-    print(dlUrl);
+    String dlUrl;
+    if(check){
+      dlUrl = await StorageService().uploadFile(image);
+      print(dlUrl);
+    } else {
+      dlUrl = await StorageService().uploadFile(image);
+      print(dlUrl);
+    }
     await _service.updateUserPic(dlUrl);
   }
 

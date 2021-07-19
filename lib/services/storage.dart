@@ -16,4 +16,20 @@ class StorageService {
     UploadTask wait = storageRef.putFile(File(file.path));
     return storageRef.getDownloadURL();
   }
+
+  Future reuploadFile(PickedFile file) async {
+    String userID = string;
+
+    Reference storageRef = store.ref().child('user/profile/${userID}');
+    await storageRef.delete();
+    try{
+    UploadTask wait = storageRef.putFile(File(file.path));
+    
+    } catch(e) {
+      print(e);
+      print('kek');
+    }
+    
+    return storageRef.getDownloadURL();
+  }
 }

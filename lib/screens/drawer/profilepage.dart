@@ -23,6 +23,7 @@ class ProfilePageView extends StatelessWidget {
             );
           }
           String username = snapshot.data.name;
+          bool check = (snapshot.data.picUrl == '');
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -40,7 +41,7 @@ class ProfilePageView extends StatelessWidget {
                     verticalSpaceLarge,
                     Avatar(
                       avatarUrl: snapshot.data.picUrl,
-                      onTap: () => model.uploadPicture(),
+                      onTap: () => model.uploadPicture(check),
                     ),
                     verticalSpaceRegular,
                     Text(username, style: TextStyle(fontSize: 50.0)),
