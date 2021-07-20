@@ -10,15 +10,16 @@ class StorageService {
   FirebaseStorage store = FirebaseStorage.instanceFor(bucket: dotenv.env['BackEndUrl']);
 
   Future uploadFile(PickedFile file) async {
-    String userID = string;
+    String userID = string + DateTime.now().toString();
 
     Reference storageRef = store.ref().child('user/profile/${userID}');
     UploadTask wait = storageRef.putFile(File(file.path));
-    return storageRef.getDownloadURL();
+    var completed = await wait;
+    return completed.ref.getDownloadURL();
   }
 
   Future reuploadFile(PickedFile file) async {
-    String userID = string;
+    String userID = string + DateTime.now().toString();
 
     Reference storageRef = store.ref().child('user/profile/${userID}');
     await storageRef.delete();
