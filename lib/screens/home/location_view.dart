@@ -80,7 +80,7 @@ class LocationView extends StatelessWidget {
                               maxLines: 1,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp(r'^$|^(0|([1-9]{0,2}))(\.[0-9]{0,2})?$')),
+                                FilteringTextInputFormatter.allow(RegExp(r'^$|^(0|([0-9]{0,2}))(\.[0-9]{0,2})?$')),
                                 // FilteringTextInputFormatter.allow(r'^?:\.\d{1,2}$'),
                               ],
                               decoration: textBoxDeco.copyWith(
