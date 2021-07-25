@@ -10,10 +10,6 @@ class AppDrawerViewModel extends BaseViewModel {
   Future signOut() async {
     await _auth.signOut();
     //navigateAndReplace('signIn');
-     navKey.currentState.popUntil(ModalRoute.withName("/"));
-  }
-
-  Future navigateToOrderTesting() async {
-    navKey.currentState.pushReplacementNamed('orderTest');
+    navKey.currentState.popUntil(ModalRoute.withName("/"));
   }
 }

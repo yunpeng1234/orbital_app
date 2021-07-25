@@ -78,7 +78,7 @@ class RouteGenerator {
         );
         break;
     }
-    return MaterialPageRoute(builder: (_) => page);
+    return MaterialPageRoute(builder: (_) => page, settings: settings);
   }
 }
 
