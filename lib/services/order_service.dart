@@ -213,8 +213,8 @@ class OrderService {
 
    Future cancelOrderData(int orderid) async {
      await orders.doc(orderid.toString()).update({
-       'To' : FieldValue.delete(),
-       'ToName' : FieldValue.delete(),
+       'To' : '',
+       'ToName' : '',
     });
    }
 
